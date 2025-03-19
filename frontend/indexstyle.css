@@ -94,3 +94,21 @@ flex-direction: row !important;
 width: 24% !important;
 }
 }
+.payplatlogos{
+  height: 30px; 
+  margin-left:10px; 
+  border-radius: 20px;
+}
+#vervelogo{
+  height: 20px; 
+  margin-left:10px; 
+  border-radius: 20px;
+  width: 20px;
+}
+.downdeenwise.hover{
+  cursor: pointer;
+}
+.addw{
+  text-decoration: none;
+  color: whitesmoke;
+}
