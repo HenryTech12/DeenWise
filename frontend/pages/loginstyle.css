@@ -11,6 +11,9 @@ background-size: cover;
 overflow-x: hidden;
 overflow-y: auto;
 }
+.content {
+  flex: 1; /* Pushes the footer down */
+  }
 #main-header {
 border: 0px 0px 0px 1px solid yellow;
 border-radius: 0px 0px 10px 10px;
@@ -160,4 +163,7 @@ width: 24% !important;
   width: 100%;
   justify-content: space-between;
   padding: 1 10%;
+}
+#footer1{
+  margin-top: 5%;
 }
