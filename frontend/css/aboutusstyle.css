@@ -92,6 +92,11 @@ html,
         text-decoration: none;
         color: whitesmoke;
       }
+      .payplatlogos{
+        height: 30px; 
+        margin-left:10px; 
+        border-radius: 20px;
+      }
 
       /* End of General Code  */
 
@@ -118,11 +123,7 @@ html,
         text-decoration: none;
         color: black;
       }
-      .payplatlogos{
-        height: 30px; 
-        margin-left:10px; 
-        border-radius: 20px;
-      }
+  
       #gtst{
         color: whitesmoke;
         text-decoration: none;
