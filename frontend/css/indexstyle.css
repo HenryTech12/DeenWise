@@ -17,7 +17,7 @@ flex: 1; /* Pushes the footer down */
 #main-header {
 border: 0px 0px 0px 1px solid yellow;
 border-radius: 0px 0px 10px 10px;
-background-image: url(./assets/pexels-pixabay-460680.jpg);
+background-image: url(../pages/assets/pexels-pixabay-460680.jpg);
 background-position: absolute;
 background-repeat: none;
 background-size: cover;
