@@ -214,3 +214,6 @@
       transform: translateY(0);
   }
 }
+#footer1{
+  position: absolute;
+}
