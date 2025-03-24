@@ -5,16 +5,13 @@ html,
           display: flex;
           flex-direction: column;
           overflow-x: hidden;
-          overflow-y: auto;background-image: url(./assets/whitebg.jpeg);
+          overflow-y: auto;background-image: url(../pages/assets/whitebg.jpeg);
           background-position: absolute;
           background-repeat: none;
           background-size: cover;
       }
-      .content {
-        flex: 1; /* Pushes the footer down */
-        }
       #maincontent{
-          background-image: url(./assets/pexels-hngstrm-1939485.jpg);
+          background-image: url(../pages/assets/pexels-hngstrm-1939485.jpg);
           background-position: absolute;
           background-repeat: none;
           background-size: cover;
@@ -22,8 +19,11 @@ html,
           padding: 10px;
           margin: auto;
       }
-
+      
       /* General Code  */
+      .content {
+        flex: 1; /* Pushes the footer down */
+        }
       .avatar {
         width: 35px;
         height: 35px;
