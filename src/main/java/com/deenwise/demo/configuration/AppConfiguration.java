@@ -1,0 +1,88 @@
+package com.deenwise.demo.configuration;
+import com.paypal.base.rest.*;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class AppConfiguration
+{
+
+   @Value("${paypal-clientId}")
+   private String clientId;
+   @Value("${paypal-clientKey}")
+   private String clientKey;
+   @Value("${paypal-mode}")
+   private String mode;
+
+   private String[] publicUrls = {
+           "/reset", "/login", "/signup", "/register/add", "/password/reset",
+           "login.html","signup.html","/user/login","/teacher/store",
+           "/aboutus", "/courses", "/pricing", "/home","/css/**", "/js/**","/assets/**"
+   };
+
+   @Autowired
+   private MyUserDetailsService myUserDetailsService;
+
+   @Bean
+   public APIContext apiContext() {
+	   return new APIContext(clientId,clientKey,mode);
+   }
+   
+   @Bean
+   public ModelMapper getModelMapper() {
+	   return new ModelMapper();
+   }
+
+   @Bean
+   public PasswordEncoder getPasswordEncoder() {
+      return new BCryptPasswordEncoder(12);
+   }
+
+   @Bean
+   public UserDetailsService userDetailsService() {
+      return myUserDetailsService;
+   }
+
+   @Bean
+   public DaoAuthenticationProvider authenticationProvider() {
+      DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+      authenticationProvider.setPasswordEncoder(getPasswordEncoder());
+      authenticationProvider.setUserDetailsService(myUserDetailsService);
+      return authenticationProvider;
+   }
+
+   @Bean
+   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+         httpSecurity.csrf(csrf -> csrf.disable())
+                 .authorizeHttpRequests(requests -> {
+                    requests.requestMatchers("/hello").hasRole("Admin")
+                            .requestMatchers("/tyler").hasRole("Teacher")
+                            .requestMatchers(publicUrls).permitAll()
+                            .anyRequest().authenticated();
+                 });
+
+         httpSecurity.formLogin(login -> login.loginPage("/login")
+                 .loginProcessingUrl("/user/login")
+                 .usernameParameter("email")
+                 .failureUrl("/login?error=true")
+                 .successHandler(new CustomSuccessAuthenticationHandler())
+                 .permitAll());
+
+         //httpSecurity.oauth2Login(Customizer.withDefaults());
+
+         return httpSecurity.build();
+   }
+}

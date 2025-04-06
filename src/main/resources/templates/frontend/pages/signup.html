@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"
+   xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up | DeenWise</title>
+  <link rel="shortcut icon" th:href="@{/assets/origlogo.png}" type="image/x-icon">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/signupstyle.css}">
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"></script>
+  <script defer src="./auth.js"></script>
+</head>
+<body>
+  <div class="content">
+  <!-- First Navbar -->
+  <div class="container-fluid text-center p-2" style="background-image: url(./assets/white-marble-with-gray-texture-background.jpg); background-size: cover;">
+    <a href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...." class="text-dark text-decoration-none me-3">Contact Number</a> |
+    <a href="mailto:sadiqadetola08@gmail.com" class="text-dark text-decoration-none ms-3">Email Address</a>
+  </div>
+
+  <!-- Second Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="./index.html">
+        <img th:src="@{/assets/nobgoriglogo.png}" alt="Logo" style="max-width: 50px;"> DeenWise
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link text-white" th:href="@{/aboutus}">About Us</a></li>
+          <li class="nav-item"><a class="nav-link text-white" th:href="@{/courses}">Our Courses</a></li>
+          <li class="nav-item"><a class="nav-link text-white" th:href="@{/pricing}">Pricing</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" data-bs-toggle="dropdown">
+              <img th:src="@{/assets/contactlogo.png}" alt="Login" class="avatar">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" th:href="@{/login}">Sign in</a></li>
+              <li><a class="dropdown-item" th:href="@{/signup}">Sign up</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Login Form -->
+  <div class="container mt-5">
+    <div class="row justify-content-center" id="bcontent">
+      <div class="col-md-6">
+        <h2 id="greeting" class="text-center mb-4">Assalam Alaikum!</h2>
+        <form id="loginform" th:object="${user}" th:action="@{/register/add}" method="post">
+        <div class="mb-3">
+            <label for="email" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" required th:field="*{name}">
+        </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" required th:field="*{email}">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" required th:field="*{password}">
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+
+        <div class="text-center my-3">OR</div>
+        <div>
+        <button class="btn btn-danger w-100" onclick="signInWithGoogle()">Continue with Google</button>
+        </div>
+      </form>
+    </div>
+</div>
+  <!-- Footer -->
+  <footer class="text-black text-center py-2" style="text-align: center; background-image: url(./assets/bggg.jpeg); background-repeat: no-repeat; background-position: center; background-size: cover; width: 100%; " id="footer1">
+    <div class="DeenWisefooter text-center" style="display: flex; flex-direction: row; gap:1px;">
+     <p style="width: 50%; color: white;">&copy; 2025 <span class="downdeenwise"><a th:href="@{/home}" class="addw">DeenWise</a></span>. All rights reserved.</p>
+    <p style="width: 50%; color: white;">Payment Platforms: <img th:src="@{/assets/visa2.png}" alt="Visa" class="payplatlogos"> <span>Visa</span> <img src="./assets/verve3.jpeg" alt="Verve" class="payplatlogos" id="vervelogo">Verve</p>
+    </div>
+     <p style="color: whitesmoke; text-decoration: none;">Powered By <a href="https://wa.me/+2347063569494" class="ourlink" style="color: whitesmoke; text-decoration: none; font-weight: bold;">ABC Solutions</a></p>
+</footer>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const greeting = document.getElementById("greeting");
+      const hour = new Date().getHours();
+      if (hour < 12) {
+        greeting.innerText = "Assalam Alaikum! Good Morning";
+      } else if (hour < 18) {
+        greeting.innerText = "Assalam Alaikum! Good Afternoon";
+      } else {
+        greeting.innerText = "Assalam Alaikum! Good Evening";
+      }
+    });
+  </script>
+  </div>
+  </div>
+</body>
+</html>
