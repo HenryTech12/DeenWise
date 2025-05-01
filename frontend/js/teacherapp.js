@@ -13,3 +13,15 @@ document.addEventListener("DOMContentLoaded", function () {
       }
   });
 });
+document.getElementById("sidebarToggle").addEventListener("click", function () {
+  let sidebar = document.getElementById("sidebar");
+  let mainContent = document.querySelector(".main-content");
+  
+  if (sidebar.style.left === "-250px") {
+      sidebar.style.left = "0";
+      mainContent.classList.add("sidebar-active");
+  } else {
+      sidebar.style.left = "-250px";
+      mainContent.classList.remove("sidebar-active");
+  }
+});

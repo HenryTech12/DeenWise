@@ -30,13 +30,32 @@
     </div>
 
     <!-- Second Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to right, #004d7a, #008793);">
-        <!-- Sidebar Toggler Added to Second Navbar -->
-        <button id="sidebarToggle" class="navbar-toggler me-2" type="button">
-          <span class="navbar-toggler-icon"></span>
-      </button>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to right, #004d7a, #008793); z-index: 1002;">
         <div class="container">
             <div class="d-flex align-items-center">
+              <!-- Sidebar Toggler Added to Second Navbar -->
+        <button id="sidebarToggle" class="btn btn-primary position-relative">
+          ☰
+        </button>
+        <script>
+          document.getElementById("sidebarToggle").addEventListener("click", function () {
+            let sidebar = document.getElementById("sidebar");
+            let mainContent = document.querySelector(".main-content");
+            if (sidebar.style.left === "-250px") {
+              sidebar.style.left = "0";
+              sidebar.style.position = "fixed";
+              sidebar.style.height = "calc(100vh - 100px)"; // Adjust height to exclude navbars and footer
+              sidebar.style.zIndex = "1100";
+              sidebar.style.display = "block"; // Ensure sidebar is visible
+              mainContent.style.filter = "blur(4px)"; // Blur main content for focus effect
+            } else {
+              sidebar.style.left = "-250px";
+              sidebar.style.position = "absolute";
+              mainContent.style.filter = "none";
+            }
+          });
+        </script>
+      </button>
                 <img src="../assets/origlogo.png" alt="Logo" class="me-2" style="max-width: 50px;"/>
                 <a class="navbar-brand" href="./index.html">DeenWise</a>
             </div>
@@ -69,10 +88,11 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="container-fluid d-flex bg-light" style="height: 100vh;">
-      <!-- Sidebar -->
-      <nav id="sidebar" class="sidebar bg-light vh-100 p-3 shadow position-relative" style="width: 250px; left: -250px; transition: 0.3s;">
+     <!-- Main Content -->
+      <div class="container-fluid d-flex bg-light" style="height: 100vh;">
+    <nav id="sidebar" class="sidebar bg-light  shadow position-absolute" 
+        style="width: 250px; left: -250px; top: 100px; transition: 0.3s; z-index: 1100;">
+        
         <div id="sidebar-menu">
             <ul class="list-unstyled text-decoration-none">
                 <li><a href="#">🏠 Dashboard</a></li>
@@ -83,7 +103,9 @@
                 <li><a href="#">⚙️ Settings</a></li>
             </ul>
         </div>
-      </nav>
+    </nav>
+</div>
+
 
       <!-- Main Body -->
       <main class="main-content flex-grow-1 ms-5">
@@ -135,16 +157,5 @@
      <p style="color: whitesmoke; text-decoration: none;">Powered By <a href="https://wa.me/+2347063569494" class="ourlink" style="color: whitesmoke; text-decoration: none; font-weight: bold;">ABC Solutions</a></p>
   </footer>
 
-  <script>
-    //  Sidebar Toggle Script 
-    document.getElementById("sidebarToggle").addEventListener("click", function () {
-      let sidebar = document.getElementById("sidebar");
-      if (sidebar.style.left === "-250px") {
-          sidebar.style.left = "0";
-      } else {
-          sidebar.style.left = "-250px";
-      }
-    });
-  </script>
 </body>
 </html>

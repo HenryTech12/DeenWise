@@ -1,4 +1,12 @@
-
+html,
+      body {
+          height: 100%;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          overflow-x: auto;
+          overflow-y: auto;
+      }
 /* General Code  */
 .content {
 flex: 1; /* Pushes the footer down */
@@ -76,7 +84,9 @@ height: 30px;
 margin-left:10px; 
 border-radius: 20px;
 }
-
+.content{
+  flex: 1; /* Pushes the footer down */
+}
 /* Dashboard Container */
 .dashboard-container {
 display: flex;
@@ -86,36 +96,43 @@ overflow-y: hidden;
 }
 
 /* Sidebar Styles */
-.sidebar {
+#asidebar {
+  position: fixed;  /*Ensure it doesn't affect the layout */
+  top: 100px;
+  left: -250px; /* Hide the sidebar initially */
   width: 250px;
-  height: 100vh;
+  height: calc(100vh - 110px); /*Adjust height to exclude navbar */
   background-color: #f8f9fa;
-  position: fixed;
-  left: -250px; /* Initially hidden */
-  top: 0;
-  transition: left 0.3s ease-in-out;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-  padding-top: 60px;
-  z-index: 1000; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease; /* Smooth transition */
+  z-index: 1100;
+  overflow-y: auto; /* Allow scrolling if content overflows */
 }
+
 
 /* Sidebar Toggle Button */
 #sidebarToggle {
   position: absolute;
   /* top: 15px; */
   /* right: -45px; */
+  /* left: 1px; */
   background-color: #c8e7d8;
   color: white;
-  border: none;
+  border: 1px solid gray;
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s ease-in-out;
   border:none;
+  width: 10%;
+  margin-right: 3rem;
 }
 
 #sidebarToggle:hover {
   background: rgba(7, 136, 65, 0.2);
+}
+#sidebarToggle a{
+  border: none;
 }
 
 /* Sidebar Menu */
@@ -160,10 +177,16 @@ overflow-y: hidden;
   left: 0;
 }
 
-
 .main-content {
-padding: 20px;
+  /* width: 100%; */
+  margin-left: 0;
+  transition: 0.3s;
+  padding: 20px;
 }
+.main-content.shifted {
+  margin-left: 250px;
+} 
+
 
 .dashboard-header h2 {
 font-size: 24px;
@@ -183,6 +206,7 @@ border-radius: 10px;
 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 text-align: center;
 transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+width: 100%;
 }
 
 .overview-card h3 {
@@ -239,8 +263,8 @@ to {
 position: relative;
 bottom: 0;
 width: 100%;
-/* background: #334155; */
-/* color: white; */
+background: #334155;
+color: white;
 text-align: center;
 padding: 10px;
 }
@@ -249,7 +273,9 @@ padding: 20px;
 max-width: 800px;
 margin: auto;
 }
-
+.container-fluid{
+  overflow: hidden;
+}
 .dashboard-section {
 margin-top: 20px;
 padding: 15px;
