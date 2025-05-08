@@ -1,5 +1,5 @@
 const users = [
-  { name: "John Doe", email: "j@g.com", password: "j2", number: "07063569494" },
+  { name: "John Doe", email: "j@g.com", password: "j2" },
   { name: "Amina Yusuf", email: "amina@gmail.com", password: "amina456" },
   { name: "Chidi Okoro", email: "chidi@agroscan.com", password: "chidi789" },
   { name: "Fatima Bello", email: "fatima@agroscan.com", password: "fatima321" },
