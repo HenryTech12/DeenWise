@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | DeenWise</title>
-    <link rel="stylesheet" href="../../css/deepstyles/studentdashboard.css">
+    <link rel="stylesheet" href="../../css/deepstyles/teacherdashboard.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../js/app.js"></script>
+    <script src="../../js/teacherapp.js"></script>
     <link rel="shortcut icon" href="../../pages/assets/origlogo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -30,14 +30,38 @@
     </div>
 
     <!-- Second Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to right, #004d7a, #008793);">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to right, #004d7a, #008793); z-index: 1002;">
         <div class="container">
             <div class="d-flex align-items-center">
+              <!-- Sidebar Toggler Added to Second Navbar -->
+        <button id="sidebarToggle" class="btn btn-primary position-relative">
+          ☰
+        </button>
+        <script>
+          document.getElementById("sidebarToggle").addEventListener("click", function () {
+            let sidebar = document.getElementById("sidebar");
+            let mainContent = document.querySelector(".main-content");
+            if (sidebar.style.left === "-250px") {
+              sidebar.style.left = "0";
+              sidebar.style.position = "fixed";
+              sidebar.style.height = "calc(100vh - 100px)"; // Adjust height to exclude navbars and footer
+              sidebar.style.zIndex = "1100";
+              sidebar.style.display = "block"; // Ensure sidebar is visible
+              mainContent.style.filter = "blur(4px)"; // Blur main content for focus effect
+            } else {
+              sidebar.style.left = "-250px";
+              sidebar.style.position = "absolute";
+              mainContent.style.filter = "none";
+            }
+          });
+        </script>
+      </button>
                 <img src="../assets/origlogo.png" alt="Logo" class="me-2" style="max-width: 50px;"/>
                 <a class="navbar-brand" href="./index.html">DeenWise</a>
             </div>
 
-            <!-- Navbar Toggler -->
+
+            <!-- Navbar Toggler for Responsive Menu -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -64,18 +88,12 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="container-fluid d-flex bg-light  style="height: 100vh;">
-        <!-- Sidebar -->
-        <nav id="sidebar" class="sidebar bg-light vh-100 p-3 shadow position-absolute" style="width: 250px; left: -250px; transition: 0.3s;">
-             <!-- Sidebar Toggle Button -->
-        <button id="sidebarToggle" class="btn btn-primary start-0 color-dark">
-          ☰
-      </button>
-            <!-- <div class="sidebar-header">
-                <h3>DeenWise</h3>
-            </div> -->
-            <div id="sidebar-menu">
+     <!-- Main Content -->
+      <div class="container-fluid d-flex bg-light" style="height: 100vh;">
+    <nav id="sidebar" class="sidebar bg-light  shadow position-absolute" 
+        style="width: 250px; left: -250px; top: 100px; transition: 0.3s; z-index: 1100;">
+        
+        <div id="sidebar-menu">
             <ul class="list-unstyled text-decoration-none">
                 <li><a href="#">🏠 Dashboard</a></li>
                 <li><a href="#">🎥 Video Lessons</a></li>
@@ -84,61 +102,60 @@
                 <li><a href="#">💬 Chat</a></li>
                 <li><a href="#">⚙️ Settings</a></li>
             </ul>
-          </div>
-        </nav>
+        </div>
+    </nav>
+</div>
 
-        <!-- Main Content -->
-        <main class="main-content flex-grow-1 ms-5">
-            <header class="dashboard-header">
-                <h2>Welcome, <span id="userName">User</span>!</h2>
-            </header>
-            <section class="dashboard-overview">
-                <div class="overview-card">
-                    <h3>📚 Your Courses</h3>
-                    <p>Continue your Qur’an lessons.</p>
-                    <a href="#" class="btn btn-primary">Go to Lessons</a>
-                </div>
-                <div class="overview-card">
-                    <h3>✅ Assignments</h3>
-                    <p>Check pending tasks & submit.</p>
-                    <a href="#" class="btn btn-primary">View Assignments</a>
-                </div>
-                <div class="overview-card">
-                    <h3>📖 Read Qur'an</h3>
-                    <p>Open your digital Mushaf.</p>
-                    <a href="#" class="btn btn-primary">Start Reading...</a>
-                </div>
-                <div class="overview-card">
-                  <h3>📖 Read Qur'an</h3>
-                  <p>Open your digital Mushaf.</p>
-                  <a href="#" class="btn btn-primary">Start Reading...</a>
-              </div>
-            </section>
-        </main>
+
+      <!-- Main Body -->
+      <main class="main-content flex-grow-1 ms-5">
+        <header class="dashboard-header">
+            <h2>Welcome, <span id="teacherName">Ustadh Ahmed</span>!</h2>
+        </header>
+        
+        <section class="dashboard-overview">
+            <div class="overview-card">
+                <h3>📚 Student Management</h3>
+                <p>Monitor and guide students' progress.</p>
+                <a href="student-management.html" class="btn btn-primary">Manage Students</a>
+            </div>
+            
+            <div class="overview-card">
+                <h3>📖 Lesson Management</h3>
+                <p>Create, update, and assign lessons.</p>
+                <a href="upload-lesson.html" class="btn btn-primary">Manage Lessons</a>
+            </div>
+            
+            <div class="overview-card">
+                <h3>✍️ Assignments</h3>
+                <p>Prepare and review student tasks.</p>
+                <a href="create-assignment.html" class="btn btn-primary">Manage Assignments</a>
+            </div>
+            
+            <div class="overview-card">
+                <h3>💬 Messages</h3>
+                <p>Communicate with students and tutors.</p>
+                <a href="chat.html" class="btn btn-primary">Open Chat</a>
+            </div>
+            
+            <div class="overview-card">
+                <h3>📅 Schedule</h3>
+                <p>Plan and track your upcoming classes.</p>
+                <a href="schedule.html" class="btn btn-primary">View Schedule</a>
+            </div>
+        </section>
+      </main>
     </div>
   </div>
 
-
-</body>
-</html>
   <!-- Footer -->
-  <footer class="text-black text-center py-2" style="text-align: center; background-image: url(../assets/bggg.jpeg); background-repeat: no-repeat; background-position: center; background-size: cover; width: 100%; " id="footer1">
+  <footer class="text-black text-center py-2" style="text-align: center; background-image: url(../assets/bggg.jpeg); background-repeat: no-repeat; background-position: center; background-size: cover; width: 100%;" id="footer1">
     <div class="DeenWisefooter text-center" style="display: flex; flex-direction: row; gap:1px;">
      <p style="width: 50%; color: white;">&copy; 2025 <span class="downdeenwise"><a href="./index.html" class="addw">DeenWise</a></span>. All rights reserved.</p>
     <p style="width: 50%; color: white;">Payment Platforms: <img src="../assets/visa2.png" alt="Visa" class="payplatlogos"> <span>Visa</span> <img src="../assets/verve3.jpeg" alt="Verve" class="payplatlogos" id="vervelogo">Verve</p>
     </div>
      <p style="color: whitesmoke; text-decoration: none;">Powered By <a href="https://wa.me/+2347063569494" class="ourlink" style="color: whitesmoke; text-decoration: none; font-weight: bold;">ABC Solutions</a></p>
-</footer>
-<script>
-  //  Sidebar Toggle Script 
-  document.getElementById("sidebarToggle").addEventListener("click", function () {
-    let sidebar = document.getElementById("sidebar");
-    if (sidebar.style.left === "-250px") {
-        sidebar.style.left = "0";
-    } else {
-        sidebar.style.left = "-250px";
-    }
-});
-</script>
+  </footer>
+
 </body>
 </html>

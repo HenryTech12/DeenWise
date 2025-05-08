@@ -5,7 +5,8 @@ html,
           display: flex;
           flex-direction: column;
           overflow-x: hidden;
-          overflow-y: auto;background-image: url(../pages/assets/whitebg.jpeg);
+          overflow-y: auto;
+          background-image: url(../pages/assets/whitebg.jpeg);
           background-position: absolute;
           background-repeat: none;
           background-size: cover;
