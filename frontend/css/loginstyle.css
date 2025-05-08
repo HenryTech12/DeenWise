@@ -153,7 +153,7 @@ width: 24% !important;
   justify-content: flex-end;
 }
 #fgp:hover, #sgp:hover{
-  color: blue;
+  /* color: blue; */
   size:15%;
 }
 #bottom{
