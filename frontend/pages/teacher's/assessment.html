@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | DeenWise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../../css/dashboardstyles/student.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      rel="shortcut icon"
+      href="../../pages/assets/origlogo.png"
+      type="image/x-icon"
+    />
+    <style>
+      /* Extra mobile-specific styles */
+      @media (max-width: 640px) {
+        .mobile-menu-active {
+          overflow: hidden;
+        }
+        
+        #sidebar.sidebar-active {
+          transform: translateX(0);
+        }
+        
+        .overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 10;
+          display: none;
+        }
+        
+        .overlay.active {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 font-sans flex flex-col min-h-screen">
+    <!-- Overlay for mobile sidebar -->
+    <div id="overlay" class="overlay"></div>
+    
+    <!-- Top Contact Bar -->
+    <div class="w-full bg-white py-2 text-sm border-b">
+      <div
+        class="container mx-auto flex justify-center items-center gap-4 text-gray-700 px-4"
+      >
+        <div>
+          <i class="fa-brands fa-whatsapp"></i>
+          <a
+            href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...."
+            class="hover:underline"
+            >Contact Us</a
+          >
+        </div>
+        <span>|</span>
+        <div>
+          <i class="fa-solid fa-envelope"></i>
+          <a href="mailto:sadiqadetola08@gmail.com" class="hover:underline"
+            >Email Us</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-r from-[#004d7a] to-[#008793] text-white sticky top-0 z-30">
+      <div
+        class="container mx-auto px-4 py-3 flex items-center justify-between"
+      >
+        <div class="flex items-center gap-2">
+          <button class="text-white text-2xl mr-2 focus:outline-none" id="sidebarToggle">☰</button>
+          <img src="../assets/nobgoriglogo.png" alt="Logo" class="w-8 h-8 md:w-10 md:h-10" />
+          <a href="./index.html" class="text-xl md:text-2xl font-bold">DeenWise</a>
+        </div>
+
+        <!-- Navigation Links - Only for desktop -->
+        <div class="hidden md:flex items-center gap-6">
+          <div
+            class="relative group transition-transform duration-300 hover:scale-110"
+          >
+            <button class="focus:outline-none" type="button">
+              <i data-lucide="user"></i>
+            </button>
+            <div
+              class="absolute right-0 hidden group-hover:block bg-white text-black shadow-md mt-2 p-2 rounded-md z-50 bg-gray-100"
+            >
+              <ul
+                class="gap-3 w-32 flex flex-col justify-center items-center"
+              >
+                <li>
+                  <a href="profile.html" class="hover:underline text-blue-500"
+                    >My Profile</a
+                  >
+                </li>
+                <li>
+                  <a href="../index.html" class="hover:underline text-blue-500"
+                    >Log out</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Mobile User Menu -->
+        <div class="md:hidden">
+          <button id="mobileUserMenu" class="focus:outline-none">
+            <i data-lucide="user"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile User Menu Dropdown -->
+      <div id="mobileUserMenuDropdown" class="bg-white text-black shadow-md p-4 hidden md:hidden absolute right-4 left-4 z-50 rounded-md">
+        <ul class="flex flex-col gap-4">
+          <li>
+            <a href="profile.html" class="text-blue-500 block py-2 text-center border-b">
+              My Profile
+            </a>
+          </li>
+          <li>
+            <a href="../index.html" class="text-blue-500 block py-2 text-center">
+              Log out
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Sidebar & Main -->
+    <div class="flex flex-grow">
+      <!-- Sidebar -->
+      <div
+        id="sidebar"
+        class="w-64 bg-gradient-to-r from-[#008793] to-[#004d7a] text-white min-h-screen absolute left-0 z-40 transition-all duration-300 transform -translate-x-full md:translate-x-0 overflow-y-auto shadow-xl pb-16"
+      >
+        <div class="p-4 md:p-6">
+          <div class="flex justify-end md:hidden mb-4">
+            <button id="closeSidebar" class="text-white text-xl focus:outline-none">
+              ✕
+            </button>
+          </div>
+          <ul class="space-y-4">
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
+              >
+                <i data-lucide="home" class="w-5 h-5"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
+              >
+                <i data-lucide="video" class="w-5 h-5"></i>
+                <span>Video Lessons</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
+              >
+                <i data-lucide="pen" class="w-5 h-5"></i>
+                <span>Assignments</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
+              >
+                <i data-lucide="book" class="w-5 h-5"></i>
+                <span>Read Qur'an</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
+              >
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                <span>Chat</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
+              >
+                <i data-lucide="settings" class="w-5 h-5"></i>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <main class="flex-1 p-2 md:p-4 transition-all duration-300 md:ml-64">
+        <div class="p-2 md:p-4 mt-2 md:mt-4">
+          <h1 class="text-xl md:text-2xl font-bold mb-4">
+            Manage Questions / Assignments / Exams
+          </h1>
+
+          <!-- Select Type -->
+          <div class="mb-6">
+            <label class="block text-gray-700 font-semibold mb-2"
+              >Select Type</label
+            >
+            <select
+              id="assessmentType"
+              class="w-full p-2 md:p-3 border rounded shadow"
+            >
+              <option value="assignment">Assignment</option>
+              <option value="exam">C.A Test</option>
+              <option value="question">Examination</option>
+            </select>
+          </div>
+
+          <!-- Form to Set New -->
+          <div class="bg-white shadow p-3 md:p-6 rounded mb-6 md:mb-8">
+            <h2 class="text-lg font-semibold mb-4">New Assessment</h2>
+            <form id="createAssessment">
+              <div class="mb-4">
+                <label class="block text-gray-700 font-medium mb-2">Title</label>
+                <input
+                  type="text"
+                  class="w-full p-2 md:p-3 border rounded"
+                  placeholder="Enter title..."
+                />
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 font-medium mb-2"
+                  >Description</label
+                >
+                <textarea
+                  class="w-full p-2 md:p-3 border rounded"
+                  rows="3"
+                  placeholder="Enter description..."
+                ></textarea>
+              </div>
+              <div class="mb-4">
+                <label class="block text-gray-700 font-medium mb-2"
+                  >Due Date</label
+                >
+                <input type="date" class="w-full p-2 md:p-3 border rounded" />
+              </div>
+              <button
+                type="submit"
+                class="bg-blue-600 text-white px-4 md:px-6 py-2 rounded hover:bg-blue-700 justify-center items-center flex w-full md:w-auto"
+                onclick="createAssessment(event)"
+              >
+                Create
+              </button>
+            </form>
+          </div>
+
+          <!-- Table of Existing -->
+          <div class="bg-white shadow p-3 md:p-6 rounded overflow-x-auto">
+            <h2 class="text-lg font-semibold mb-4">Existing Assessments</h2>
+            <div class="overflow-x-auto">
+              <table class="min-w-full border">
+                <thead>
+                  <tr class="bg-gray-100 text-left">
+                    <th class="py-2 px-2 md:px-4 border text-xs md:text-sm">Title</th>
+                    <th class="py-2 px-2 md:px-4 border text-xs md:text-sm">Type</th>
+                    <th class="py-2 px-2 md:px-4 border text-xs md:text-sm">Created On</th>
+                    <th class="py-2 px-2 md:px-4 border text-xs md:text-sm">Attempts</th>
+                    <th class="py-2 px-2 md:px-4 border text-xs md:text-sm">Result</th>
+                    <th class="py-2 px-2 md:px-4 border text-xs md:text-sm">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Sample row -->
+                  <tr>
+                    <td class="py-2 px-2 md:px-4 border text-xs md:text-sm">Midterm Exam</td>
+                    <td class="py-2 px-2 md:px-4 border text-xs md:text-sm"></td>
+                    <td class="py-2 px-2 md:px-4 border text-xs md:text-sm"></td>
+                    <td class="py-2 px-2 md:px-4 border text-xs md:text-sm"></td>
+                    <td class="py-2 px-2 md:px-4 border text-xs md:text-sm">
+                      <span
+                        class="bg-green-100 text-green-700 px-1 py-0.5 md:px-2 md:py-1 rounded text-xs"
+                        >Released</span
+                      >
+                    </td>
+                    <td class="py-2 px-2 md:px-4 border space-y-1 md:space-y-0 md:space-x-2 text-xs md:text-sm">
+                      <div class="flex flex-col md:flex-row md:space-x-2">
+                        <button class="text-blue-600 hover:underline text-left">
+                          Manage
+                        </button>
+                        <button class="text-indigo-600 hover:underline text-left">
+                          View
+                        </button>
+                        <button class="text-red-600 hover:underline text-left">
+                          Hide
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Footer -->
+    <footer
+      class="bg-cover bg-center text-white py-4 text-center mt-auto relative z-30"
+      style="background-image: url('../assets/bggg.jpeg')"
+    >
+      <div
+        class="container mx-auto flex flex-col md:flex-row justify-between items-center text-xs md:text-sm px-4"
+      >
+        <p class="mb-2 md:mb-0">
+          &copy; 2025
+          <a href="./index.html" class="font-bold hover:underline">DeenWise</a>.
+          All rights reserved.
+        </p>
+        <p class="flex items-center gap-2">
+          Payment Platforms:
+          <img src="../assets/visa2.png" alt="Visa" class="w-6 h-4 md:w-8 md:h-5 inline" />
+          Visa
+          <img src="../assets/verve3.jpeg" alt="Verve" class="w-6 h-4 md:w-8 md:h-5 inline" />
+          Verve
+        </p>
+      </div>
+      <p class="mt-2 text-xs">
+        Powered By
+        <a href="https://wa.me/+2347063569494" class="font-bold hover:underline"
+          >ABC Solutions</a
+        >
+      </p>
+    </footer>
+
+    <script>
+      // Sidebar toggle
+      const sidebar = document.getElementById("sidebar");
+      const mainContent = document.querySelector("main");
+      const overlay = document.getElementById("overlay");
+      const body = document.body;
+      const closeSidebar = document.getElementById("closeSidebar");
+      
+      document.getElementById("sidebarToggle").addEventListener("click", function() {
+        sidebar.classList.toggle("-translate-x-full");
+        sidebar.classList.toggle("sidebar-active");
+        overlay.classList.toggle("active");
+        body.classList.toggle("mobile-menu-active");
+      });
+      
+      // Close sidebar when clicking the close button
+      closeSidebar.addEventListener("click", function() {
+        sidebar.classList.add("-translate-x-full");
+        sidebar.classList.remove("sidebar-active");
+        overlay.classList.remove("active");
+        body.classList.remove("mobile-menu-active");
+      });
+      
+      // Close sidebar when clicking overlay
+      overlay.addEventListener("click", function() {
+        sidebar.classList.add("-translate-x-full");
+        sidebar.classList.remove("sidebar-active");
+        overlay.classList.remove("active");
+        body.classList.remove("mobile-menu-active");
+      });
+      
+      // Mobile user menu toggle
+      const mobileUserMenu = document.getElementById("mobileUserMenu");
+      const mobileUserMenuDropdown = document.getElementById("mobileUserMenuDropdown");
+      
+      mobileUserMenu.addEventListener("click", function() {
+        mobileUserMenuDropdown.classList.toggle("hidden");
+      });
+      
+      // Close mobile user menu when clicking elsewhere
+      document.addEventListener("click", function(event) {
+        if (!mobileUserMenu.contains(event.target) && !mobileUserMenuDropdown.contains(event.target)) {
+          mobileUserMenuDropdown.classList.add("hidden");
+        }
+      });
+      
+      // Function stub for form submission
+      function createAssessment(event) {
+        event.preventDefault();
+        // Add your form handling logic here
+        alert("Assessment creation functionality would go here");
+      }
+      
+      // Initialize Lucide icons
+      lucide.createIcons();
+      
+      // Handle resize to ensure proper layout when switching between mobile and desktop
+      window.addEventListener("resize", function() {
+        if (window.innerWidth >= 768) { // md breakpoint in Tailwind
+          overlay.classList.remove("active");
+          body.classList.remove("mobile-menu-active");
+          mobileUserMenuDropdown.classList.add("hidden");
+          
+          // Ensure sidebar is visible on desktop
+          sidebar.classList.remove("-translate-x-full");
+        } else {
+          // On mobile, ensure sidebar is hidden when resizing from desktop
+          if (!sidebar.classList.contains("sidebar-active")) {
+            sidebar.classList.add("-translate-x-full");
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
