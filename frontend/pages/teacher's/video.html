@@ -202,7 +202,7 @@
           <ul class="space-y-2 md:space-y-4">
             <li>
               <a
-                href="../dashboards/teacher.html"
+                href="#"
                 class="flex items-center gap-2 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-3 py-2 md:px-4 md:py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 duration-300 block text-sm md:text-base"
               >
                 <i data-lucide="home" class="w-4 h-4 md:w-5 md:h-5"></i>
@@ -211,7 +211,7 @@
             </li>
             <li>
               <a
-                href="./video.html"
+                href="#"
                 class="flex items-center gap-2 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-3 py-2 md:px-4 md:py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 duration-300 block text-sm md:text-base"
               >
                 <i data-lucide="video" class="w-4 h-4 md:w-5 md:h-5"></i>
@@ -261,224 +261,117 @@
         </div>
       </div>
 
-      <!-- Main Content with proper transition and positioning -->
+      <!-- Main Content Area -->
       <main
-        class="flex-1 p-2 md:p-4 transition-all duration-300 md:ml-64 z-10 max-w-full overflow-x-auto"
         id="mainContent"
+        class="flex-grow md:ml-64 p-4 transition-all duration-300 overflow-x-auto"
       >
-        <div class="p-2 md:p-4 mt-2 md:mt-4">
-          <h1 class="text-lg md:text-2xl font-bold mb-3">
-            Manage Questions / Assignments / Exams
-          </h1>
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h2 class="text-2xl font-bold text-gray-800 mb-4">
+            Upload Video Lesson
+          </h2>
 
-          <!-- Select Type - Made more compact -->
-          <div class="mb-4">
-            <label
-              class="block text-gray-700 font-semibold mb-1 text-sm md:text-base"
-              >Question Type</label
-            >
-            <label for="assessmentType" class="sr-only">Assessment Type</label>
-            <select
-              id="assessmentType"
-              class="w-64 max-w-xs p-1.5 md:p-3 border rounded shadow text-sm md:text-base"
-              title="Select the type of assessment"
-            >
-              <option value="assignment">Assignment</option>
-              <option value="exam">C.A Test</option>
-              <option value="question">Examination</option>
-            </select>
-          </div>
+          <form class="space-y-4">
+            <div>
+              <label class="block font-semibold mb-1">Title</label>
+              <input
+                type="text"
+                class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter lesson title"
+              />
+            </div>
 
-          <!-- Form to Set New - More compact for mobile -->
-          <div class="bg-white shadow p-3 md:p-6 rounded mb-4 md:mb-8 w-full">
-            <h2 class="text-base md:text-lg font-semibold mb-3">
-              New Assessment
-            </h2>
-            <form id="createAssessment">
-              <div class="mb-3">
-                <label
-                  class="block text-gray-700 font-medium mb-1 text-sm md:text-base"
-                  >Title</label
-                >
+            <div>
+              <label class="block font-semibold mb-1">Description</label>
+              <textarea
+                class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter a short description..."
+              ></textarea>
+            </div>
+
+            <div>
+              <label class="block font-semibold mb-1">Upload Video</label>
+                <input
+                title="Video Uploading"
+                type="file"
+                accept="video/*"
+                class="w-full p-2 border rounded-md text-sm text-green-600 outline-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+            </div>
+
+            <!-- Target Students -->
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-medium mb-1"
+                >Target Students</label
+              >
+              <div class="relative">
                 <input
                   type="text"
-                  class="w-full p-1.5 md:p-3 border rounded text-sm md:text-base"
-                  placeholder="Enter title..."
+                  placeholder="Search students..."
+                  class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-              </div>
-              <div class="mb-3">
-                <label
-                  class="block text-gray-700 font-medium mb-1 text-sm md:text-base"
-                  >Description</label
+                <div
+                  class="absolute left-0 right-0 mt-1 bg-white shadow-lg rounded-xl z-10"
                 >
-                <textarea
-                  class="w-full p-1.5 md:p-3 border rounded text-sm md:text-base"
-                  rows="3"
-                  placeholder="Enter description..."
-                ></textarea>
+                  <!-- List to be fetched from student list at backend -->
+                  <!-- <div class="p-2 hover:bg-blue-100 rounded cursor-pointer">
+                    Muhammad Sulaimon
+                  </div>
+                  <div class="p-2 hover:bg-blue-100 rounded cursor-pointer">
+                    Aisha Yusuf
+                  </div>
+                  <div class="p-2 hover:bg-blue-100 rounded cursor-pointer">
+                    AbdulRahman Musa
+                  </div> -->
+                </div>
               </div>
-              <div class="mb-3">
-                <label
-                  class="block text-gray-700 font-medium mb-1 text-sm md:text-base"
-                  >Due Date</label
+              <div class="mt-2 flex flex-wrap gap-2">
+                <!-- Selected tags (dynamic) -->
+                <span
+                  class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm flex items-center gap-2"
                 >
-                <input
-                  type="date"
-                  class="w-full max-w-[200px] p-1.5 md:p-3 border rounded text-sm md:text-base"
-                  title="Select a due date"
-                  placeholder="YYYY-MM-DD"
-                />
-                <span class="text-red-500 text-xs md:text-sm"> *Required </span>
-
-                <label
-                  class="block text-gray-700 font-medium mb-1 mt-2 text-sm md:text-base"
-                  >Due Time</label
-                >
-                <input
-                  type="time"
-                  class="w-full max-w-[200px] p-1.5 md:p-3 border rounded text-sm md:text-base"
-                  title="Select a due time"
-                />
-                <span class="text-red-500 text-xs md:text-sm"> *Required </span>
+                  Aisha Yusuf
+                  <button type="button" class="text-blue-700 hover:text-blue-900">x</button>
+                </span>
               </div>
-              <button
-                type="submit"
-                class="bg-blue-600 text-white px-4 md:px-6 py-1.5 md:py-2 rounded hover:bg-blue-700 justify-center items-center flex text-sm md:text-base w-full md:w-auto"
-                onclick="createAssessment(event)"
-              >
-                Create
-              </button>
-            </form>
-          </div>
-
-          <!-- Table of Existing - Simplified for mobile -->
-          <div
-            class="bg-white shadow p-3 md:p-6 rounded max-w-full overflow-x-auto"
-          >
-            <h2 class="text-base md:text-lg font-semibold mb-3">
-              Existing Assessments
-            </h2>
-            <div class="overflow-x-auto -mx-3">
-              <table class="min-w-full max-w-full overflow-x-auto border">
-                <thead>
-                  <tr class="bg-gray-100 text-left">
-                    <th class="py-1.5 px-1 md:px-4 border text-xs md:text-sm">
-                      Title
-                    </th>
-                    <th
-                      class="py-1.5 px-1 md:px-4 border text-xs md:text-sm hidden md:table-cell"
-                    >
-                      Type
-                    </th>
-                    <th
-                      class="py-1.5 px-1 md:px-4 border text-xs md:text-sm hidden md:table-cell"
-                    >
-                      Created
-                    </th>
-                    <th
-                      class="py-1.5 px-1 md:px-4 border text-xs md:text-sm hidden md:table-cell"
-                    >
-                      Attempts
-                    </th>
-                    <th class="py-1.5 px-1 md:px-4 border text-xs md:text-sm">
-                      Result
-                    </th>
-                    <th class="py-1.5 px-1 md:px-4 border text-xs md:text-sm">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- Sample row -->
-                  <tr>
-                    <td class="py-1 px-1 md:px-4 border text-sm md:text-sm">
-                      Midterm Exam
-                    </td>
-                    <td
-                      class="py-1 px-1 md:px-4 border text-xs md:text-sm hidden md:table-cell"
-                    ></td>
-                    <td
-                      class="py-1 px-1 md:px-4 border text-xs md:text-sm hidden md:table-cell"
-                    ></td>
-                    <td
-                      class="py-1 px-1 md:px-4 border text-xs md:text-sm hidden md:table-cell"
-                    ></td>
-                    <td class="py-1 px-1 md:px-4 border text-xs md:text-sm">
-                      <span
-                        class="bg-green-100 text-green-700 px-1 py-0.5 rounded text-xs"
-                        >Released</span
-                      >
-                    </td>
-                    <td class="py-1.5 px-1 md:px-4 border text-xs md:text-sm">
-                      <div class="flex flex-row space-x-1 md:space-x-2 group relative">
-                        <button
-                          type="button"
-                          class="text-blue-600 hover:underline text-left"
-                        >
-                          <span
-                            class="md:hidden flex justify-center items-center"
-                          >
-                            <i data-lucide="grid"></i>
-                            <i data-lucide="chevron-down"></i>
-                          </span>
-                          <span class="hidden md:inline">Manage</span>
-                          <!-- <span class="md:hidden">M</span> -->
-                        </button>
-
-                        <button
-                          type="button"
-                          class="text-indigo-600 hover:underline text-left"
-                        >
-                          <span class="hidden md:inline">View</span>
-                          <!-- <span class="md:hidden">V</span> -->
-                        </button>
-                        <button
-                          type="button"
-                          class="text-red-600 hover:underline text-left"
-                        >
-                          <span class="hidden md:inline">Hide</span>
-                          <!-- <span class="md:hidden">H</span> -->
-                        </button>
-                        <div
-                          class="absolute right-0 hidden group-hover:block bg-white text-black shadow-md mt-2 p-2 rounded-md z-50 bg-gray-100"
-                        >
-                          <ul
-                            class="gap-3 w-32 flex flex-col justify-center items-center"
-                          >
-                            <li>
-                              <a
-                                href="profile.html"
-                                class="hover:underline text-blue-500"
-                                >Manage Assessment</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                href="../index.html"
-                                class="hover:underline text-blue-500"
-                                >View Attempts</a
-                              >
-                            </li>
-                            <li>
-                              <a 
-                                href="../index.html" 
-                                class="hover:underline text-blue-500">
-                                View Attempts</a>
-                            </li>
-                            <li>
-                              <a
-                                href="../index.html"
-                                class="hover:underline text-blue-500"
-                                >Hide Assessment</a
-                              >
-                          </ul>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
             </div>
+
+            <button
+              type="submit"
+              class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+            >
+              Upload Lesson
+            </button>
+          </form>
+        </div>
+
+        <div class="mt-8 bg-white rounded-xl p-6 shadow-md">
+          <h2 class="text-2xl font-bold text-gray-800 mb-4">Manage Lessons</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-gray-200 text-gray-700">
+                  <th class="p-3">Title</th>
+                  <th class="p-3">Description</th>
+                  <th class="p-3">Date Uploaded</th>
+                  <th class="p-3">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Sample Row -->
+                <tr class="border-b">
+                  <td class="p-3">Introduction to Tajweed</td>
+                  <td class="p-3 text-sm">Basic pronunciation rules</td>
+                  <td class="p-3 text-sm">May 9, 2025</td>
+                  <td class="p-3 flex gap-2">
+                    <button class="text-blue-600 hover:underline">Edit</button>
+                    <button class="text-red-600 hover:underline">Delete</button>
+                    <button class="text-green-600 hover:underline">Send</button>
+                  </td>
+                </tr>
+                <!-- More to be added dynamically -->
+              </tbody>
+            </table>
           </div>
         </div>
       </main>
