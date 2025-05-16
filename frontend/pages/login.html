@@ -123,7 +123,7 @@
       <div class="container mt-5">
         <div class="row justify-content-center">
           <div class="col-md-6">
-            <h2 id="greeting" class="text-center mb-4"></h2>
+            <h2 id="greeting" class="text-center mb-4 text-2xl font-bold"></h2>
             <form id="loginform">
               <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
@@ -165,21 +165,17 @@
               </div>
             </form>
             <!-- The Bottom Part  -->
-            <div class="text-center my-3">OR</div>
             <button class="btn btn-danger w-100" onclick="signInWithGoogle()">
               Continue with Google
             </button>
-            <div id="bottom">
-              <div class="text-center mt-2">
-                <a href="./fpassword.html" class="text-dark" id="fgp"
+            <div id="bottom" class="flex justify-center gap-8 mt-3 mb-12 items-center">
+              <div class="text-center mt-2 align-items-center">
+                <a href="./fpassword.html" class="text-dark hover:underline hover:text-blue-500" id="fgp"
                   >Forgot Password?</a
                 >
               </div>
               <div class="text-center mt-2" id="sgp">
-                <span
-                  >New?
-                  <a href="./signup.html" class="text-dark">Sign up!</a></span
-                >
+                  <a href="./signup.html" class="text-dark hover:underline hover:text-blue-500">New? Sign up!</a>
               </div>
             </div>
           </div>
@@ -187,50 +183,33 @@
       </div>
     </div>
     <!-- Footer -->
-    <footer
-      class="text-black text-center py-2"
-      style="
-        text-align: center;
-        background-image: url(./assets/bggg.jpeg);
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        width: 100%;
-      "
-      id="footer1"
-    >
-      <div
-        class="DeenWisefooter text-center"
-        style="display: flex; flex-direction: row; gap: 1px"
-      >
-        <p style="width: 50%; color: white">
-          &copy; 2025
-          <span class="downdeenwise"
-            ><a href="./index.html" class="addw">DeenWise</a></span
-          >. All rights reserved.
-        </p>
-        <p style="width: 50%; color: white">
-          Payment Platforms:
-          <img src="./assets/visa2.png" alt="Visa" class="payplatlogos" />
-          <span>Visa</span>
-          <img
-            src="./assets/verve3.jpeg"
-            alt="Verve"
-            class="payplatlogos"
-            id="vervelogo"
-          />Verve
-        </p>
-      </div>
-      <p style="color: whitesmoke; text-decoration: none">
-        Powered By
-        <a
-          href="https://wa.me/+2347063569494"
-          class="ourlink"
-          style="color: whitesmoke; text-decoration: none; font-weight: bold"
-          >ABC Solutions</a
+        <footer
+            class="bg-cover bg-center text-white py-4 text-center mt-auto relative z-30"
+            style="background-image: url('../pages/assets/bggg.jpeg')"
         >
-      </p>
-    </footer>
+            <div
+                class="container mx-auto flex flex-col md:flex-row justify-between items-center text-sm"
+            >
+                <p class="mb-2 md:mb-0">
+                    &copy; 2025
+                    <a href="./index.html" class="font-bold hover:underline">DeenWise</a>.
+                    All rights reserved.
+                </p>
+                <p class="flex items-center gap-2">
+                    Payment Platforms:
+                    <img src="../pages/assets/visa2.png" alt="Visa" class="w-8 h-5 inline" />
+                    Visa
+                    <img src="../pages/assets/verve3.jpeg" alt="Verve" class="w-8 h-5 inline" />
+                    Verve
+                </p>
+            </div>
+            <p class="mt-2 text-sm">
+                Powered By
+                <a href="https://wa.me/+2347063569494" class="font-bold hover:underline"
+                    >ABC Solutions</a
+                >
+            </p>
+        </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

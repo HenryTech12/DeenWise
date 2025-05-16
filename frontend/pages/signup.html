@@ -52,8 +52,8 @@
               <a href="./index.html" class="text-xl font-bold">DeenWise</a>
             </div>
 
-            <div class="hidden md:block">
-              <ul class="flex space-x-6 items-center">
+            <div class="hidden md:block transition-all duration-300">
+              <ul class="flex space-x-6 items-center transition-all duration-300">
                 <li>
                   <a href="./aboutus.html" class="hover:text-gray-300"
                     >About Us</a
@@ -141,7 +141,8 @@
           <button
             type="button"
             class="bg-blue-600 flex gap-2 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          
+            onclick="back()"
+            id="backButton"
           >
             <i data-lucide="arrow-left" class="w-5 h-5 mt-1 text-white"></i>
             <span>Back to Home</span>
@@ -150,7 +151,7 @@
             id="greeting"
             class="text-2xl font-bold text-center mb-6 mt-3"
           ></h2>
-          <form id="signupForm">
+          <form id="signup-form">
             <div class="mb-4">
               <label for="name" class="block text-gray-700 font-medium mb-2"
                 >Name</label
@@ -173,20 +174,38 @@
                 required
               />
             </div>
-            <div class="mb-6">
-              <label for="password" class="block text-gray-700 font-medium mb-2"
+            <div class="mb-6 relative">
+              <label
+                for="password1"
+                class="block text-gray-700 font-medium mb-2"
                 >Password</label
               >
               <input
-                title="Confirm Password"
+                title="Password"
                 type="password"
                 id="password1"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
                 required
               />
+              <button
+                type="button"
+                id="togglePassword1"
+                tabindex="-1"
+                class="absolute right-3 top-14 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+              >
+                <i data-lucide="eye" id="eyeIcon1" class="w-5 h-5"></i>
+              </button>
+            </div>
+            <div class="mb-2">
+              <p class="text-xs text-gray-500 italic">
+                Passwords must be at least 8 characters long and contain a mix
+                of letters, numbers, and symbols.
+              </p>
             </div>
             <div class="mb-6">
-              <label for="password" class="block text-gray-700 font-medium mb-2"
+              <label
+                for="password2"
+                class="block text-gray-700 font-medium mb-2"
                 >Confirm Password</label
               >
               <input
@@ -197,6 +216,12 @@
                 required
               />
             </div>
+            <p
+              class="text-sm text-red-500 font-semibold mb-4"
+              id="error-message"
+            >
+              <!-- Error message will be displayed here -->
+            </p>
             <button
               type="submit"
               class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -265,91 +290,92 @@
 
     <!-- Scripts -->
     <script>
-      // Firebase initialization
-      const firebaseConfig = {
-        // Firebase configuration goes here
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_AUTH_DOMAIN",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_STORAGE_BUCKET",
-        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-        appId: "YOUR_APP_ID",
-      };
-
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
-
-      // Mobile menu toggle
-      document
-        .getElementById("mobile-menu-button")
-        .addEventListener("click", function () {
-          document.getElementById("mobile-menu").classList.toggle("hidden");
-        });
-
-      // Dynamic greeting based on time of day
       document.addEventListener("DOMContentLoaded", function () {
+        // Mobile menu toggle - FIXED
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+        if (mobileMenuButton && mobileMenu) {
+          mobileMenuButton.addEventListener("click", function () {
+            mobileMenu.classList.toggle("hidden");
+            mobileMenu.classList.add("transition-all");
+            mobileMenu.classList.add("duration-300");
+            
+          });
+        }
+
+        // Dynamic greeting based on time of day
         const greeting = document.getElementById("greeting");
         const hour = new Date().getHours();
-        if (hour < 12) {
-          greeting.innerText = "Assalam Alaikum! Good Morning";
-        } else if (hour < 18) {
-          greeting.innerText = "Assalam Alaikum! Good Afternoon";
-        } else {
-          greeting.innerText = "Assalam Alaikum! Good Evening";
+        if (greeting) {
+          if (hour < 12) {
+            greeting.innerText = "Assalam Alaikum! Good Morning";
+          } else if (hour < 18) {
+            greeting.innerText = "Assalam Alaikum! Good Afternoon";
+          } else {
+            greeting.innerText = "Assalam Alaikum! Good Evening";
+          }
+        }
+
+        // Sign up with email and password - Password Check
+        const form = document.getElementById("signup-form");
+        const errorMessage = document.getElementById("error-message");
+        if (form) {
+          form.addEventListener("submit", function (e) {
+            const password1 = document.getElementById("password1").value;
+            const password2 = document.getElementById("password2").value;
+            const hasLetter = /[a-zA-Z]/.test(password1);
+            const hasNumber = /[0-9]/.test(password1);
+            const hasSymbol = /[^a-zA-Z0-9]/.test(password1);
+
+            if (password1 !== password2) {
+              e.preventDefault();
+              errorMessage.innerText = "Passwords do not match!";
+            } else if (password1.length < 8) {
+              e.preventDefault();
+              errorMessage.innerText =
+                "Password must be at least 8 characters long!";
+            } else if (!hasLetter || !hasNumber || !hasSymbol) {
+              e.preventDefault();
+              errorMessage.innerText =
+                "Password must contain at least one letter, one number, and one symbol!";
+            } else {
+              errorMessage.innerText = "";
+            }
+          });
+        }
+
+        // Password visibility toggle
+        const passwordToggleBtn = document.getElementById("togglePassword1");
+        const eyeIcon = document.getElementById("eyeIcon1");
+        const passwordInput1 = document.getElementById("password1");
+        if (passwordToggleBtn && eyeIcon && passwordInput1) {
+          passwordToggleBtn.addEventListener("click", function () {
+            const isPassword = passwordInput1.type === "password";
+            passwordInput1.type = isPassword ? "text" : "password";
+            eyeIcon.setAttribute(
+              "data-lucide",
+              isPassword ? "eye-off" : "eye"
+            );
+            if (typeof lucide !== "undefined" && lucide.createIcons) {
+              lucide.createIcons();
+            }
+          });
+        }
+
+        // Initialize Lucide icons
+        if (typeof lucide !== "undefined" && lucide.createIcons) {
+          lucide.createIcons();
         }
       });
 
-      // Sign up with email and password
-      document
-        .getElementById("signupForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          const name = document.getElementById("name").value;
-          const email = document.getElementById("email").value;
-          const password = document.getElementById("password").value;
-
-          // Create user
-          auth
-            .createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-              // Update user profile with name
-              return userCredential.user.updateProfile({
-                displayName: name,
-              });
-            })
-            .then(() => {
-              // Redirect to dashboard or home page
-              window.location.href = "./index.html";
-            })
-            .catch((error) => {
-              alert("Error: " + error.message);
-            });
-        });
-      //Check if passwords match
-      if (password1 !== password2) {
-        alert("❌ Passwords do not match.");
-        return;
-      }
-
-      // Sign in with Google
-      document
-        .getElementById("googleSignIn")
-        .addEventListener("click", function () {
-          const provider = new firebase.auth.GoogleAuthProvider();
-          auth
-            .signInWithPopup(provider)
-            .then(() => {
-              // Redirect to dashboard or home page
-              window.location.href = "./index.html";
-            })
-            .catch((error) => {
-              alert("Error: " + error.message);
-            });
-        });
-      lucide.createIcons();
+      // Back button function 
       function back() {
-        window.location.href = "./index.html";
+        const confirmGoBack = confirm(
+          "Are you sure you want to go back to the home page?"
+        );
+        if (confirmGoBack) {
+          window.location.href = "./index.html"; 
+        }
       }
     </script>
   </body>

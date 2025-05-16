@@ -144,7 +144,7 @@ width: 24% !important;
   padding: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
-#fgp, #sgp{
+/* #fgp, #sgp{
   text-decoration: none;
   width: 46%;
   margin: auto;
@@ -153,17 +153,17 @@ width: 24% !important;
   justify-content: flex-end;
 }
 #fgp:hover, #sgp:hover{
-  /* color: blue; */
+  color: blue;
   size:15%;
-}
-#bottom{
+} */
+/* #bottom{
   display: flex;
   flex-direction: row;
   gap: 20%;
   width: 100%;
   justify-content: space-between;
   padding: 1 10%;
-}
+} */
 #footer1{
   margin-top: 5%;
 }

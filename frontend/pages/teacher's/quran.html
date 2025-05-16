@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Read Qur'an | DeenWise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../../css/dashboardstyles/student.css" />
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="../../pages/assets/origlogo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+
+<body class="bg-gray-100 font-sans flex flex-col min-h-screen">
+    <!-- Top Contact Bar -->
+    <div class="w-full bg-white py-2 text-sm border-b">
+        <div class="container mx-auto flex justify-center items-center gap-4 text-gray-700">
+            <div>
+                <i class="fa-brands fa-whatsapp"></i>
+                <a href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...." class="hover:underline">Contact Us</a>
+            </div>
+            <span>|</span>
+            <div>
+                <i class="fa-solid fa-envelope"></i>
+                <a href="mailto:sadiqadetola08@gmail.com" class="hover:underline">Email Us</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-r from-[#004d7a] to-[#008793] text-white sticky top-0 z-40 rounded-b-lg shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <button class="text-white text-2xl mr-4" id="sidebarToggle">☰</button>
+                <img src="../../pages/assets/nobgoriglogo.png" alt="Logo" class="w-10 h-10" />
+                <a href="./index.html" class="text-2xl font-bold">DeenWise</a>
+            </div>
+
+            <!-- Navigation Links - Always visible -->
+            <div class="flex items-center gap-6">
+                <div class="relative group transition-transform duration-300 hover:scale-130">
+                    <button class="focus:outline-none" type="button"></button>
+                    <i data-lucide="user"></i>
+                    </button>
+                    <div class="absolute right-0 hidden group-hover:block bg-white text-black shadow-md mt-2 p-2 rounded-md z-50 bg-gray-100">
+                        <ul class="gap-3 w-32 flex flex-col justify-center items-center br-4 bl-4">
+                            <li>
+                                <a href="profile.html" class="hover:underline text-blue-500">My Profile</a>
+                            </li>
+                            <li>
+                                <a href="../index.html" class="hover:underline text-blue-500">Log out</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar & Main -->
+    <div class="flex flex-grow">
+        <!-- Sidebar -->
+        <div id="sidebar" class="w-64 bg-gradient-to-r from-[#008793] to-[#004d7a] text-white min-h-screen h-full absolute left-0 z-20 transition-all duration-300 transform -translate-x-full overflow-y-auto pb-16 border-t-5 border-r-5">
+            <div class="p-6">
+                <ul class="space-y-4">
+                    <li>
+                        <a href="../dashboards/teacher.html" class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block">
+                            <i data-lucide="home" class="w-5 h-5"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../teacher's/video.html" class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block">
+                            <i data-lucide="video" class="w-5 h-5"></i>
+                            <span>Video Lessons</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../teacher's/tassignments.html" class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block">
+                            <i data-lucide="pen" class="w-5 h-5"></i>
+                            <span>Assignments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../teacher's/quran.html" class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block">
+                            <i data-lucide="book" class="w-5 h-5"></i>
+                            <span>Read Qur'an</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../teacher's/tchat.html" class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block">
+                            <i data-lucide="message-circle" class="w-5 h-5"></i>
+                            <span>Chat</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../settings.html" class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block">
+                            <i data-lucide="settings" class="w-5 h-5"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="p-6 bg-gray-100 min-h-screen flex justify-center items-center mx-auto   transition-all duration-300">
+            <div class="w-full max-w-4xl bg-white rounded-xl shadow-md p-6 mx-auto flex flex-col justify-center items-center">
+
+                <!-- Heading -->
+                <div class="mb-6 text-center">
+                    <h1 class="text-3xl font-bold text-green-700">📖 Read the Holy Qur'an</h1>
+                    <p class="text-gray-600 mt-2">Choose a surah or open the full Qur'an to begin your reading journey.
+                    </p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row md:flex-row justify-center gap-4 mb-8">
+                    <a href="https://quran.com" target="_blank" class="bg-green-600 hover:bg-green-700 text-white font-medium flex gap-3 justify-center px-6 py-3 rounded-md transition text-center">
+                        <i data-lucide="globe" class="w-5 h-5 mt-1"></i> Open Full Qur'an
+                    </a>
+
+                    <a href="/surahs" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium px-6 py-3 rounded-md flex gap-3 justify-center transition text-center">
+                        <i data-lucide="book" class="w-5 h-5 mt-1"></i> Browse Surahs
+                    </a>
+                </div>
+
+                <!-- Optional Featured Verse -->
+                <div class="bg-gray-50 p-5 rounded-lg border-l-4 border-green-500 text-center featured-verse">
+                    <p class="text-xl text-gray-800 italic mb-2">"Indeed, this Qur'an guides to that which is most suitable..."
+                    </p>
+                    <span class="text-gray-500 text-sm">- Surah Al-Isra (17:9)</span>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-cover bg-center text-white py-4 text-center mt-auto relative z-30 bg-gradient-to-r from-[#004d7a] to-[#008793]">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-sm">
+            <p class="mb-2 md:mb-0">
+                &copy; 2025
+                <a href="./index.html" class="font-bold hover:underline">DeenWise</a>. All rights reserved.
+            </p>
+            <p class="flex items-center gap-2">
+                Payment Platforms:
+                <img src="../assets/visa.png" alt="Visa" class="w-8 h-5 inline" /> Visa
+                <img src="../assets/verve3.jpeg" alt="Verve" class="w-8 h-5 inline" /> Verve
+            </p>
+        </div>
+        <p class="mt-2 text-sm">
+            Powered By
+            <a href="https://wa.me/+2347063569494" class="font-bold hover:underline">ABC Solutions</a>
+        </p>
+    </footer>
+
+    <script>
+        document
+            .getElementById("sidebarToggle")
+            .addEventListener("click", function() {
+                const sidebar = document.getElementById("sidebar");
+                const mainContent = document.querySelector("main");
+
+                // Toggle sidebar visibility
+                sidebar.classList.toggle("-translate-x-full");
+
+                // Adjust main content margin when sidebar toggles
+                if (sidebar.classList.contains("-translate-x-full")) {
+                    // mainContent.classList.remove("md:ml-64");
+                    mainContent.classList.add("ml-0");
+                } else {
+                    mainContent.classList.add("md:ml-64");
+                    mainContent.classList.remove("ml-0");
+                }
+            });
+
+        function logout() {
+            // Perform logout action here
+            alert("Logged out successfully!");
+            window.location.href = "../pages/index.html";
+            // Redirect to home page
+        }
+
+        function goToProfilePage() {
+            window.location.href = "../pages/profile.html"; // Redirect to profile page
+        }
+
+        // Initialize Lucide icons
+        if (typeof lucide !== "undefined" && lucide.createIcons) {
+            lucide.createIcons();
+        };
+        const verses = [{
+            text: `"Indeed, this Qur'an guides to that which is most suitable..."`,
+            reference: "- Surah Al-Isra (17:9)"
+        }, {
+            text: `"So remember Me; I will remember you."`,
+            reference: "- Surah Al-Baqarah (2:152)"
+        }, {
+            text: `"And We have certainly made the Qur'an easy for remembrance, so is there any who will remember?"`,
+            reference: "- Surah Al-Qamar (54:17)"
+        }, {
+            text: `"Read in the name of your Lord who created."`,
+            reference: "- Surah Al-Alaq (96:1)"
+        }, {
+            text: `"This is the Book about which there is no doubt, a guidance for those conscious of Allah."`,
+            reference: "- Surah Al-Baqarah (2:2)"
+        }];
+
+        const randomVerse = verses[Math.floor(Math.random() * verses.length)];
+        document.querySelector('.featured-verse').innerHTML = `
+        <p class="text-xl text-gray-800 italic mb-2">${randomVerse.text}</p>
+        <span class="text-gray-500 text-sm">${randomVerse.reference}</span>
+    `;
+    </script>
+</body>
+
+</html>
