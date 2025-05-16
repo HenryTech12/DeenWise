@@ -1,307 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard | DeenWise</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="../../css/dashboardstyles/student.css" />
-    <script
-      src="https://kit.fontawesome.com/your-fontawesome-kit.js"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      rel="shortcut icon"
-      href="../../pages/assets/origlogo.png"
-      type="image/x-icon"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-  </head>
-  <body class="bg-gray-100 font-sans flex flex-col min-h-screen">
-    <!-- Top Contact Bar -->
-    <div class="w-full bg-white py-2 text-sm border-b">
-      <div
-        class="container mx-auto flex justify-center items-center gap-4 text-gray-700"
-      >
-        <div>
-          <i class="fa-brands fa-whatsapp"></i>
-          <a
-            href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...."
-            class="hover:underline"
-            >Contact Us</a
-          >
-        </div>
-        <span>|</span>
-        <div>
-          <i class="fa-solid fa-envelope"></i>
-          <a href="mailto:sadiqadetola08@gmail.com" class="hover:underline"
-            >Email Us</a
-          >
-        </div>
-      </div>
-    </div>
-
-    <!-- Navbar -->
-    <nav class="bg-gradient-to-r from-[#004d7a] to-[#008793] text-white">
-      <div
-        class="container mx-auto px-4 py-3 flex items-center justify-between"
-      >
-        <div class="flex items-center gap-2">
-          <button class="text-white text-2xl mr-4" id="sidebarToggle">☰</button>
-          <img src="../assets/nobgoriglogo.png" alt="Logo" class="w-10 h-10" />
-          <a href="./index.html" class="text-2xl font-bold">DeenWise</a>
-        </div>
-
-        <!-- Navigation Links - Only for desktop -->
-        <div class="hidden md:flex items-center gap-6">
-          <!-- <a href="./aboutus.html" class="hover:underline transition-transform duration-300 hover:scale-110">About Us</a>
-          <a href="./courses.html" class="hover:underline transition-transform duration-300 hover:scale-110">Our Courses</a>
-          <a href="./pricing.html" class="hover:underline transition-transform duration-300 hover:scale-110">Pricing</a> -->
-          <div
-            class="relative group transition-transform duration-300 hover:scale-130"
-          >
-            <button class="focus:outline-none" type="button">
-              <i data-lucide="user"></i>
-            </button>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dashboard | DeenWise</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <link rel="stylesheet" href="../../css/dashboardstyles/student.css" />
+        <script
+            src="https://kit.fontawesome.com/your-fontawesome-kit.js"
+            crossorigin="anonymous"
+        ></script>
+        <link
+            rel="shortcut icon"
+            href="../../pages/assets/origlogo.png"
+            type="image/x-icon"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        />
+    </head>
+    <body class="bg-gray-100 font-sans flex flex-col min-h-screen">
+        <!-- Top Contact Bar -->
+        <div class="w-full bg-white py-2 text-sm border-b">
             <div
-              class="absolute right-0 hidden group-hover:block bg-white text-black shadow-md mt-2 p-2 rounded-md z-50 bg-gray-100"
+                class="container mx-auto flex justify-center items-center gap-4 text-gray-700"
             >
-              <ul
-                class="gap-3 w-32 flex flex-col justify-center items-center br-4 bl-4"
-              >
-                <li>
-                  <a href="profile.html" class="hover:underline text-blue-500"
-                    >My Profile</a
-                  >
-                </li>
-                <li>
-                  <a href="../index.html" class="hover:underline text-blue-500"
-                    >Log out</a
-                  >
-                </li>
-              </ul>
+                <div>
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <a
+                        href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...."
+                        class="hover:underline"
+                        >Contact Us</a
+                    >
+                </div>
+                <span>|</span>
+                <div>
+                    <i class="fa-solid fa-envelope"></i>
+                    <a href="mailto:sadiqadetola08@gmail.com" class="hover:underline"
+                        >Email Us</a
+                    >
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </nav>
 
-    <!-- Sidebar & Main -->
-    <div class="flex flex-grow">
-      <!-- Sidebar -->
-    <div
-      id="sidebar"
-      class="w-64 bg-gradient-to-r from-[#008793] to-[#004d7a] text-white min-h-screen absolute left-0 z-20 transition-all duration-300 transform -translate-x-full overflow-y-auto pb-16 border-t-5 border-r-5"
-      >
-        <div class="p-6">
-          <ul class="space-y-4">
-            <li>
-              <a
-                href="./teacher.html"
-                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
-              >
-                <i data-lucide="home" class="w-5 h-5"></i>
-                <span>Dashboard</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="../teacher's/video.html"
-                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
-              >
-                <i data-lucide="video" class="w-5 h-5"></i>
-                <span>Video Lessons</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
-              >
-                <i data-lucide="pen" class="w-5 h-5"></i>
-                <span>Assignments</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
-              >
-                <i data-lucide="book" class="w-5 h-5"></i>
-                <span>Read Qur'an</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
-              >
-                <i data-lucide="message-circle" class="w-5 h-5"></i>
-                <span>Chat</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
-              >
-                <i data-lucide="settings" class="w-5 h-5"></i>
-                <span>Settings</span>
-              </a>
-            </li>
-          </ul>
+        <!-- Navbar -->
+        <nav class="bg-gradient-to-r from-[#004d7a] to-[#008793] text-white">
+            <div
+                class="container mx-auto px-4 py-3 flex items-center justify-between"
+            >
+                <div class="flex items-center gap-2">
+                    <button class="text-white text-2xl mr-4" id="sidebarToggle">☰</button>
+                    <img src="../assets/nobgoriglogo.png" alt="Logo" class="w-10 h-10" />
+                    <a href="./index.html" class="text-2xl font-bold">DeenWise</a>
+                </div>
+
+                <!-- Navigation Links - Always visible -->
+                <div class="flex items-center gap-6">
+                    <div
+                        class="relative group transition-transform duration-300 hover:scale-130"
+                    >
+                        <button class="focus:outline-none" type="button"></button>
+                            <i data-lucide="user"></i>
+                        </button>
+                        <div
+                            class="absolute right-0 hidden group-hover:block bg-white text-black shadow-md mt-2 p-2 rounded-md z-50 bg-gray-100"
+                        >
+                            <ul
+                                class="gap-3 w-32 flex flex-col justify-center items-center br-4 bl-4"
+                            >
+                                <li>
+                                    <a href="profile.html" class="hover:underline text-blue-500"
+                                        >My Profile</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="../index.html" class="hover:underline text-blue-500"
+                                        >Log out</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Sidebar & Main -->
+        <div class="flex flex-grow">
+            <!-- Sidebar -->
+            <div
+                id="sidebar"
+                class="w-64 bg-gradient-to-r from-[#008793] to-[#004d7a] text-white min-h-screen absolute left-0 z-20 transition-all duration-300 transform -translate-x-full overflow-y-auto pb-16 border-t-5 border-r-5"
+            >
+                <div class="p-6">
+                    <ul class="space-y-4">
+                        <li>
+                            <a
+                                href="./teacher.html"
+                                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
+                            >
+                                <i data-lucide="home" class="w-5 h-5"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="../teacher's/video.html"
+                                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
+                            >
+                                <i data-lucide="video" class="w-5 h-5"></i>
+                                <span>Video Lessons</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="../teacher's/tassignments.html"
+                                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
+                            >
+                                <i data-lucide="pen" class="w-5 h-5"></i>
+                                <span>Assignments</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="../teacher's/quran.html"
+                                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
+                            >
+                                <i data-lucide="book" class="w-5 h-5"></i>
+                                <span>Read Qur'an</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="../teacher's/tchat.html"
+                                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
+                            >
+                                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                                <span>Chat</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="../settings.html"
+                                class="flex items-center gap-3 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-4 py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 block"
+                            >
+                                <i data-lucide="settings" class="w-5 h-5"></i>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <main class="flex-1 p-4 md:ml-64 ml-0 transition-all duration-300">
+                <header class="mb-8">
+                    <h2 class="text-4xl font-semibold text-center text-green-900 mt-4">
+                        Welcome, Tutor <span id="userName"> User</span>!
+                    </h2>
+                </header>
+
+                <section
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                >
+                    <div
+                        class="bg-white p-6 rounded-lg shadow flex flex-col items-center transition-transform duration-300 hover:scale-110"
+                    >
+                        <div class="flex items-center gap-3 mb-3">
+                            <i data-lucide="book-open" class="w-6 h-6 text-[#036b37]"></i>
+                            <h3 class="text-2xl font-semibold">Your Courses</h3>
+                        </div>
+                        <p class="text-gray-600 text-center">
+                            View and Manage your courses.
+                        </p>
+                        <a
+                            href="#"
+                            class="text-blue-600 hover:underline flex items-center gap-2 mt-4"
+                        >
+                            <span>Go to Lessons</span>
+                            <i data-lucide="arrow-right" class="w-5 h-5 text-[#036b37]"></i>
+                        </a>
+                    </div>
+
+                    <div
+                        class="bg-white p-6 rounded-lg shadow flex flex-col items-center transition-transform duration-300 hover:scale-110"
+                    >
+                        <div class="flex flex-row justify-center items-center gap-3 mb-3">
+                            <i
+                                data-lucide="clipboard-check"
+                                class="w-6 h-6 text-[#036b37] text-center"
+                            ></i>
+                            <h3 class="text-2xl font-semibold text-center">Manage Assessments</h3>
+                        </div>
+                        <p class="text-gray-600 text-center">
+                            Set, view and grade assignments for your students.
+                        </p>
+                        <a
+                            href="../teacher's/assessment.html"
+                            class="text-blue-600 hover:underline flex items-center gap-2 mt-4"
+                        >
+                            <span>View Assessments</span>
+                            <i data-lucide="arrow-right" class="w-5 h-5 text-[#036b37]"></i>
+                        </a>
+                    </div>
+
+                    <div
+                        class="bg-white p-6 rounded-lg shadow flex flex-col items-center transition-transform duration-300 hover:scale-110"
+                    >
+                        <div class="flex items-center gap-3 mb-3">
+                            <i data-lucide="book" class="w-6 h-6 text-[#036b37]"></i>
+                            <h3 class="text-2xl font-semibold">Read Qur'an</h3>
+                        </div>
+                        <p class="text-gray-600 text-center">Open your digital Mushaf.</p>
+                        <a
+                            href="../teacher's/quran.html"
+                            class="text-blue-600 hover:underline flex items-center gap-2 mt-4"
+                        >
+                            <span>Start reading</span>
+                            <i data-lucide="arrow-right" class="w-5 h-5 text-[#036b37]"></i>
+                        </a>
+                    </div>
+
+                    <div
+                        class="bg-white p-6 rounded-lg shadow flex flex-col items-center transition-transform duration-300 hover:scale-110"
+                    >
+                        <div class="flex items-center gap-3 mb-3">
+                            <i
+                                data-lucide="message-circle"
+                                class="w-6 h-6 text-[#036b37]"
+                            ></i>
+                            <h3 class="text-2xl font-semibold">Chat</h3>
+                        </div>
+                        <p class="text-gray-600 text-center">
+                            Connect with fellow tutors and learners.
+                        </p>
+                        <a
+                            href="../teacher's/tchat.html"
+                            class="text-blue-600 hover:underline flex items-center gap-2 mt-4"
+                        >
+                            <span>Join Chat</span>
+                            <i data-lucide="arrow-right" class="w-5 h-5 text-[#036b37]"></i>
+                        </a>
+                    </div>
+                </section>
+            </main>
         </div>
-      </div>
 
-      <!-- Main Content -->
-      <main class="flex-1 p-4 md:ml-64 ml-0 transition-all duration-300">
-        <header class="mb-8">
-          <h2 class="text-4xl font-semibold text-center text-green-900">
-            Welcome, Tutor <span id="userName"> User</span>!
-          </h2>
-        </header>
-
-        <section
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+        <!-- Footer -->
+        <footer
+            class="bg-cover bg-center text-white py-4 text-center mt-auto relative z-30"
+            style="background-image: url('../assets/bggg.jpeg')"
         >
-          <div
-            class="bg-white p-6 rounded-lg shadow flex flex-col items-center transition-transform duration-300 hover:scale-110"
-          >
-            <div class="flex items-center gap-3 mb-3">
-              <i data-lucide="book-open" class="w-6 h-6 text-[#036b37]"></i>
-              <h3 class="text-2xl font-semibold">Your Courses</h3>
+            <div
+                class="container mx-auto flex flex-col md:flex-row justify-between items-center text-sm"
+            >
+                <p class="mb-2 md:mb-0">
+                    &copy; 2025
+                    <a href="./index.html" class="font-bold hover:underline">DeenWise</a>.
+                    All rights reserved.
+                </p>
+                <p class="flex items-center gap-2">
+                    Payment Platforms:
+                    <img src="../assets/visa2.png" alt="Visa" class="w-8 h-5 inline" />
+                    Visa
+                    <img src="../assets/verve3.jpeg" alt="Verve" class="w-8 h-5 inline" />
+                    Verve
+                </p>
             </div>
-            <p class="text-gray-600 text-center">
-              View and Manage your courses.
+            <p class="mt-2 text-sm">
+                Powered By
+                <a href="https://wa.me/+2347063569494" class="font-bold hover:underline"
+                    >ABC Solutions</a
+                >
             </p>
-            <a
-              href="#"
-              class="text-blue-600 hover:underline flex items-center gap-2 mt-4"
-            >
-              <span>Go to Lessons</span>
-              <i data-lucide="arrow-right" class="w-5 h-5 text-[#036b37]"></i>
-            </a>
-          </div>
+        </footer>
 
-          <div
-            class="bg-white p-6 rounded-lg shadow flex flex-col items-center transition-transform duration-300 hover:scale-110"
-          >
-            <div class="flex flex-row justify-center items-center gap-3 mb-3">
-              <i
-                data-lucide="clipboard-check"
-                class="w-6 h-6 text-[#036b37] text-center"
-              ></i>
-              <h3 class="text-2xl font-semibold text-center">Manage Assessments</h3>
-            </div>
-            <p class="text-gray-600 text-center">
-              Set, view and grade assignments for your students.
-            </p>
-            <a
-              href="../teacher's/assessment.html"
-              class="text-blue-600 hover:underline flex items-center gap-2 mt-4"
-            >
-              <span>View Assessments</span>
-              <i data-lucide="arrow-right" class="w-5 h-5 text-[#036b37]"></i>
-            </a>
-          </div>
+        <script>
+            document
+                .getElementById("sidebarToggle")
+                .addEventListener("click", function () {
+                    const sidebar = document.getElementById("sidebar");
+                    const mainContent = document.querySelector("main");
 
-          <div
-            class="bg-white p-6 rounded-lg shadow flex flex-col items-center transition-transform duration-300 hover:scale-110"
-          >
-            <div class="flex items-center gap-3 mb-3">
-              <i data-lucide="book" class="w-6 h-6 text-[#036b37]"></i>
-              <h3 class="text-2xl font-semibold">Read Qur'an</h3>
-            </div>
-            <p class="text-gray-600 text-center">Open your digital Mushaf.</p>
-            <a
-              href="#"
-              class="text-blue-600 hover:underline flex items-center gap-2 mt-4"
-            >
-              <span>Start reading</span>
-              <i data-lucide="arrow-right" class="w-5 h-5 text-[#036b37]"></i>
-            </a>
-          </div>
+                    // Toggle sidebar visibility
+                    sidebar.classList.toggle("-translate-x-full");
 
-          <div
-            class="bg-white p-6 rounded-lg shadow flex flex-col items-center transition-transform duration-300 hover:scale-110"
-          >
-            <div class="flex items-center gap-3 mb-3">
-              <i
-                data-lucide="message-circle"
-                class="w-6 h-6 text-[#036b37]"
-              ></i>
-              <h3 class="text-2xl font-semibold">Chat</h3>
-            </div>
-            <p class="text-gray-600 text-center">
-              Connect with fellow tutors and learners.
-            </p>
-            <a
-              href="#"
-              class="text-blue-600 hover:underline flex items-center gap-2 mt-4"
-            >
-              <span>Join Chat</span>
-              <i data-lucide="arrow-right" class="w-5 h-5 text-[#036b37]"></i>
-            </a>
-          </div>
-        </section>
-      </main>
-    </div>
+                    // Adjust main content margin when sidebar toggles
+                    if (sidebar.classList.contains("-translate-x-full")) {
+                        mainContent.classList.remove("md:ml-64");
+                        mainContent.classList.add("ml-0");
+                    } else {
+                        mainContent.classList.add("md:ml-64");
+                        mainContent.classList.remove("ml-0");
+                    }
+                });
 
-    <!-- Footer -->
-    <footer
-      class="bg-cover bg-center text-white py-4 text-center mt-auto relative z-30"
-      style="background-image: url('../assets/bggg.jpeg')"
-    >
-      <div
-        class="container mx-auto flex flex-col md:flex-row justify-between items-center text-sm"
-      >
-        <p class="mb-2 md:mb-0">
-          &copy; 2025
-          <a href="./index.html" class="font-bold hover:underline">DeenWise</a>.
-          All rights reserved.
-        </p>
-        <p class="flex items-center gap-2">
-          Payment Platforms:
-          <img src="../assets/visa2.png" alt="Visa" class="w-8 h-5 inline" />
-          Visa
-          <img src="../assets/verve3.jpeg" alt="Verve" class="w-8 h-5 inline" />
-          Verve
-        </p>
-      </div>
-      <p class="mt-2 text-sm">
-        Powered By
-        <a href="https://wa.me/+2347063569494" class="font-bold hover:underline"
-          >ABC Solutions</a
-        >
-      </p>
-    </footer>
-
-    <script>
-      document
-        .getElementById("sidebarToggle")
-        .addEventListener("click", function () {
-          const sidebar = document.getElementById("sidebar");
-          const mainContent = document.querySelector("main");
-
-          // Toggle sidebar visibility
-          sidebar.classList.toggle("-translate-x-full");
-
-          // Adjust main content margin when sidebar toggles
-          if (sidebar.classList.contains("-translate-x-full")) {
-            mainContent.classList.remove("md:ml-64");
-            mainContent.classList.add("ml-0");
-          } else {
-            mainContent.classList.add("md:ml-64");
-            mainContent.classList.remove("ml-0");
-          }
-        });
-
-      // Initialize Lucide icons
-      lucide.createIcons();
-    </script>
-  </body>
+            // Initialize Lucide icons
+            lucide.createIcons();
+        </script>
+    </body>
 </html>

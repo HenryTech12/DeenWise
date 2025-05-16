@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Read Qur'an | DeenWise</title>
+    <title>Assignments| DeenWise</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="../../css/dashboardstyles/student.css" />
@@ -34,7 +34,7 @@
         <div class="container mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <button class="text-white text-2xl mr-4" id="sidebarToggle">☰</button>
-                <img src="../../pages/assets/nobgoriglogo.png" alt="Logo" class="w-10 h-10" />
+                <img src="./assets/nobgoriglogo.png" alt="Logo" class="w-10 h-10" />
                 <a href="./index.html" class="text-2xl font-bold">DeenWise</a>
             </div>
 
@@ -106,36 +106,52 @@
         </div>
 
         <!-- Main Content -->
-        <main class="p-6 bg-gray-100 min-h-screen flex justify-center items-center mx-auto   transition-all duration-300">
-            <div class="w-full max-w-4xl bg-white rounded-xl shadow-md p-6 mx-auto flex flex-col justify-center items-center">
+        <main class="p-6 bg-gray-100 min-h-screen flex justify-center items-start mt-8 md:ml-64 transition-all duration-300">
+            <div class="w-full max-w-4xl bg-white rounded-xl shadow-md p-6 flex flex-col justify-center items-center">
 
                 <!-- Heading -->
                 <div class="mb-6 text-center">
-                    <h1 class="text-3xl font-bold text-green-700">📖 Read the Holy Qur'an</h1>
-                    <p class="text-gray-600 mt-2">Choose a surah or open the full Qur'an to begin your reading journey.
-                    </p>
+                    <h1 class="text-3xl font-bold text-green-700">✍️ Assignments</h1>
+                    <p class="text-gray-600 mt-2">View and manage all your Qur'an learning assignments here.</p>
                 </div>
 
-                <!-- Action Buttons -->
-                <div class="flex flex-col sm:flex-row md:flex-row justify-center gap-4 mb-8">
-                    <a href="https://quran.com" target="_blank" class="bg-green-600 hover:bg-green-700 text-white font-medium flex gap-3 justify-center px-6 py-3 rounded-md transition text-center">
-                        <i data-lucide="globe" class="w-5 h-5 mt-1"></i> Open Full Qur'an
-                    </a>
+                <!-- Assignments Section -->
+                <div class="w-full space-y-6">
+                    <!-- Placeholder Assignment Card -->
+                    <div class="bg-gray-50 border-l-4 border-green-500 rounded-lg shadow p-5 hover:shadow-lg transition-all">
+                        <h2 class="text-xl font-semibold text-gray-800">Surah Al-Fatiha Memorization</h2>
+                        <p class="text-gray-600 mt-2 text-sm">Memorize Surah Al-Fatiha and recite it during the next class session.
+                        </p>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-sm text-gray-500">Due: May 17, 2025</span>
+                            <div class="flex gap-2 justify-center text-center">
+                                <button class="text-sm bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700 transition">
+                                    Submit
+                                </button>
+                                <button class="text-sm bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition ">
+                                    View Status
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
-                    <a href="/surahs" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium px-6 py-3 rounded-md flex gap-3 justify-center transition text-center">
-                        <i data-lucide="book" class="w-5 h-5 mt-1"></i> Browse Surahs
-                    </a>
-                </div>
-
-                <!-- Optional Featured Verse -->
-                <div class="bg-gray-50 p-5 rounded-lg border-l-4 border-green-500 text-center featured-verse">
-                    <p class="text-xl text-gray-800 italic mb-2">"Indeed, this Qur'an guides to that which is most suitable..."
-                    </p>
-                    <span class="text-gray-500 text-sm">- Surah Al-Isra (17:9)</span>
+                    <!-- Another Placeholder Assignment Card -->
+                    <div class="bg-gray-50 border-l-4 border-yellow-500 rounded-lg shadow p-5 hover:shadow-lg transition-all">
+                        <h2 class="text-xl font-semibold text-gray-800">Tafsir Reflection</h2>
+                        <p class="text-gray-600 mt-2 text-sm">Write a brief reflection on the meanings of Surah Al-Ikhlas.
+                        </p>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-sm text-gray-500">Due: May 20, 2025</span>
+                            <button class="text-sm bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
             </div>
         </main>
+
     </div>
 
     <!-- Footer -->
@@ -147,8 +163,8 @@
             </p>
             <p class="flex items-center gap-2">
                 Payment Platforms:
-                <img src="../assets/visa.png" alt="Visa" class="w-8 h-5 inline" /> Visa
-                <img src="../assets/verve3.jpeg" alt="Verve" class="w-8 h-5 inline" /> Verve
+                <img src="./assets/visa.png" alt="Visa" class="w-8 h-5 inline" /> Visa
+                <img src="./assets/verve3.jpeg" alt="Verve" class="w-8 h-5 inline" /> Verve
             </p>
         </div>
         <p class="mt-2 text-sm">
@@ -192,28 +208,6 @@
         if (typeof lucide !== "undefined" && lucide.createIcons) {
             lucide.createIcons();
         };
-        const verses = [{
-            text: `"Indeed, this Qur'an guides to that which is most suitable..."`,
-            reference: "- Surah Al-Isra (17:9)"
-        }, {
-            text: `"So remember Me; I will remember you."`,
-            reference: "- Surah Al-Baqarah (2:152)"
-        }, {
-            text: `"And We have certainly made the Qur'an easy for remembrance, so is there any who will remember?"`,
-            reference: "- Surah Al-Qamar (54:17)"
-        }, {
-            text: `"Read in the name of your Lord who created."`,
-            reference: "- Surah Al-Alaq (96:1)"
-        }, {
-            text: `"This is the Book about which there is no doubt, a guidance for those conscious of Allah."`,
-            reference: "- Surah Al-Baqarah (2:2)"
-        }];
-
-        const randomVerse = verses[Math.floor(Math.random() * verses.length)];
-        document.querySelector('.featured-verse').innerHTML = `
-        <p class="text-xl text-gray-800 italic mb-2">${randomVerse.text}</p>
-        <span class="text-gray-500 text-sm">${randomVerse.reference}</span>
-    `;
     </script>
 </body>
 
