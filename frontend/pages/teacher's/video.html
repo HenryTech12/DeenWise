@@ -1,320 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard | DeenWise</title>
+    <title>Upload Video Lessons| DeenWise</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-    <link
-      rel="shortcut icon"
-      href="../../pages/assets/origlogo.png"
-      type="image/x-icon"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="shortcut icon" href="../../pages/assets/origlogo.png" type="image/x-icon" />
     <style>
-      /* Extra mobile-specific styles */
-      @media (max-width: 640px) {
-        .mobile-menu-active {
-          overflow: hidden;
+        /* Extra mobile-specific styles */
+        
+        @media (max-width: 640px) {
+            .mobile-menu-active {
+                overflow: hidden;
+            }
+            #sidebar.sidebar-active {
+                transform: translateX(0) !important;
+            }
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 10;
+                display: none;
+            }
+            .overlay.active {
+                display: block;
+            }
+            /* Ensure inputs don't overflow */
+            input,
+            select,
+            textarea {
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                overflow-x: hidden;
+            }
+            body.sidebar-collapsed #sidebar {
+                transform: translateX(-100%);
+            }
+            body.sidebar-collapsed #mainContent {
+                margin-left: 0;
+                /* Optional: for smooth effect */
+            }
+            @media (min-width: 768px) {
+                #sidebar {
+                    transform: translateX(0);
+                    /* Ensure sidebar is visible by default */
+                }
+                body.sidebar-collapsed #mainContent {
+                    margin-left: 0;
+                }
+            }
         }
-
-        #sidebar.sidebar-active {
-          transform: translateX(0) !important;
-        }
-
-        .overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: rgba(0, 0, 0, 0.5);
-          z-index: 10;
-          display: none;
-        }
-
-        .overlay.active {
-          display: block;
-        }
-
-        /* Ensure inputs don't overflow */
-        input,
-        select,
-        textarea {
-          max-width: 100%;
-          box-sizing: border-box;
-        }
-        html,
-        body {
-          overflow-x: hidden;
-        }
-
-        body.sidebar-collapsed #sidebar {
-          transform: translateX(-100%);
-        }
-
-        body.sidebar-collapsed #mainContent {
-          margin-left: 0; /* Optional: for smooth effect */
-        }
-
-        @media (min-width: 768px) {
-          #sidebar {
-            transform: translateX(0); /* Ensure sidebar is visible by default */
-          }
-
-          body.sidebar-collapsed #mainContent {
-            margin-left: 0;
-          }
-        }
-      }
     </style>
-  </head>
-  <body class="bg-gray-100 font-sans flex flex-col min-h-screen h-full">
+</head>
+
+<body class="bg-gray-100 font-sans flex flex-col min-h-screen h-full">
     <!-- Overlay for mobile sidebar -->
     <div id="overlay" class="overlay"></div>
 
     <!-- Top Contact Bar -->
     <div class="w-full bg-white py-2 text-sm border-b">
-      <div
-        class="container mx-auto flex justify-center items-center gap-4 text-gray-700 px-2"
-      >
-        <div>
-          <i class="fa-brands fa-whatsapp"></i>
-          <a
-            href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...."
-            class="hover:underline"
-            >Contact Us</a
-          >
+        <div class="container mx-auto flex justify-center items-center gap-4 text-gray-700 px-2">
+            <div>
+                <i class="fa-brands fa-whatsapp"></i>
+                <a href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...." class="hover:underline">Contact Us</a>
+            </div>
+            <span>|</span>
+            <div>
+                <i class="fa-solid fa-envelope"></i>
+                <a href="mailto:sadiqadetola08@gmail.com" class="hover:underline">Email Us</a>
+            </div>
         </div>
-        <span>|</span>
-        <div>
-          <i class="fa-solid fa-envelope"></i>
-          <a href="mailto:sadiqadetola08@gmail.com" class="hover:underline"
-            >Email Us</a
-          >
-        </div>
-      </div>
     </div>
 
     <!-- Navbar -->
-    <nav
-      class="bg-gradient-to-r from-[#004d7a] to-[#008793] text-white sticky top-0 z-40 rounded-b-lg shadow-md"
-    >
-      <div
-        class="container mx-auto px-2 py-2 flex items-center justify-between"
-      >
-        <div class="flex items-center gap-1">
-          <button
-            class="text-white text-xl mr-1 focus:outline-none"
-            id="sidebarToggle"
-          >
-            ☰
-          </button>
-          <img
-            src="../assets/nobgoriglogo.png"
-            alt="Logo"
-            class="w-7 h-7 md:w-10 md:h-10"
-          />
-          <a href="./index.html" class="text-lg md:text-2xl font-bold"
-            >DeenWise</a
-          >
-        </div>
-
-        <!-- Navigation Links - Visible on all screens -->
-        <div class="flex items-center gap-6">
-          <div
-            class="relative group transition-transform duration-300 hover:scale-110"
-          >
-            <button
-              class="focus:outline-none"
-              type="button"
-              id="userMenuButton"
-            >
-              <i data-lucide="user"></i>
-            </button>
-            <!-- Desktop dropdown -->
-            <div
-              class="absolute right-0 hidden group-hover:block bg-white text-black shadow-md mt-2 p-2 rounded-md z-50 bg-gray-100"
-            >
-              <ul class="gap-3 w-32 flex flex-col justify-center items-center">
-                <li>
-                  <a href="profile.html" class="hover:underline text-blue-500"
-                    >My Profile</a
-                  >
-                </li>
-                <li>
-                  <a href="../index.html" class="hover:underline text-blue-500"
-                    >Log out</a
-                  >
-                </li>
-              </ul>
+    <nav class="bg-gradient-to-r from-[#004d7a] to-[#008793] text-white sticky top-0 z-40 rounded-b-lg shadow-md">
+        <div class="container mx-auto px-2 py-2 flex items-center justify-between">
+            <div class="flex items-center gap-1">
+                <button class="text-white text-xl mr-1 focus:outline-none" id="sidebarToggle">
+          ☰
+        </button>
+                <img src="../assets/nobgoriglogo.png" alt="Logo" class="w-7 h-7 md:w-10 md:h-10" />
+                <a href="./index.html" class="text-lg md:text-2xl font-bold">DeenWise</a>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- User Menu Dropdown - Shared between mobile and desktop -->
-      <div
-        id="userMenuDropdown"
-        class="bg-white text-black shadow-md p-4 hidden absolute right-2 left-2 md:left-auto md:w-40 z-50 rounded-md"
-      >
-        <ul class="flex flex-col gap-4">
-          <li>
-            <a
-              href="profile.html"
-              class="text-blue-500 block py-2 text-center border-b"
-            >
-              My Profile
-            </a>
-          </li>
-          <li>
-            <a
-              href="../index.html"
-              class="text-blue-500 block py-2 text-center"
-            >
-              Log out
-            </a>
-          </li>
-        </ul>
-      </div>
+            <!-- Navigation Links - Visible on all screens -->
+            <div class="flex items-center gap-6">
+                <div class="relative group transition-transform duration-300 hover:scale-110">
+                    <button class="focus:outline-none" type="button" id="userMenuButton">
+            <i data-lucide="user"></i>
+          </button>
+                    <!-- Desktop dropdown -->
+                    <div class="absolute right-0 hidden group-hover:block bg-white text-black shadow-md mt-2 p-2 rounded-md z-50 bg-gray-100">
+                        <ul class="gap-3 w-32 flex flex-col justify-center items-center">
+                            <li>
+                                <a href="../profile.html" class="hover:underline text-blue-500">My Profile</a>
+                            </li>
+                            <li>
+                                <a href="../index.html" class="hover:underline text-blue-500">Log out</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Menu Dropdown - Shared between mobile and desktop -->
+        <div id="userMenuDropdown" class="bg-white text-black shadow-md p-4 hidden absolute right-2 left-2 md:left-auto md:w-40 z-50 rounded-md">
+            <ul class="flex flex-col gap-4">
+                <li>
+                    <a href="profile.html" class="text-blue-500 block py-2 text-center border-b">
+            My Profile
+          </a>
+                </li>
+                <li>
+                    <a href="../index.html" class="text-blue-500 block py-2 text-center">
+            Log out
+          </a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <!-- Sidebar & Main -->
     <div class="flex flex-grow relative">
-      <!-- Sidebar -->
-      <div
-        id="sidebar"
-        class="w-52 md:w-64 bg-gradient-to-r from-[#008793] to-[#004d7a] text-white h-full absolute left-0 z-20 rounded-tr-xl transition-all duration-300 transform -translate-x-full md:translate-x-0 overflow-y-auto shadow-xl"
-      >
-        <div class="p-3 md:p-6">
-          <div class="flex justify-end md:hidden mb-4">
-            <button
-              id="closeSidebar"
-              class="text-white text-xl focus:outline-none"
-            >
-              ✕
-            </button>
-          </div>
-          <ul class="space-y-2 md:space-y-4">
-            <li>
-              <a
-                href="../dashboards/teacher.html"
-                class="flex items-center gap-2 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-3 py-2 md:px-4 md:py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 duration-300 block text-sm md:text-base"
-              >
-                <i data-lucide="home" class="w-4 h-4 md:w-5 md:h-5"></i>
-                <span>Dashboard</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="./video.html"
-                class="flex items-center gap-2 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-3 py-2 md:px-4 md:py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 duration-300 block text-sm md:text-base"
-              >
-                <i data-lucide="video" class="w-4 h-4 md:w-5 md:h-5"></i>
-                <span>Video Lessons</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="./assignments.html"
-                class="flex items-center gap-2 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-3 py-2 md:px-4 md:py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 duration-300 block text-sm md:text-base"
-              >
-                <i data-lucide="pen" class="w-4 h-4 md:w-5 md:h-5"></i>
-                <span>Assignments</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="./quran.html"
-                class="flex items-center gap-2 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-3 py-2 md:px-4 md:py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 duration-300 block text-sm md:text-base"
-              >
-                <i data-lucide="book" class="w-4 h-4 md:w-5 md:h-5"></i>
-                <span>Read Qur'an</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="./tchat.html"
-                class="flex items-center gap-2 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-3 py-2 md:px-4 md:py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 duration-300 block text-sm md:text-base"
-              >
-                <i
-                  data-lucide="message-circle"
-                  class="w-4 h-4 md:w-5 md:h-5"
-                ></i>
-                <span>Chat</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="../settings.html"
-                class="flex items-center gap-2 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-3 py-2 md:px-4 md:py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 duration-300 block text-sm md:text-base"
-              >
-                <i data-lucide="settings" class="w-4 h-4 md:w-5 md:h-5"></i>
-                <span>Settings</span>
-              </a>
-            </li>
-          </ul>
+        <!-- Sidebar -->
+        <div id="sidebar" class="w-52 md:w-64 bg-gradient-to-r from-[#008793] to-[#004d7a] text-white h-full absolute left-0 z-20 rounded-tr-xl transition-all duration-300 transform -translate-x-full md:translate-x-0 overflow-y-auto shadow-xl">
+            <div class="p-3 md:p-6">
+                <div class="flex justify-end md:hidden mb-4">
+                    <button id="closeSidebar" class="text-white text-xl focus:outline-none">
+            ✕
+          </button>
+                </div>
+                <ul class="space-y-2 md:space-y-4">
+                    <li>
+                        <a href="../dashboards/teacher.html" class="flex items-center gap-2 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-3 py-2 md:px-4 md:py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 duration-300 block text-sm md:text-base">
+                            <i data-lucide="home" class="w-4 h-4 md:w-5 md:h-5"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./video.html" class="flex items-center gap-2 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-3 py-2 md:px-4 md:py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 duration-300 block text-sm md:text-base">
+                            <i data-lucide="video" class="w-4 h-4 md:w-5 md:h-5"></i>
+                            <span>Video Lessons</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./tassignments.html" class="flex items-center gap-2 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-3 py-2 md:px-4 md:py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 duration-300 block text-sm md:text-base">
+                            <i data-lucide="pen" class="w-4 h-4 md:w-5 md:h-5"></i>
+                            <span>Assignments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./quran.html" class="flex items-center gap-2 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-3 py-2 md:px-4 md:py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 duration-300 block text-sm md:text-base">
+                            <i data-lucide="book" class="w-4 h-4 md:w-5 md:h-5"></i>
+                            <span>Read Qur'an</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./tchat.html" class="flex items-center gap-2 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-3 py-2 md:px-4 md:py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 duration-300 block text-sm md:text-base">
+                            <i data-lucide="message-circle" class="w-4 h-4 md:w-5 md:h-5"></i>
+                            <span>Chat</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../settings.html" class="flex items-center gap-2 bg-[#062f4f] hover:bg-[#f1f5f9] transition px-3 py-2 md:px-4 md:py-3 rounded-xl shadow-md text-grey-900 hover:text-yellow-900 duration-300 block text-sm md:text-base">
+                            <i data-lucide="settings" class="w-4 h-4 md:w-5 md:h-5"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
 
-      <!-- Main Content Area -->
-      <main
-        id="mainContent"
-        class="flex-grow md:ml-64 p-4 transition-all duration-300 overflow-x-auto"
-      >
-        <div class="bg-white rounded-xl p-6 shadow-md">
-          <h2 class="text-2xl font-bold text-gray-800 mb-4">
-            Upload Video Lesson
-          </h2>
+        <!-- Main Content Area -->
+        <main id="mainContent" class="flex-grow md:ml-64 p-4 transition-all duration-300 overflow-x-auto">
+            <div class="bg-white rounded-xl p-6 shadow-md">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    Upload Video Lesson
+                </h2>
 
-          <form class="space-y-4">
-            <div>
-              <label class="block font-semibold mb-1">Title</label>
-              <input
-                type="text"
-                class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter lesson title"
-              />
-            </div>
+                <form class="space-y-4">
+                    <div>
+                        <label class="block font-semibold mb-1">Title</label>
+                        <input type="text" class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter lesson title" />
+                    </div>
 
-            <div>
-              <label class="block font-semibold mb-1">Description</label>
-              <textarea
-                class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter a short description..."
-              ></textarea>
-            </div>
+                    <div>
+                        <label class="block font-semibold mb-1">Description</label>
+                        <textarea class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter a short description..."></textarea>
+                    </div>
 
-            <div>
-              <label class="block font-semibold mb-1">Upload Video</label>
-                <input
-                title="Video Uploading"
-                type="file"
-                accept="video/*"
-                class="w-full p-2 border rounded-md text-sm text-green-600 outline-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
-            </div>
+                    <div>
+                        <label class="block font-semibold mb-1">Upload Video</label>
+                        <input title="Video Uploading" type="file" accept="video/*" class="w-full p-2 border rounded-md text-sm text-green-600 outline-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                    </div>
 
-            <!-- Target Students -->
-            <div class="mb-4">
-              <label class="block text-gray-700 text-sm font-medium mb-1"
-                >Target Students</label
-              >
-              <div class="relative">
-                <input
-                  type="text"
-                  placeholder="Search students..."
-                  class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <div
-                  class="absolute left-0 right-0 mt-1 bg-white shadow-lg rounded-xl z-10"
-                >
-                  <!-- List to be fetched from student list at backend -->
-                  <!-- <div class="p-2 hover:bg-blue-100 rounded cursor-pointer">
+                    <!-- Target Students -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Target Students</label>
+                        <div class="relative">
+                            <input type="text" placeholder="Search students..." class="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                            <div class="absolute left-0 right-0 mt-1 bg-white shadow-lg rounded-xl z-10">
+                                <!-- List to be fetched from student list at backend -->
+                                <!-- <div class="p-2 hover:bg-blue-100 rounded cursor-pointer">
                     Muhammad Sulaimon
                   </div>
                   <div class="p-2 hover:bg-blue-100 rounded cursor-pointer">
@@ -323,165 +221,145 @@
                   <div class="p-2 hover:bg-blue-100 rounded cursor-pointer">
                     AbdulRahman Musa
                   </div> -->
-                </div>
-              </div>
-              <div class="mt-2 flex flex-wrap gap-2">
-                <!-- Selected tags (dynamic) -->
-                <span
-                  class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm flex items-center gap-2"
-                >
-                  Aisha Yusuf
-                  <button type="button" class="text-blue-700 hover:text-blue-900">x</button>
-                </span>
-              </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 flex flex-wrap gap-2">
+                            <!-- Selected tags (dynamic) -->
+                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm flex items-center gap-2">
+                Aisha Yusuf
+                <button type="button" class="text-blue-700 hover:text-blue-900">x</button>
+              </span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+            Upload Lesson
+          </button>
+                </form>
             </div>
 
-            <button
-              type="submit"
-              class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-            >
-              Upload Lesson
-            </button>
-          </form>
-        </div>
-
-        <div class="mt-8 bg-white rounded-xl p-6 shadow-md">
-          <h2 class="text-2xl font-bold text-gray-800 mb-4">Manage Lessons</h2>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
-              <thead>
-                <tr class="bg-gray-200 text-gray-700">
-                  <th class="p-3">Title</th>
-                  <th class="p-3">Description</th>
-                  <th class="p-3">Date Uploaded</th>
-                  <th class="p-3">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Sample Row -->
-                <tr class="border-b">
-                  <td class="p-3">Introduction to Tajweed</td>
-                  <td class="p-3 text-sm">Basic pronunciation rules</td>
-                  <td class="p-3 text-sm">May 9, 2025</td>
-                  <td class="p-3 flex gap-2">
-                    <button class="text-blue-600 hover:underline">Edit</button>
-                    <button class="text-red-600 hover:underline">Delete</button>
-                    <button class="text-green-600 hover:underline">Send</button>
-                  </td>
-                </tr>
-                <!-- More to be added dynamically -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </main>
+            <div class="mt-8 bg-white rounded-xl p-6 shadow-md">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Manage Lessons</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-200 text-gray-700">
+                                <th class="p-3">Title</th>
+                                <th class="p-3">Description</th>
+                                <th class="p-3">Date Uploaded</th>
+                                <th class="p-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Sample Row -->
+                            <tr class="border-b">
+                                <td class="p-3">Introduction to Tajweed</td>
+                                <td class="p-3 text-sm">Basic pronunciation rules</td>
+                                <td class="p-3 text-sm">May 9, 2025</td>
+                                <td class="p-3 flex gap-2">
+                                    <button class="text-blue-600 hover:underline">Edit</button>
+                                    <button class="text-red-600 hover:underline">Delete</button>
+                                    <button class="text-green-600 hover:underline">Send</button>
+                                </td>
+                            </tr>
+                            <!-- More to be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
     </div>
 
     <!-- Footer -->
-    <footer
-      class="bg-cover bg-center text-white py-3 text-center mt-auto bottom-0 relative z-10"
-      style="background-image: url('../assets/bggg.jpeg')"
-    >
-      <div
-        class="container mx-auto flex flex-col md:flex-row justify-between items-center text-xs px-2"
-      >
-        <p class="mb-1 md:mb-0">
-          &copy; 2025
-          <a href="./index.html" class="font-bold hover:underline">DeenWise</a>.
-          All rights reserved.
+    <footer class="bg-cover bg-center text-white py-3 text-center mt-auto bottom-0 relative z-10" style="background-image: url('../assets/bggg.jpeg')">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-xs px-2">
+            <p class="mb-1 md:mb-0">
+                &copy; 2025
+                <a href="./index.html" class="font-bold hover:underline">DeenWise</a>. All rights reserved.
+            </p>
+            <p class="flex items-center gap-1 text-xs">
+                Payment:
+                <img src="../assets/visa2.png" alt="Visa" class="w-5 h-3 md:w-8 md:h-5 inline" />
+                <img src="../assets/verve3.jpeg" alt="Verve" class="w-5 h-3 md:w-8 md:h-5 inline" />
+            </p>
+        </div>
+        <p class="mt-1 text-xs">
+            Powered By
+            <a href="https://wa.me/+2347063569494" class="font-bold hover:underline">ABC Solutions</a>
         </p>
-        <p class="flex items-center gap-1 text-xs">
-          Payment:
-          <img
-            src="../assets/visa2.png"
-            alt="Visa"
-            class="w-5 h-3 md:w-8 md:h-5 inline"
-          />
-          <img
-            src="../assets/verve3.jpeg"
-            alt="Verve"
-            class="w-5 h-3 md:w-8 md:h-5 inline"
-          />
-        </p>
-      </div>
-      <p class="mt-1 text-xs">
-        Powered By
-        <a href="https://wa.me/+2347063569494" class="font-bold hover:underline"
-          >ABC Solutions</a
-        >
-      </p>
     </footer>
 
     <script>
-      // Simplified Sidebar Toggle Script
-      document.addEventListener("DOMContentLoaded", () => {
-        const sidebar = document.getElementById("sidebar");
-        const mainContent = document.getElementById("mainContent");
-        const sidebarToggle = document.getElementById("sidebarToggle");
-        const closeSidebar = document.getElementById("closeSidebar");
-        const overlay = document.getElementById("overlay");
+        // Simplified Sidebar Toggle Script
+        document.addEventListener("DOMContentLoaded", () => {
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("mainContent");
+            const sidebarToggle = document.getElementById("sidebarToggle");
+            const closeSidebar = document.getElementById("closeSidebar");
+            const overlay = document.getElementById("overlay");
 
-        function toggleSidebar() {
-          const isSidebarCollapsed =
-            sidebar.classList.contains("-translate-x-full");
+            function toggleSidebar() {
+                const isSidebarCollapsed =
+                    sidebar.classList.contains("-translate-x-full");
 
-          // Toggle sidebar visibility
-          sidebar.classList.toggle("-translate-x-full");
+                // Toggle sidebar visibility
+                sidebar.classList.toggle("-translate-x-full");
 
-          // Mobile view handling
-          if (window.innerWidth < 768) {
-            overlay.classList.toggle("active");
-            document.body.classList.toggle("mobile-menu-active");
-          }
-          // Desktop view handling
-          else {
-            // Adjust main content margin based on sidebar state
-            if (isSidebarCollapsed) {
-              mainContent.classList.remove("md:ml-64");
-              mainContent.classList.add("md:ml-0");
-            } else {
-              mainContent.classList.add("md:ml-64");
-              mainContent.classList.remove("md:ml-0");
+                // Mobile view handling
+                if (window.innerWidth < 768) {
+                    overlay.classList.toggle("active");
+                    document.body.classList.toggle("mobile-menu-active");
+                }
+                // Desktop view handling
+                else {
+                    // Adjust main content margin based on sidebar state
+                    if (isSidebarCollapsed) {
+                        mainContent.classList.remove("md:ml-64");
+                        mainContent.classList.add("md:ml-0");
+                    } else {
+                        mainContent.classList.add("md:ml-64");
+                        mainContent.classList.remove("md:ml-0");
+                    }
+                }
             }
-          }
-        }
 
-        // Event listeners
-        sidebarToggle.addEventListener("click", toggleSidebar);
-        closeSidebar.addEventListener("click", () => {
-          sidebar.classList.add("-translate-x-full");
-          overlay.classList.remove("active");
-          document.body.classList.remove("mobile-menu-active");
+            // Event listeners
+            sidebarToggle.addEventListener("click", toggleSidebar);
+            closeSidebar.addEventListener("click", () => {
+                sidebar.classList.add("-translate-x-full");
+                overlay.classList.remove("active");
+                document.body.classList.remove("mobile-menu-active");
 
-          // Ensure desktop main content margin is correct
-          if (window.innerWidth >= 768) {
-            mainContent.classList.remove("md:ml-64");
-            mainContent.classList.add("md:ml-0");
-          }
+                // Ensure desktop main content margin is correct
+                if (window.innerWidth >= 768) {
+                    mainContent.classList.remove("md:ml-64");
+                    mainContent.classList.add("md:ml-0");
+                }
+            });
+
+            overlay.addEventListener("click", () => {
+                sidebar.classList.add("-translate-x-full");
+                overlay.classList.remove("active");
+                document.body.classList.remove("mobile-menu-active");
+            });
+
+            // Handle resize to ensure proper layout
+            window.addEventListener("resize", () => {
+                if (window.innerWidth >= 768) {
+                    // Desktop view
+                    sidebar.classList.remove("-translate-x-full");
+                    overlay.classList.remove("active");
+                    document.body.classList.remove("mobile-menu-active");
+                    mainContent.classList.add("md:ml-64");
+                } else {
+                    // Mobile view
+                    sidebar.classList.add("-translate-x-full");
+                    mainContent.classList.remove("md:ml-64");
+                }
+            });
         });
-
-        overlay.addEventListener("click", () => {
-          sidebar.classList.add("-translate-x-full");
-          overlay.classList.remove("active");
-          document.body.classList.remove("mobile-menu-active");
-        });
-
-        // Handle resize to ensure proper layout
-        window.addEventListener("resize", () => {
-          if (window.innerWidth >= 768) {
-            // Desktop view
-            sidebar.classList.remove("-translate-x-full");
-            overlay.classList.remove("active");
-            document.body.classList.remove("mobile-menu-active");
-            mainContent.classList.add("md:ml-64");
-          } else {
-            // Mobile view
-            sidebar.classList.add("-translate-x-full");
-            mainContent.classList.remove("md:ml-64");
-          }
-        });
-      });
-      lucide.createIcons();
+        lucide.createIcons();
     </script>
-  </body>
+</body>
+
 </html>
