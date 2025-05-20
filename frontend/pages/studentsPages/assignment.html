@@ -116,8 +116,9 @@
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-4 gap-2 sm:gap-0">
                             <span class="text-sm text-gray-500">Due: May 17, 2025</span>
                             <div class="flex gap-2 justify-center items-center">
-                                <button class="text-sm bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700">Submit</button>
-                                <button class="text-sm sm:text-base md:text-base lg:text-lg bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700">View Status</button>
+                                <button class="text-sm sm:text-base md:text-base lg:text-lg bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700">Submit</button>
+                                <button class="text-sm sm:text-base md:text-base lg:text-lg bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700">View
+                                    Status</button>
                             </div>
                         </div>
                     </div>
@@ -125,19 +126,23 @@
                     <!-- Assignment 2 -->
                     <div class="bg-gray-50 border-l-4 border-yellow-500 rounded-lg shadow p-5 hover:shadow-lg transition">
                         <h2 class="text-xl font-semibold text-gray-800">Tafsir Reflection</h2>
-                        <p class="text-gray-600 mt-2 text-sm">Write a brief reflection on the meanings of Surah Al-Ikhlas.</p>
+                        <p class="text-gray-600 mt-2 text-sm">Write a brief reflection on the meanings of Surah Al-Ikhlas.
+                        </p>
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-4 gap-2 sm:gap-0">
                             <span class="text-sm text-gray-500">Due: May 20, 2025</span>
-                            <button class="text-sm bg-yellow-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Submit</button>
+                            <div class="flex gap-2 justify-center items-center">
+                                <button class="text-sm sm:text-base md:text-base lg:text-lg bg-yellow-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Submit</button>
+                                <button class="text-sm sm:text-base md:text-base lg:text-lg bg-yellow-500 text-white px-4 py-1 rounded hover:bg-yellow-500">View
+                                    Status</button>
+                            </div>
                         </div>
-                    </div>
                 </section>
-            </div>
+                </div>
         </main>
-    </div>
+        </div>
 
-    <!-- Footer -->
-    <!-- <footer class="bg-gradient-to-r from-[#004d7a] to-[#008793] text-white text-center py-4 mt-auto z-40">
+        <!-- Footer -->
+        <!-- <footer class="bg-gradient-to-r from-[#004d7a] to-[#008793] text-white text-center py-4 mt-auto z-40">
         <div class="container mx-auto text-sm flex flex-col md:flex-row justify-between items-center px-4">
             <p>&copy; 2025 <a href="./index.html" class="font-bold hover:underline">DeenWise</a>. All rights reserved.</p>
             <p class="flex items-center gap-2 mt-2 md:mt-0">
@@ -149,28 +154,28 @@
         <p class="mt-2 text-sm">Powered by <a href="https://wa.me/+2347063569494" class="font-bold hover:underline">ABC Solutions</a></p>
     </footer> -->
 
-    <script>
-        document
-            .getElementById("sidebarToggle")
-            .addEventListener("click", function() {
-                const sidebar = document.getElementById("sidebar");
-                const mainContent = document.querySelector("main");
+        <script>
+            document
+                .getElementById("sidebarToggle")
+                .addEventListener("click", function() {
+                    const sidebar = document.getElementById("sidebar");
+                    const mainContent = document.querySelector("main");
 
-                // Toggle sidebar visibility
-                sidebar.classList.toggle("-translate-x-full");
+                    // Toggle sidebar visibility
+                    sidebar.classList.toggle("-translate-x-full");
 
-                // Adjust main content margin when sidebar toggles
-                if (sidebar.classList.contains("-translate-x-full")) {
-                    mainContent.classList.remove("md:ml-64");
-                    mainContent.classList.add("ml-0");
-                } else {
-                    mainContent.classList.add("md:ml-64");
-                    mainContent.classList.remove("ml-0");
-                }
-            });
+                    // Adjust main content margin when sidebar toggles
+                    if (sidebar.classList.contains("-translate-x-full")) {
+                        mainContent.classList.remove("md:ml-64");
+                        mainContent.classList.add("ml-0");
+                    } else {
+                        mainContent.classList.add("md:ml-64");
+                        mainContent.classList.remove("ml-0");
+                    }
+                });
 
-        lucide.createIcons(); // Load Lucide icons
-    </script>
+            lucide.createIcons(); // Load Lucide icons
+        </script>
 </body>
 
 </html>
