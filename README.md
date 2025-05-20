@@ -24,7 +24,7 @@ DeenWise is a web platform that empowers users to learn the Qur'an interactively
 ## 🧩 Tech Stack
 
 ### Frontend
-- HTML, CSS, JavaScript
+- HTML, TailwindCSS, VanillaJS
 - Designed and implemented with scalability in mind
 - Responsive and user-friendly UI
 
