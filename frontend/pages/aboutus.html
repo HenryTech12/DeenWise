@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+>
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Us | DeenWise</title>
-    <link rel="shortcut icon" href="./assets/origlogo.png" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/assets/origlogo.png}" type="image/x-icon">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -87,22 +89,22 @@
             <div class="container mx-auto px-4 py-3">
                 <div class="flex justify-between items-center">
                     <div class="flex items-center">
-                        <img src="./assets/nobgoriglogo.png" alt="Logo" class="w-10 h-10 md:w-12 md:h-12 mr-2 animate-float" />
-                        <a href="./index.html" class="text-xl md:text-2xl font-bold text-white hover:text-secondary-light transition-colors">DeenWise</a>
+                        <img th:src="@{/assets/nobgoriglogo.png}" alt="Logo" class="w-10 h-10 md:w-12 md:h-12 mr-2 animate-float" />
+                        <a th:href="@{/home}" class="text-xl md:text-2xl font-bold text-white hover:text-secondary-light transition-colors">DeenWise</a>
                     </div>
 
                     <!-- Desktop Menu -->
                     <div class="hidden md:flex items-center space-x-6">
-                        <a href="./aboutus.html" class="text-secondary-light font-semibold border-b-2 border-secondary-light pb-1">About Us</a>
-                        <a href="./courses.html" class="hover:text-secondary-light transition-colors">Our Courses</a>
-                        <a href="./pricing.html" class="hover:text-secondary-light transition-colors">Pricing</a>
+                        <a th:href="@{/aboutus}" class="text-secondary-light font-semibold border-b-2 border-secondary-light pb-1">About Us</a>
+                        <a th:href="@{/courses}" class="hover:text-secondary-light transition-colors">Our Courses</a>
+                        <a th:href="@{/pricing}" class="hover:text-secondary-light transition-colors">Pricing</a>
                         <div class="relative group">
                             <button class="flex items-center focus:outline-none p-1 rounded-full hover:bg-gray-700 transition-colors">
-                                <img src="./assets/contactlogo.png" alt="Account" class="w-8 h-8 rounded-full" />
+                                <img th:src="@{/assets/contactlogo.png}" alt="Account" class="w-8 h-8 rounded-full" />
                             </button>
                             <div class="absolute right-0 w-48 mt-2 py-2 bg-white rounded-md shadow-lg hidden group-hover:block z-50 overflow-hidden border-t-2 border-secondary">
-                                <a href="./login.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-dark transition-colors">Sign in</a>
-                                <a href="./signup.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-dark transition-colors">Sign up</a>
+                                <a th:href="@{/login}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-dark transition-colors">Sign in</a>
+                                <a th:href="@{/signup}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-dark transition-colors">Sign up</a>
                             </div>
                         </div>
                     </div>
@@ -120,11 +122,11 @@
                 <!-- Mobile Menu -->
                 <div id="mobile-menu" class="hidden md:hidden mt-4">
                     <ul class="flex flex-col space-y-3 items-center">
-                        <li><a href="./aboutus.html" class="block py-2 text-secondary-light font-semibold">About Us</a></li>
-                        <li><a href="./courses.html" class="block py-2 hover:text-secondary-light transition-colors">Our Courses</a></li>
-                        <li><a href="./pricing.html" class="block py-2 hover:text-secondary-light transition-colors">Pricing</a></li>
-                        <li><a href="./login.html" class="block py-2 hover:text-secondary-light transition-colors">Sign in</a></li>
-                        <li><a href="./signup.html" class="block py-2 hover:text-secondary-light transition-colors">Sign up</a></li>
+                        <li><a th:href="@{/aboutus}" class="block py-2 text-secondary-light font-semibold">About Us</a></li>
+                        <li><a th:href="@{/courses}" class="block py-2 hover:text-secondary-light transition-colors">Our Courses</a></li>
+                        <li><a th:href="@{/pricing}" class="block py-2 hover:text-secondary-light transition-colors">Pricing</a></li>
+                        <li><a th:href="@{/login}" class="block py-2 hover:text-secondary-light transition-colors">Sign in</a></li>
+                        <li><a th:href="@{/signup}" class="block py-2 hover:text-secondary-light transition-colors">Sign up</a></li>
                     </ul>
                 </div>
             </div>
@@ -133,7 +135,7 @@
         <!-- Main Content -->
         <div class="container mx-auto text-center my-8 md:my-12 px-4">
             <header class="mb-8">
-                <img src="./assets/origlogo.png" alt="DeenWise Logo" class="mx-auto w-24 h-24 md:w-32 md:h-32 mb-4 animate-float">
+                <img th:src="@{/assets/origlogo.png}" alt="DeenWise Logo" class="mx-auto w-24 h-24 md:w-32 md:h-32 mb-4 animate-float">
                 <h1 class="text-4xl md:text-5xl font-bold text-primary-dark">DeenWise</h1>
                 <p class="text-xl text-gray-600">Online Quran Academy</p>
             </header>
@@ -163,7 +165,7 @@
             </section>
 
             <section>
-                <a href="./signup.html" class="inline-block bg-primary text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-primary-dark transition-all duration-300 ease-in-out transform hover:scale-105 text-lg">
+                <a th:href="@{/signup}" class="inline-block bg-primary text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-primary-dark transition-all duration-300 ease-in-out transform hover:scale-105 text-lg">
                     Get Started
                 </a>
             </section>
@@ -176,13 +178,13 @@
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center text-sm mb-2">
                 <p class="mb-2 md:mb-0">
-                    © 2025 <a href="./index.html" class="font-bold hover:text-secondary-light transition-colors">DeenWise</a>. All rights reserved.
+                    © 2025 <a th:href="@{/home}" class="font-bold hover:text-secondary-light transition-colors">DeenWise</a>. All rights reserved.
                 </p>
                 <div class="flex items-center gap-2 mb-2 md:mb-0">
                     <span>Payment Platforms:</span>
-                    <img src="./assets/visa2.png" alt="Visa" class="h-5 inline" />
+                    <img th:src="@{/assets/visa2.png}" alt="Visa" class="h-5 inline" />
                     <span>Visa</span>
-                    <img src="./assets/verve3.jpeg" alt="Verve" class="h-5 inline" />
+                    <img th:src="@{/assets/verve3.jpeg}" alt="Verve" class="h-5 inline" />
                     <span>Verve</span>
                 </div>
             </div>

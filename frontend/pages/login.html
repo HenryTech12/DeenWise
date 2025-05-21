@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+>
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Log In | DeenWise</title>
-    <link rel="shortcut icon" href="./assets/origlogo.png" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/assets/origlogo.png}" type="image/x-icon" />
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -158,8 +160,8 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
             <div class="container d-flex flex-column align-items-center justify-content-center">
                 <div class="d-flex align-items-center justify-content-center">
-                    <img src="./assets/nobgoriglogo.png" alt="Logo" class="logome-2 me-2" style="max-width: 50px;" />
-                    <a class="navbar-brand" href="./index.html">DeenWise</a>
+                    <img th:src="@{/assets/nobgoriglogo.png}" alt="Logo" class="logome-2 me-2" style="max-width: 50px;" />
+                    <a class="navbar-brand" th:href="@{/home}">DeenWise</a>
                 </div>
             </div>
         </nav>
@@ -171,28 +173,18 @@
                     <div class="card shadow-sm">
                         <div class="card-body p-4 p-md-5">
                             <h2 id="greeting" class="text-center mb-4 text-2xl font-bold text-gray-700"></h2>
-                            <form id="loginform">
+                            <form id="loginform" th:object="${user}" th:action="@{/user/login}" method="post">
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" id="email" required />
+                                    <input type="email" class="form-control" id="email" th:field="*{email}" required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password" required />
+                                    <input type="password" class="form-control" th:field="*{password}" id="password" required />
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100 mb-2" onclick="authenticateUser(event)">
                   Sign In
                 </button>
-
-                                <!-- Temp direct Login  -->
-                                <div class="d-flex justify-content-between mt-2 gap-3">
-                                    <button type="button" class="btn btn-info w-50 mt-2 justify-content-center" id="studentLoginBtn" onclick="window.location.href='dashboards/student.html'">
-                    (Temp) Student Dashboard
-                  </button>
-                                    <button type="button" class="btn btn-info w-50 mt-2 justify-content-center" id="teacherLoginBtn" onclick="window.location.href='dashboards/teacher.html'">
-                    (Temp) Teacher Dashboard
-                  </button>
-                                </div>
 
                             </form>
                             <div class="text-center my-3">
@@ -202,9 +194,9 @@
                 <i class="fab fa-google me-2"></i>Continue with Google
               </button>
                             <div class="text-center mt-3">
-                                <a href="./fpassword.html" class="text-decoration-none hover:underline text-primary-dark me-3" id="fgp">Forgot Password?</a>
+                                <a th:href="@{/reset}" class="text-decoration-none hover:underline text-primary-dark me-3" id="fgp">Forgot Password?</a>
                                 <span class="text-muted">|</span>
-                                <a href="./signup.html" class="text-decoration-none hover:underline text-primary-dark ms-3" id="sgp">New? Sign up!</a>
+                                <a th:href="@{/signup}" class="text-decoration-none hover:underline text-primary-dark ms-3" id="sgp">New? Sign up!</a>
                             </div>
                         </div>
                     </div>
@@ -218,13 +210,13 @@
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center text-sm">
             <p class="mb-2 md:mb-0">
                 © 2025
-                <a href="./index.html" class="font-bold hover:underline text-secondary-light">DeenWise</a>. All rights reserved.
+                <a th:href="@{/home}" class="font-bold hover:underline text-secondary-light">DeenWise</a>. All rights reserved.
             </p>
             <div class="flex items-center gap-2 mb-2 md:mb-0">
                 <span>Payment Platforms:</span>
-                <img src="./assets/visa2.png" alt="Visa" class="h-5 inline" />
+                <img th:src="@{/assets/visa2.png}" alt="Visa" class="h-5 inline" />
                 <span>Visa</span>
-                <img src="./assets/verve3.jpeg" alt="Verve" class="h-5 inline" />
+                <img th:src="@{/assets/verve3.jpeg}" alt="Verve" class="h-5 inline" />
                 <span>Verve</span>
             </div>
             <p>
