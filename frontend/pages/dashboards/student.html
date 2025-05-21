@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+>
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard | DeenWise</title>
-    <link rel="shortcut icon" href="../assets/origlogo.png" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/assets/origlogo.png}" type="image/x-icon" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -125,16 +127,16 @@
                     <i class="fas fa-bars text-xl"></i>
                 </button>
                 <div class="flex items-center gap-2">
-                    <img src="../assets/nobgoriglogo.png" alt="DeenWise Logo" class="w-10 h-10 animate-float" />
-                    <a href="../index.html" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-secondary-light">DeenWise</a>
+                    <img th:src="@{/assets/nobgoriglogo.png}" alt="DeenWise Logo" class="w-10 h-10 animate-float" />
+                    <a th:href="@{/home}" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-secondary-light">DeenWise</a>
                 </div>
             </div>
 
             <div class="hidden md:flex items-center space-x-6">
                 <!-- Links specific to logged-in user dashboard -->
-                <a href="./student.html" class="text-secondary-light font-semibold transition-all">Dashboard</a>
-                <a href="../studentsPages/lessons.html" class="text-white/80 hover:text-white transition-all">Lessons</a>
-                <a href="../studentsPages/quran.html" class="text-white/80 hover:text-white transition-all">Qur'an</a>
+                <a th:href="@{/student/dashboard}" class="text-secondary-light font-semibold transition-all">Dashboard</a>
+                <a th:href="@{/student/lessons}" class="text-white/80 hover:text-white transition-all">Lessons</a>
+                <a th:href="@{/student/quran}" class="text-white/80 hover:text-white transition-all">Qur'an</a>
             </div>
 
             <div class="relative group">
@@ -148,19 +150,19 @@
                     </div>
                     <ul class="py-2">
                         <li>
-                            <a href="../profile.html" class="flex items-center px-4 py-2 hover:bg-gray-100">
+                            <a th:href="@{/student/profile}" class="flex items-center px-4 py-2 hover:bg-gray-100">
                                 <i class="fas fa-user-circle mr-3 text-primary"></i>
                                 <span>My Profile</span>
                             </a>
                         </li>
                         <li>
-                            <a href="../settings.html" class="flex items-center px-4 py-2 hover:bg-gray-100">
+                            <a th:href="@{/student/settings}" class="flex items-center px-4 py-2 hover:bg-gray-100">
                                 <i class="fas fa-cog mr-3 text-primary"></i>
                                 <span>Settings</span>
                             </a>
                         </li>
                         <li class="border-t">
-                            <a href="../index.html" class="flex items-center px-4 py-2 hover:bg-gray-100 text-red-500">
+                            <a th:href="@{/logout}" class="flex items-center px-4 py-2 hover:bg-gray-100 text-red-500">
                                 <i class="fas fa-sign-out-alt mr-3"></i>
                                 <span>Log Out</span>
                             </a>
@@ -185,29 +187,29 @@
                 </div>
                 <div class="space-y-1">
                     <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Main Navigation</p>
-                    <a href="./student.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/student/dashboard}" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
                         <i data-lucide="layout-dashboard" class="w-5 h-5"></i><span>Dashboard</span>
                     </a>
-                    <a href="../studentsPages/lessons.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/student/lessons}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
                         <i data-lucide="video" class="w-5 h-5"></i><span>View Lessons</span>
                     </a>
-                    <a href="../studentsPages/assignment.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/student/assignment}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
                         <i data-lucide="file-pen-line" class="w-5 h-5"></i><span>Assignments</span>
                     </a>
-                    <a href="../studentsPages/quran.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/student/quran}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
                         <i data-lucide="book-open-check" class="w-5 h-5"></i><span>Read Qur'an</span>
                     </a>
-                    <a href="../studentsPages/schat.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/student/chat}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
                         <i data-lucide="message-circle" class="w-5 h-5"></i><span>Chat</span>
                         <span class="ml-auto bg-secondary text-white text-xs px-2 py-1 rounded-full">3</span>
                     </a>
                 </div>
                 <div class="space-y-1">
                     <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Account</p>
-                    <a href="../settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/student/settings}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
                         <i data-lucide="settings-2" class="w-5 h-5"></i><span>Settings</span>
                     </a>
-                    <a href="../profile.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/student/profile}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
                         <i data-lucide="user-circle-2" class="w-5 h-5"></i><span>My Profile</span>
                     </a>
                     <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
@@ -223,7 +225,7 @@
         <main class="flex-grow bg-gray-50 transition-all duration-300 md:ml-0 pt-16 pb-12 px-4 md:px-8">
             <header class="mb-8">
                 <h1 class="text-3xl md:text-4xl font-bold text-primary-dark">
-                    Welcome, <span id="mainUserName" class="text-secondary-dark">User</span>!
+                    Welcome, <span id="mainUserName" class="text-secondary-dark" th:text="${name}"></span>!
                 </h1>
                 <p class="text-gray-600 mt-1">Here's a quick overview of your learning journey.</p>
             </header>
@@ -238,7 +240,7 @@
                     <p class="text-gray-600 text-sm mb-4 flex-grow">
                         Continue your Qur'an lessons and track your progress.
                     </p>
-                    <a href="../studentsPages/lessons.html" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
+                    <a th:href="@{/student/lessons}" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
                         <span>Go to Lessons</span>
                         <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
                     </a>
@@ -253,7 +255,7 @@
                     <p class="text-gray-600 text-sm mb-4 flex-grow">
                         Check pending tasks, submit your work, and view feedback.
                     </p>
-                    <a href="../studentsPages/assignment.html" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
+                    <a th:href="@{/student/assignment}" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
                         <span>View Assignments</span>
                         <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
                     </a>
@@ -268,7 +270,7 @@
                     <p class="text-gray-600 text-sm mb-4 flex-grow">
                         Access the digital Mushaf for recitation and reflection.
                     </p>
-                    <a href="../studentsPages/quran.html" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
+                    <a th:href="@{/student/quran}" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
                         <span>Start Reading</span>
                         <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
                     </a>
@@ -283,7 +285,7 @@
                     <p class="text-gray-600 text-sm mb-4 flex-grow">
                         Connect with your tutors and fellow learners for support.
                     </p>
-                    <a href="../studentsPages/schat.html" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
+                    <a th:href="@{/student/chat}" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
                         <span>Join Chat</span>
                         <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
                     </a>
@@ -297,14 +299,14 @@
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
                 <div class="text-center md:text-left">
-                    <a href="../index.html" class="font-bold text-xl hover:text-secondary-light transition duration-300">DeenWise</a>
+                    <a th:href="@{/home}" class="font-bold text-xl hover:text-secondary-light transition duration-300">DeenWise</a>
                     <p class="text-sm mt-2 opacity-80">© 2025 All rights reserved</p>
                 </div>
                 <div class="flex justify-center items-center">
                     <span class="mr-3 text-sm font-medium">Payment Options:</span>
                     <div class="flex space-x-3 items-center">
-                        <div class="bg-white rounded-md p-1 flex items-center"><img src="../assets/visa.png" alt="Visa" class="h-6" /></div>
-                        <div class="bg-white rounded-md p-1 flex items-center"><img src="../assets/verve3.jpeg" alt="Verve" class="h-6" /></div>
+                        <div class="bg-white rounded-md p-1 flex items-center"><img th:src="@{/assets/visa.png}" alt="Visa" class="h-6" /></div>
+                        <div class="bg-white rounded-md p-1 flex items-center"><img th:src="@{/assets/verve3.jpeg}" alt="Verve" class="h-6" /></div>
                     </div>
                 </div>
                 <div class="text-center md:text-right">

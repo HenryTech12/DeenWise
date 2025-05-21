@@ -1,0 +1,169 @@
+html,
+body {
+height: 100%;
+margin: 0;
+display: flex;
+flex-direction: column;
+background-image: url(./assets/pexels-hngstrm-1939485.jpg);
+background-position: absolute;
+background-repeat: none;
+background-size: cover;
+overflow-x: hidden;
+overflow-y: auto;
+}
+.content {
+  flex: 1; /* Pushes the footer down */
+  }
+#main-header {
+border: 0px 0px 0px 1px solid yellow;
+border-radius: 0px 0px 10px 10px;
+background-image: url(./assets/pexels-pixabay-460680.jpg);
+background-position: absolute;
+background-repeat: none;
+background-size: cover;
+}
+.lead{
+  color:darkblue;
+}
+#login:hover{
+  cursor: pointer;
+  background-color: blue;
+}
+.footer {
+text-align: center;
+margin-top: auto;
+}
+.avatar {
+width: 35px;
+height: 35px;
+border-radius: 50%;
+object-fit: cover;
+}
+.dropbtn {
+background: none;
+border: none;
+padding: 0;
+cursor: pointer;
+}
+.nav-item {
+position: relative;
+display: inline-block;
+/* background-color: #fff; */
+/* min-width: 120px; */
+/* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); */
+z-index: 1;
+}
+.dropdown-content {
+display: none;
+position: absolute;
+right: 0;
+background-color: whitesmoke;
+min-width: 120px;
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+z-index: 1;
+border: 1px solid #f1f1f1;
+border-radius: 8px;
+gap: 10px;
+}
+.dropdown:hover .dropdown-content {
+display: block;
+}
+.navbar-logo img,
+.logome-2 {
+max-width: 20%;
+/* height: px; */
+}
+.navbar-toggler {
+margin-left: -5rem;
+}
+.signin, .signup {
+color: black;
+padding: 10px;
+text-decoration: none;
+text-align: left;
+font-weight: bold;
+/* background: white; */
+border-radius: 8px;
+/* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); */
+/* transition: all 0.3s ease; */
+}
+.signin:hover {
+cursor: pointer;
+transform: scale(1.1);
+transition: transform 0.3s ease;
+/* size: 100px; */
+}
+.signin, .signup a {
+/* display: block; */
+padding: 10px;
+text-decoration: none;
+/* color: #333; */
+}
+.ms-3.hover, .me-3.hover {
+color: green;
+text-decoration: none;
+cursor: pointer;
+}
+@media (max-width: 768px) {
+.courses-list {
+flex-direction: column !important;
+}
+.courses-list > div {
+width: 100% !important;
+}
+}
+@media (min-width: 769px) {
+.courses-list {
+flex-direction: row !important;
+}
+.courses-list > div {
+width: 24% !important;
+}
+}
+.payplatlogos{
+  height: 30px; 
+  margin-left:10px; 
+  border-radius: 20px;
+}
+#vervelogo{
+  height: 20px; 
+  margin-left:10px; 
+  border-radius: 20px;
+  width: 20px;
+}
+.downdeenwise.hover{
+  cursor: pointer;
+}
+.addw{
+  text-decoration: none;
+  color: whitesmoke;
+}
+#loginform{
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* #fgp, #sgp{
+  text-decoration: none;
+  width: 46%;
+  margin: auto;
+}
+#sgp{
+  justify-content: flex-end;
+}
+#fgp:hover, #sgp:hover{
+  color: blue;
+  size:15%;
+} */
+/* #bottom{
+  display: flex;
+  flex-direction: row;
+  gap: 20%;
+  width: 100%;
+  justify-content: space-between;
+  padding: 1 10%;
+} */
+#footer1{
+  margin-top: 5%;
+}

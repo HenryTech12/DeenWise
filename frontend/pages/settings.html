@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+>
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Settings | DeenWise</title>
-    <link rel="shortcut icon" href="./assets/origlogo.png" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/assets/origlogo.png}" type="image/x-icon" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -147,20 +149,20 @@
                     <i class="fas fa-bars text-xl"></i>
                 </button>
                 <div class="flex items-center gap-2">
-                    <img src="./assets/nobgoriglogo.png" alt="DeenWise Logo" class="w-10 h-10 animate-float" />
+                    <img th:src="@{/assets/nobgoriglogo.png}" alt="DeenWise Logo" class="w-10 h-10 animate-float" />
 
-                    <a href="./index.html" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-secondary-light">DeenWise</a>
+                    <a th:href="@{/home}" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-secondary-light">DeenWise</a>
 
                 </div>
             </div>
 
             <!-- Navigation Links - Hidden on Mobile -->
             <div class="hidden md:flex items-center space-x-6">
-                <a href="./dashboards/teacher.html" class="text-white/80 hover:text-white transition-all">Dashboard</a>
+                <a th:href="@{/teacher/dashboard}" class="text-white/80 hover:text-white transition-all">Dashboard</a>
 
-                <a href="./teacher's/video.html" class="text-white/80 hover:text-white transition-all">Lessons</a>
+                <a th:href="@{/teacher/video}" class="text-white/80 hover:text-white transition-all">Lessons</a>
 
-                <a href="./teacher's/quran.html" class="text-white/80 hover:text-white transition-all">Qur'an</a>
+                <a th:href="@{/teacher/quran}" class="text-white/80 hover:text-white transition-all">Qur'an</a>
 
             </div>
 
@@ -176,21 +178,21 @@
                     </div>
                     <ul class="py-2">
                         <li>
-                            <a href="./profile.html" class="flex items-center px-4 py-2 hover:bg-gray-100">
+                            <a th:href="@{/teacher/profile}" class="flex items-center px-4 py-2 hover:bg-gray-100">
 
                                 <i class="fas fa-user-circle mr-3 text-primary"></i>
                                 <span>My Profile</span>
                             </a>
                         </li>
                         <li>
-                            <a href="./settings.html" class="flex items-center px-4 py-2 hover:bg-gray-100 bg-gray-200 text-primary-dark">
+                            <a th:href="@{/teacher/settings}" class="flex items-center px-4 py-2 hover:bg-gray-100 bg-gray-200 text-primary-dark">
 
                                 <i class="fas fa-cog mr-3 text-primary"></i>
                                 <span>Settings</span>
                             </a>
                         </li>
                         <li class="border-t">
-                            <a href="./index.html" class="flex items-center px-4 py-2 hover:bg-gray-100 text-red-500" onclick="logout()">
+                            <a th:href="@{/logout}" class="flex items-center px-4 py-2 hover:bg-gray-100 text-red-500" onclick="logout()">
 
                                 <i class="fas fa-sign-out-alt mr-3"></i>
                                 <span>Log Out</span>
@@ -222,26 +224,26 @@
                 <div class="space-y-1">
                     <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Main Navigation
                     </p>
-                    <a href="./dashboards/teacher.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/teacher/dashboard}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
                         <i class="fas fa-home w-5 text-center"></i>
                         <span>Dashboard</span>
                     </a>
-                    <a href="./teacher's/video.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/teacher/video}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
 
                         <i class="fas fa-video w-5 text-center"></i>
                         <span>Video Lessons</span>
                     </a>
-                    <a href="./teacher's/tassignments.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/teacher/test}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
 
                         <i class="fas fa-pen w-5 text-center"></i>
                         <span>Assignments</span>
                     </a>
-                    <a href="./teacher's/quran.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/teacher/quran}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
 
                         <i class="fas fa-book w-5 text-center"></i>
                         <span>Read Qur'an</span>
                     </a>
-                    <a href="./teacher's/tchat.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/teacher/chat}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
 
                         <i class="fas fa-comment-alt w-5 text-center"></i>
                         <span>Chat</span>
@@ -252,7 +254,7 @@
                 <!-- Settings & Support -->
                 <div class="space-y-1">
                     <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Support</p>
-                    <a href="./settings.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/teacher/settings}" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
                         <i class="fas fa-cog w-5 text-center"></i>
                         <span>Settings</span>
                     </a>
@@ -269,7 +271,7 @@
 
         <!-- Main Content -->
         <main class="flex-grow bg-gray-50 transition-all duration-300 md:ml-0 pt-16 flex justify-center items-center p-4 md:p-6">
-            <div class="bg-white shadow-xl rounded-2xl p-6 md:p-8 w-full max-w-md text-center">
+            <div class="bg-white shadow-xl rounded-2xl p-6 md:p-8 w-full max-w-md text-center" th:object="${teacher}">
 
                 <!-- Avatar -->
                 <div class="flex justify-center mb-6">
@@ -277,18 +279,18 @@
                 </div>
 
                 <!-- Name and Email -->
-                <h2 class="text-3xl font-semibold text-primary-dark mb-1">Teslim A.</h2>
-                <p class="text-gray-600 text-sm mb-6">teslim@email.com</p>
+                <h2 class="text-3xl font-semibold text-primary-dark mb-1" th:text="*{name}"></h2>
+                <p class="text-gray-600 text-sm mb-6" th:text="*{email}"></p>
 
                 <!-- Extra Info -->
                 <div class="text-left mb-6 space-y-3 text-gray-700 border-t border-b border-gray-200 py-4">
                     <div class="flex items-center">
                         <i class="fas fa-phone text-primary w-5 mr-3"></i>
-                        <p><span class="font-medium">Phone:</span> +234 810 000 0000</p>
+                        <p><span class="font-medium">Phone:</span><span th:text="*{number}"></span></p>
                     </div>
                     <div class="flex items-center">
                         <i class="fas fa-calendar-alt text-primary w-5 mr-3"></i>
-                        <p><span class="font-medium">Joined:</span> March 2025</p>
+                        <p><span class="font-medium">Joined:</span><span th:text="*{joined}"></span></p>
                     </div>
                     <div class="flex items-center">
                         <i class="fas fa-user-tag text-primary w-5 mr-3"></i>
@@ -319,7 +321,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
                 <!-- Company Info -->
                 <div class="text-center md:text-left">
-                    <a href="./index.html" class="font-bold text-xl hover:text-secondary-light transition duration-300">DeenWise</a>
+                    <a th:href="@{/home}" class="font-bold text-xl hover:text-secondary-light transition duration-300">DeenWise</a>
 
                     <p class="text-sm mt-2 opacity-80">© 2025 All rights reserved</p>
                 </div>
@@ -329,11 +331,11 @@
                     <span class="mr-3 text-sm font-medium">Payment Options:</span>
                     <div class="flex space-x-3 items-center">
                         <div class="bg-white rounded-md p-1 flex items-center">
-                            <img src="./assets/visa.png" alt="Visa" class="h-6" />
+                            <img th:src="@{/assets/visa.png}" alt="Visa" class="h-6" />
 
                         </div>
                         <div class="bg-white rounded-md p-1 flex items-center">
-                            <img src="./assets/verve3.jpeg" alt="Verve" class="h-6" />
+                            <img th:src="@{/assets/verve3.jpeg}" alt="Verve" class="h-6" />
 
                         </div>
                     </div>

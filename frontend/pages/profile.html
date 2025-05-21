@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+>
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Profile | DeenWise</title>
-    <link rel="shortcut icon" href="./assets/origlogo.png" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/assets/origlogo.png}" type="image/x-icon" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -121,15 +123,15 @@
                     <i class="fas fa-bars text-xl"></i>
                 </button>
                 <div class="flex items-center gap-2">
-                    <img src="./assets/nobgoriglogo.png" alt="DeenWise Logo" class="w-10 h-10 animate-float" />
-                    <a href="./index.html" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-secondary-light">DeenWise</a>
+                    <img th:src="@{/assets/nobgoriglogo.png}" alt="DeenWise Logo" class="w-10 h-10 animate-float" />
+                    <a th:href="@{/home}" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-secondary-light">DeenWise</a>
                 </div>
             </div>
 
             <div class="hidden md:flex items-center space-x-6">
-                <a href="./dashboards/teacher.html" class="text-white/80 hover:text-white transition-all">Dashboard</a>
-                <a href="./teacher's/video.html" class="text-white/80 hover:text-white transition-all">Lessons</a>
-                <a href="./teacher's/quran.html" class="text-white/80 hover:text-white transition-all">Qur'an</a>
+                <a th:href="@{/teacher/dashboard}" class="text-white/80 hover:text-white transition-all">Dashboard</a>
+                <a th:href="@{/teacher/video}" class="text-white/80 hover:text-white transition-all">Lessons</a>
+                <a th:href="@{/teacher/quran}" class="text-white/80 hover:text-white transition-all">Qur'an</a>
             </div>
 
             <div class="relative group">
@@ -143,20 +145,20 @@
                     </div>
                     <ul class="py-2">
                         <li>
-                            <a href="./profile.html" class="flex items-center px-4 py-2 hover:bg-gray-100 bg-gray-200 text-primary-dark">
+                            <a th:href="@{/profile}" class="flex items-center px-4 py-2 hover:bg-gray-100 bg-gray-200 text-primary-dark">
                                 <!-- Active Style -->
                                 <i class="fas fa-user-circle mr-3 text-primary"></i>
                                 <span>My Profile</span>
                             </a>
                         </li>
                         <li>
-                            <a href="./settings.html" class="flex items-center px-4 py-2 hover:bg-gray-100">
+                            <a th:href="@{/settings}" class="flex items-center px-4 py-2 hover:bg-gray-100">
                                 <i class="fas fa-cog mr-3 text-primary"></i>
                                 <span>Settings</span>
                             </a>
                         </li>
                         <li class="border-t">
-                            <a href="./index.html" class="flex items-center px-4 py-2 hover:bg-gray-100 text-red-500">
+                            <a th:href="@{/logout}" class="flex items-center px-4 py-2 hover:bg-gray-100 text-red-500">
                                 <i class="fas fa-sign-out-alt mr-3"></i>
                                 <span>Log Out</span>
                             </a>
@@ -181,26 +183,26 @@
                 </div>
                 <div class="space-y-1">
                     <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Main Navigation</p>
-                    <a href="./dashboards/teacher.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/teacher/dashboard}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
                         <i class="fas fa-home w-5 text-center"></i><span>Dashboard</span>
                     </a>
-                    <a href="./teacher's/video.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/teacher/video}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
                         <i class="fas fa-video w-5 text-center"></i><span>Video Lessons</span>
                     </a>
-                    <a href="./teacher's/tassignments.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/teacher/test}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
                         <i class="fas fa-pen w-5 text-center"></i><span>Assignments</span>
                     </a>
-                    <a href="./teacher's/quran.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/teacher/quran}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
                         <i class="fas fa-book w-5 text-center"></i><span>Read Qur'an</span>
                     </a>
-                    <a href="./teacher's/tchat.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/teacher/chat}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
                         <i class="fas fa-comment-alt w-5 text-center"></i><span>Chat</span>
                         <span class="ml-auto bg-secondary text-white text-xs px-2 py-1 rounded-full">3</span>
                     </a>
                 </div>
                 <div class="space-y-1">
                     <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Support</p>
-                    <a href="./settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                    <a th:href="@{/settings}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
                         <i class="fas fa-cog w-5 text-center"></i><span>Settings</span>
                     </a>
                     <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
@@ -229,17 +231,17 @@
                                 <i data-lucide="camera" class="w-4 h-4"></i>
                             </button>
                         </div>
-                        <h2 class="text-2xl font-semibold text-primary-dark">DeenWise User</h2>
-                        <p class="text-gray-500">student@deenwise.com</p>
+                        <h2 class="text-2xl font-semibold text-primary-dark" th:text="${student.name}">DeenWise User</h2>
+                        <p class="text-gray-500" th:text="${student.email}"></p>
                         <span class="mt-2 bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">Student</span>
                     </div>
                     <hr class="my-6">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-700 mb-3">Account Overview</h3>
                         <div class="space-y-2 text-sm text-gray-600">
-                            <p><strong class="font-medium text-gray-800">Joined:</strong> January 15, 2024</p>
+                            <p><strong class="font-medium text-gray-800">Joined:</strong><span th:text="${student.joined}"></span></p>
                             <p><strong class="font-medium text-gray-800">Last Login:</strong> Today, 10:30 AM</p>
-                            <p><strong class="font-medium text-gray-800">Subscription:</strong> Premium Plan</p>
+                            <p><strong class="font-medium text-gray-800">Subscription:</strong><span th:text="${student.plan}"></span></p>
                         </div>
                     </div>
                 </div>
@@ -249,23 +251,23 @@
                     <!-- Personal Information Form -->
                     <div class="bg-white p-6 rounded-xl shadow-lg">
                         <h3 class="text-xl font-semibold text-primary-dark mb-6 border-b pb-3">Personal Information</h3>
-                        <form id="personalInfoForm" class="space-y-4">
+                        <form id="personalInfoForm" class="space-y-4" th:action="@{/student/profile/update}" th:object="${student}" method="post">
                             <div>
                                 <label for="fullName" class="block text-sm font-medium text-gray-700">Full Name</label>
-                                <input type="text" name="fullName" id="fullName" value="DeenWise User" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                <input type="text" name="fullName" th:field="*{name}" id="fullName" value="DeenWise User" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
                             </div>
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                                <input type="email" name="email" id="email" value="student@deenwise.com" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm bg-gray-100" readonly>
+                                <input type="email" name="email" th:field="*{email}" id="email" value="student@deenwise.com" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm bg-gray-100" readonly>
                                 <p class="mt-1 text-xs text-gray-500">Email cannot be changed. Contact support for assistance.</p>
                             </div>
                             <div>
                                 <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                                <input type="tel" name="phone" id="phone" placeholder="+1234567890" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                <input type="tel" name="phone" th:field="*{number}" id="phone" placeholder="+1234567890" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
                             </div>
                             <div>
                                 <label for="bio" class="block text-sm font-medium text-gray-700">Short Bio</label>
-                                <textarea id="bio" name="bio" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" placeholder="Tell us a little about yourself..."></textarea>
+                                <textarea id="bio" name="bio" rows="3" th:field="*{desc}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" placeholder="Tell us a little about yourself..."></textarea>
                             </div>
                             <div class="text-right">
                                 <button type="submit" class="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light">
@@ -278,17 +280,17 @@
                     <!-- Change Password Form -->
                     <div class="bg-white p-6 rounded-xl shadow-lg">
                         <h3 class="text-xl font-semibold text-primary-dark mb-6 border-b pb-3">Change Password</h3>
-                        <form id="changePasswordForm" class="space-y-4">
+                        <form id="changePasswordForm" th:action="@{/student/password/update}" class="space-y-4" th:object="${user}" method="post">
                             <div class="relative">
                                 <label for="currentPassword" class="block text-sm font-medium text-gray-700">Current Password</label>
-                                <input type="password" name="currentPassword" id="currentPassword" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm pr-10">
+                                <input type="password" th:field="*{currentPassword}" name="currentPassword" id="currentPassword" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm pr-10">
                                 <button type="button" tabindex="-1" class="password-toggle-btn absolute inset-y-0 right-0 top-5 pr-3 flex items-center text-sm leading-5 text-gray-500 hover:text-primary-dark">
                                     <i data-lucide="eye" class="h-5 w-5"></i>
                                 </button>
                             </div>
                             <div class="relative">
                                 <label for="newPassword" class="block text-sm font-medium text-gray-700">New Password</label>
-                                <input type="password" name="newPassword" id="newPassword" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm pr-10">
+                                <input type="password" th:field="*{password}" name="newPassword" id="newPassword" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm pr-10">
                                 <button type="button" tabindex="-1" class="password-toggle-btn absolute inset-y-0 right-0 top-5 pr-3 flex items-center text-sm leading-5 text-gray-500 hover:text-primary-dark">
                                     <i data-lucide="eye" class="h-5 w-5"></i>
                                 </button>
@@ -297,7 +299,7 @@
 
                             <div class="relative">
                                 <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm New Password</label>
-                                <input type="password" name="confirmPassword" id="confirmPassword" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm pr-10">
+                                <input type="password" th:field="*{cpassword}" name="confirmPassword" id="confirmPassword" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm pr-10">
                                 <button type="button" tabindex="-1" class="password-toggle-btn absolute inset-y-0 right-0 top-5 pr-3 flex items-center text-sm leading-5 text-gray-500 hover:text-primary-dark">
                                    <i data-lucide="eye" class="h-5 w-5"></i>
                                 </button>
@@ -321,14 +323,14 @@
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
                 <div class="text-center md:text-left">
-                    <a href="./index.html" class="font-bold text-xl hover:text-secondary-light transition duration-300">DeenWise</a>
+                    <a th:href="@{/home}" class="font-bold text-xl hover:text-secondary-light transition duration-300">DeenWise</a>
                     <p class="text-sm mt-2 opacity-80">© 2025 All rights reserved</p>
                 </div>
                 <div class="flex justify-center items-center">
                     <span class="mr-3 text-sm font-medium">Payment Options:</span>
                     <div class="flex space-x-3 items-center">
-                        <div class="bg-white rounded-md p-1 flex items-center"><img src="./assets/visa.png" alt="Visa" class="h-6" /></div>
-                        <div class="bg-white rounded-md p-1 flex items-center"><img src="./assets/verve3.jpeg" alt="Verve" class="h-6" /></div>
+                        <div class="bg-white rounded-md p-1 flex items-center"><img th:src="@{/assets/visa.png}" alt="Visa" class="h-6" /></div>
+                        <div class="bg-white rounded-md p-1 flex items-center"><img th:src="@{/assets/verve3.jpeg}" alt="Verve" class="h-6" /></div>
                     </div>
                 </div>
                 <div class="text-center md:text-right">
