@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html lang="en"
-    xmlns:th="http://www.thymeleaf.org"
->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard | DeenWise</title>
+    <title>Student Dashboard | DeenWise</title>
     <link rel="shortcut icon" th:href="@{/assets/origlogo.png}" type="image/x-icon" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
@@ -97,6 +95,10 @@
             transform: translateY(-5px) scale(1.03);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
+        /* Estimate navbar height for calculations, py-4 + logo height, approx 4.5rem. Tailwind: h-18 */
+        :root {
+            --navbar-height: 4.5rem; /* Adjust if navbar content height changes significantly */
+        }
     </style>
 </head>
 
@@ -120,8 +122,8 @@
     </div>
 
     <!-- Navbar -->
-    <nav class="bg-gradient py-4 text-white sticky top-0 z-50 shadow-lg">
-        <div class="container mx-auto px-4 flex items-center justify-between">
+    <nav class="bg-gradient py-4 text-white sticky top-0 z-50 shadow-lg" style="height: var(--navbar-height);">
+        <div class="container mx-auto px-4 flex items-center justify-between h-full">
             <div class="flex items-center gap-3">
                 <button id="sidebarToggle" class="text-white p-2 hover:bg-white/10 rounded-lg transition-all">
                     <i class="fas fa-bars text-xl"></i>
@@ -133,7 +135,6 @@
             </div>
 
             <div class="hidden md:flex items-center space-x-6">
-                <!-- Links specific to logged-in user dashboard -->
                 <a th:href="@{/student/dashboard}" class="text-secondary-light font-semibold transition-all">Dashboard</a>
                 <a th:href="@{/student/lessons}" class="text-white/80 hover:text-white transition-all">Lessons</a>
                 <a th:href="@{/student/quran}" class="text-white/80 hover:text-white transition-all">Qur'an</a>
@@ -176,13 +177,15 @@
     <!-- Sidebar & Main -->
     <div class="flex flex-grow">
         <!-- Sidebar -->
-        <div id="sidebar" class="w-72 bg-gradient text-white fixed h-full z-40 transition-all duration-300 transform -translate-x-full overflow-y-auto scrollbar-hide shadow-2xl" style="padding-top: 1.5rem;">
+        <div id="sidebar" class="w-72 bg-gradient text-white fixed z-40 transition-transform duration-300 transform -translate-x-full md:translate-x-0 overflow-y-auto scrollbar-hide shadow-2xl" 
+             style="top: var(--navbar-height); height: calc(100vh - var(--navbar-height));">
             <div class="p-6 space-y-8">
                 <div class="flex flex-col items-center text-center p-4 bg-white/10 rounded-xl">
                     <div class="w-20 h-20 rounded-full bg-secondary flex items-center justify-center text-white text-xl font-bold mb-3">
-                        <i class="fas fa-user text-3xl"></i>
+                        <i class="fas fa-user text-3xl"></i> <!-- Student Icon -->
                     </div>
-                    <h3 class="font-semibold" id="sidebarUserName">DeenWise User</h3>
+                    <!-- Updated sidebarUserName structure for consistency -->
+                    <h3 class="font-semibold" id="sidebarUserName">Student <span th:text="${name}">User</span></h3>
                     <p class="text-xs text-white/70">Student Account</p>
                 </div>
                 <div class="space-y-1">
@@ -219,19 +222,19 @@
             </div>
         </div>
 
-        <div class="fixed inset-0 bg-black/50 z-30 hidden" id="sidebarOverlay"></div>
+        <div class="fixed inset-0 bg-black/50 z-30 hidden md:hidden" id="sidebarOverlay"></div>
 
         <!-- Main Content -->
-        <main class="flex-grow bg-gray-50 transition-all duration-300 md:ml-0 pt-16 pb-12 px-4 md:px-8">
-            <header class="mb-8">
+        <main id="mainContent" class="flex-grow bg-gray-50 transition-all duration-300 md:ml-72 pb-12 px-4 md:px-8"
+              style="padding-top: var(--navbar-height);">
+            <header class="my-8 flex flex-col text-center"> <!-- Changed mb-8 to my-8 -->
                 <h1 class="text-3xl md:text-4xl font-bold text-primary-dark">
-                    Welcome, <span id="mainUserName" class="text-secondary-dark" th:text="${name}"></span>!
+                    Welcome, <span id="mainUserName" class="text-secondary-dark" th:text="${name}">User</span>!
                 </h1>
                 <p class="text-gray-600 mt-1">Here's a quick overview of your learning journey.</p>
             </header>
 
             <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <!-- Card 1: Courses/Lessons -->
                 <div class="dashboard-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
                     <div class="p-3 bg-primary-light rounded-full mb-4">
                         <i data-lucide="book-open" class="w-8 h-8 text-primary-dark"></i>
@@ -245,8 +248,6 @@
                         <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
                     </a>
                 </div>
-
-                <!-- Card 2: Assignments -->
                 <div class="dashboard-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
                     <div class="p-3 bg-secondary-light rounded-full mb-4">
                         <i data-lucide="clipboard-check" class="w-8 h-8 text-secondary-dark"></i>
@@ -260,8 +261,6 @@
                         <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
                     </a>
                 </div>
-
-                <!-- Card 3: Read Qur'an -->
                 <div class="dashboard-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
                     <div class="p-3 bg-green-100 rounded-full mb-4">
                         <i data-lucide="book-text" class="w-8 h-8 text-green-600"></i>
@@ -275,8 +274,6 @@
                         <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
                     </a>
                 </div>
-
-                <!-- Card 4: Chat -->
                 <div class="dashboard-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
                     <div class="p-3 bg-blue-100 rounded-full mb-4">
                         <i data-lucide="message-circle-more" class="w-8 h-8 text-blue-600"></i>
@@ -294,23 +291,41 @@
         </main>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gradient text-white py-6 relative z-30 mt-auto">
+    <!-- Footer - Updated with Social Media Icons -->
+    <footer class="bg-gradient text-white py-6 relative z-30 mt-auto"> <!-- Kept original gradient, can be changed to from-indigo-600 to-blue-500 if preferred -->
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <!-- Company Info -->
                 <div class="text-center md:text-left">
                     <a th:href="@{/home}" class="font-bold text-xl hover:text-secondary-light transition duration-300">DeenWise</a>
                     <p class="text-sm mt-2 opacity-80">© 2025 All rights reserved</p>
                 </div>
+
+                <!-- Social Media Icons -->
                 <div class="flex justify-center items-center">
-                    <span class="mr-3 text-sm font-medium">Payment Options:</span>
+                    <span class="mr-3 text-sm font-medium">Follow Us:</span>
                     <div class="flex space-x-3 items-center">
-                        <div class="bg-white rounded-md p-1 flex items-center"><img th:src="@{/assets/visa.png}" alt="Visa" class="h-6" /></div>
-                        <div class="bg-white rounded-md p-1 flex items-center"><img th:src="@{/assets/verve3.jpeg}" alt="Verve" class="h-6" /></div>
+                        <a href="https://facebook.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://wa.me/+2347063569494" target="_blank" rel="noopener" class="hover:text-secondary-light transition">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                        </a>
                     </div>
                 </div>
+
+                <!-- Powered By -->
                 <div class="text-center md:text-right">
-                    <p class="text-sm">Powered By <a href="https://wa.me/+2347063569494" class="font-semibold hover:text-secondary-light transition duration-300">ACE TECH WORLD & HENRY TECH</a></p>
+                    <p class="text-sm">
+                        Powered By
+                        <a href="https://wa.me/+2347063569494" class="font-semibold hover:text-secondary-light transition duration-300">ACE TECH WORLD & HENRY TECH</a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -318,60 +333,120 @@
 
 </body>
 <script>
-    // Function to get user name from localStorage (or your auth system)
     function getUserName() {
-        // Replace this with your actual method of getting the logged-in user's name
-        // For example, from localStorage or a global user object after login
-        return localStorage.getItem('deenWiseUserName') || 'User';
+        // For Thymeleaf, the name should be passed from the model.
+        // localStorage can be a fallback or secondary source.
+        // For demonstration, we'll keep the localStorage logic.
+        // Ensure your Spring controller adds 'name' to the model for th:text to work.
+        return localStorage.getItem('deenWiseUserName') || ''; // Return empty if not found, th:text will then show its fallback
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        const userName = getUserName();
-        // Update user name in various places
-        const userNameElements = ['navUserName', 'dropdownUserName', 'sidebarUserName', 'mainUserName'];
-        userNameElements.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) {
-                if (id === 'navUserName' && userName.length > 10) { // Keep nav "My Account" if name is long
-                    el.textContent = "My Account"; // or a shorter version like userName.split(' ')[0]
-                } else if (id === 'mainUserName' || id === 'dropdownUserName' || id === 'sidebarUserName') {
-                    el.textContent = userName;
-                }
+        const userName = getUserName(); // Get from localStorage as a potential fallback
+        
+        // Update user name placeholders. Thymeleaf's th:text should ideally handle this.
+        // This JS part handles cases where th:text might not be populated or for elements without th:text.
+        const navUserNameEl = document.getElementById('navUserName');
+        if (navUserNameEl && userName && userName.length > 10) {
+            navUserNameEl.textContent = "My Account";
+        } else if (navUserNameEl && userName) {
+            // navUserNameEl.textContent = userName; // This would override "My Account"
+        }
+
+        const dropdownUserNameEl = document.getElementById('dropdownUserName');
+        if (dropdownUserNameEl && userName) {
+            // If th:text is not on this element but you want to set it
+            // dropdownUserNameEl.textContent = userName; // Or keep "User Account" as default
+        }
+        
+        // For elements with th:text="${name}", that will take precedence if 'name' is in the model.
+        // This JS provides a fallback if 'name' isn't in model AND localStorage has a value.
+        const sidebarUserSpan = document.querySelector('#sidebarUserName span');
+        if (sidebarUserSpan && !sidebarUserSpan.textContent.trim() && userName) { // if th:text was empty and localStorage has name
+            sidebarUserSpan.textContent = userName;
+        } else if (sidebarUserSpan && !sidebarUserSpan.textContent.trim()){ // if both empty, set to "User"
+             sidebarUserSpan.textContent = 'User';
+        }
+
+
+        const mainUserSpan = document.querySelector('#mainUserName span'); // Assuming mainUserName IS the span now
+        if (document.getElementById('mainUserName') && document.getElementById('mainUserName').tagName === 'SPAN'){
+            const mainUserNameDirect = document.getElementById('mainUserName');
+            if (!mainUserNameDirect.textContent.trim() && userName) {
+                mainUserNameDirect.textContent = userName;
+            } else if (!mainUserNameDirect.textContent.trim()) {
+                mainUserNameDirect.textContent = 'User';
             }
-        });
+        }
 
 
         const sidebarToggle = document.getElementById('sidebarToggle');
         const sidebar = document.getElementById('sidebar');
         const sidebarOverlay = document.getElementById('sidebarOverlay');
-        const mainContent = document.querySelector('main');
+        const mainContent = document.getElementById('mainContent');
 
-        function toggleSidebar() {
-            sidebar.classList.toggle('-translate-x-full');
-            sidebarOverlay.classList.toggle('hidden');
-            if (window.innerWidth >= 768) { // md breakpoint
-                mainContent.classList.toggle('md:ml-72', !sidebar.classList.contains('-translate-x-full'));
-            }
-        }
+        let isSidebarOpen = window.innerWidth >= 768;
 
-        if (sidebarToggle) sidebarToggle.addEventListener('click', toggleSidebar);
-        if (sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
+        function applySidebarState() {
+            if (!sidebar || !mainContent || !sidebarOverlay) return; // Defensive check
 
-        if (typeof lucide !== 'undefined') lucide.createIcons();
+            if (window.innerWidth < 768) { // Mobile view
+                mainContent.classList.remove('md:ml-72');
+                sidebar.classList.remove('md:translate-x-0');
 
-        function handleResize() {
-            if (window.innerWidth >= 768) {
-                if (!sidebar.classList.contains('-translate-x-full')) {
+                if (isSidebarOpen) {
+                    sidebar.classList.remove('-translate-x-full');
+                    sidebarOverlay.classList.remove('hidden');
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    sidebarOverlay.classList.add('hidden');
+                }
+            } else { // Desktop view
+                sidebarOverlay.classList.add('hidden'); 
+
+                if (isSidebarOpen) {
+                    sidebar.classList.add('md:translate-x-0');
+                    sidebar.classList.remove('-translate-x-full');
                     mainContent.classList.add('md:ml-72');
                 } else {
+                    sidebar.classList.remove('md:translate-x-0');
+                    sidebar.classList.add('-translate-x-full'); 
                     mainContent.classList.remove('md:ml-72');
                 }
-            } else {
-                mainContent.classList.remove('md:ml-72');
             }
         }
-        window.addEventListener('resize', handleResize);
-        handleResize(); // Initial call
+
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            applySidebarState();
+        }
+
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', toggleSidebar);
+        }
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', () => {
+                if (window.innerWidth < 768 && isSidebarOpen) {
+                    isSidebarOpen = false;
+                    applySidebarState();
+                }
+            });
+        }
+
+        window.addEventListener('resize', () => {
+            // On resize, determine if the intended state based on new screen size should change
+            // For example, if resizing from mobile (sidebar closed) to desktop, should it open?
+            // Current logic: maintain current open/closed state, but apply correct classes for new size.
+            // If you want sidebar to always open when resizing to desktop:
+            // if (window.innerWidth >= 768 && !isSidebarOpen) isSidebarOpen = true;
+            applySidebarState();
+        });
+
+        applySidebarState(); // Initial application
+
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
     });
 </script>
 
