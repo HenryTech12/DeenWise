@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"> <!-- Assuming Thymeleaf for path consistency -->
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat | DeenWise</title>
+    <!-- Corrected path assuming assets is at the root of the webapp context -->
+    <link rel="shortcut icon" th:href="@{/assets/origlogo.png}" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#00A5CF',
+                            DEFAULT: '#008793',
+                            dark: '#004d7a',
+                        },
+                        secondary: {
+                            light: '#FFE1A8',
+                            DEFAULT: '#FFC172',
+                            dark: '#E09F3E',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-subtle': 'pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'pulse-subtle': {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '.7' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .bg-gradient {
+            background: linear-gradient(120deg, #004d7a, #008793, #00A5CF);
+            background-size: 200% 200%;
+            animation: gradientBG 10s ease infinite;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+        
+        .sidebar-link {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            border-left: 4px solid #FFC172; /* secondary.DEFAULT */
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        
+        :root {
+            --navbar-height: 4.5rem; 
+        }
+        @media (max-width: 767px) { /* md breakpoint */
+            :root {
+                --navbar-height: 3.75rem; /* Navbar py-3 + icon height */
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans flex flex-col min-h-screen overflow-x-hidden">
+    <!-- Animated Top Bar -->
+    <div class="w-full bg-gradient-to-r from-primary-dark to-primary py-2 text-sm border-b relative overflow-hidden">
+        <div class="absolute inset-0 bg-white opacity-10">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23ffffff\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E');"></div>
+        </div>
+        <div class="container mx-auto flex justify-center items-center gap-6 text-white relative z-10 px-2">
+            <div class="flex items-center transition-all hover:text-secondary-light"><i class="fa-brands fa-whatsapp text-lg mr-2"></i><a href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...." class="hover:underline">Connect</a></div>
+            <div class="h-4 w-px bg-white/30"></div>
+            <div class="flex items-center transition-all hover:text-secondary-light"><i class="fa-solid fa-envelope text-lg mr-2"></i><a href="mailto:sadiqadetola08@gmail.com" class="hover:underline">Email</a></div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-gradient py-3 md:py-4 text-white sticky top-0 z-50 shadow-lg" style="height: var(--navbar-height);">
+        <div class="container mx-auto px-2 md:px-4 flex items-center justify-between h-full">
+            <div class="flex items-center gap-1 md:gap-3">
+                <button id="sidebarToggle" class="text-white p-2 hover:bg-white/10 rounded-lg transition-all"><i class="fas fa-bars text-xl"></i></button>
+                <div class="flex items-center gap-1 md:gap-2">
+                    <img th:src="@{/assets/nobgoriglogo.png}" alt="DeenWise Logo" class="w-8 h-8 md:w-10 md:h-10 animate-float" />
+                    <a th:href="@{/home}" class="text-lg md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-secondary-light">DeenWise</a>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center space-x-4 lg:space-x-6">
+                <!-- Adjust links based on student context -->
+                <a th:href="@{/student/dashboard}" class="text-white/80 hover:text-white transition-all">Dashboard</a>
+                <a th:href="@{/student/lessons}" class="text-white/80 hover:text-white transition-all">My Lessons</a>
+                <a th:href="@{/student/quran}" class="text-white/80 hover:text-white transition-all">Read Qur'an</a>
+                <!-- Chat link will be handled by sidebar state, not active here -->
+            </div>
+            <div class="relative group">
+                <button class="flex items-center gap-2 bg-white/10 hover:bg-white/20 rounded-full px-3 py-1.5 md:px-4 md:py-2 transition-all">
+                    <span class="hidden sm:inline text-xs md:text-sm" id="navUserName">My Account</span>
+                    <i class="fas fa-user-circle text-base md:text-lg"></i>
+                </button>
+                <div class="absolute right-0 hidden group-hover:block bg-white text-gray-800 shadow-xl mt-2 rounded-lg overflow-hidden z-50 w-48 border-t-4 border-secondary">
+                    <div class="p-3 bg-gray-100 border-b">
+                        <p class="font-medium text-primary-dark text-sm" id="dropdownUserName">User Account</p>
+                    </div>
+                    <ul class="py-1">
+                        <li><a th:href="@{/student/profile}" class="flex items-center px-4 py-2 text-sm hover:bg-gray-100"><i class="fas fa-user-circle mr-3 text-primary"></i>My Profile</a></li>
+                        <li><a th:href="@{/student/settings}" class="flex items-center px-4 py-2 text-sm hover:bg-gray-100"><i class="fas fa-cog mr-3 text-primary"></i>Settings</a></li>
+                        <li class="border-t mt-1 pt-1"><a th:href="@{/logout}" class="flex items-center px-4 py-2 text-sm hover:bg-gray-100 text-red-500"><i class="fas fa-sign-out-alt mr-3"></i>Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar & Main -->
+    <div class="flex flex-grow">
+        <!-- Sidebar -->
+        <div id="sidebar" class="w-72 bg-gradient text-white fixed z-40 transition-transform duration-300 transform -translate-x-full md:translate-x-0 overflow-y-auto scrollbar-hide shadow-2xl" 
+             style="top: var(--navbar-height); height: calc(100vh - var(--navbar-height));">
+            <div class="p-4 md:p-6 space-y-6 md:space-y-8">
+                <div class="flex flex-col items-center text-center p-3 md:p-4 bg-white/10 rounded-xl">
+                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-secondary flex items-center justify-center text-white text-2xl md:text-3xl font-bold mb-2 md:mb-3"><i class="fas fa-user-graduate"></i></div>
+                    <h3 class="font-semibold text-sm md:text-base" id="sidebarUserName">Student <span th:text="${name}">User</span></h3>
+                    <p class="text-xs text-white/70">Student Account</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">My Learning</p>
+                    <a th:href="@{/student/dashboard}" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="layout-dashboard" class="w-4 h-4 md:w-5 md:h-5"></i><span>Dashboard</span></a>
+                    <a th:href="@{/student/lessons}" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="book-open" class="w-4 h-4 md:w-5 md:h-5"></i><span>My Lessons</span></a>
+                    <a th:href="@{/student/assignment}" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="file-text" class="w-4 h-4 md:w-5 md:h-5"></i><span>Assignments</span></a>
+                    <a th:href="@{/student/quran}" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="book-open-check" class="w-4 h-4 md:w-5 md:h-5"></i><span>Read Qur'an</span></a>
+                    <a th:href="@{/student/chat}" class="sidebar-link active flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="message-circle" class="w-4 h-4 md:w-5 md:h-5"></i><span>Chat</span><span class="ml-auto bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full animate-pulse-subtle">Soon</span></a> <!-- Active -->
+                </div>
+                <div class="space-y-1">
+                    <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Account</p>
+                    <a th:href="@{/student/settings}" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="settings-2" class="w-4 h-4 md:w-5 md:h-5"></i><span>Settings</span></a>
+                    <a th:href="@{/student/profile}" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="user-circle-2" class="w-4 h-4 md:w-5 md:h-5"></i><span>My Profile</span></a>
+                    <a href="#" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="help-circle" class="w-4 h-4 md:w-5 md:h-5"></i><span>Help Center</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-30 hidden md:hidden"></div>
+
+        <!-- Main Content - Coming Soon -->
+        <main id="mainContent" class="flex-grow bg-gray-50 transition-all duration-300 md:ml-72 flex flex-col items-center justify-center p-4 md:p-8"
+              style="padding-top: var(--navbar-height);">
+            <div class="text-center max-w-2xl">
+                <div class="relative inline-block mb-8">
+                    <i data-lucide="message-square-dashed" class="text-primary w-24 h-24 md:w-32 md:h-32 opacity-20 absolute -top-4 -left-4 transform rotate-[-15deg]"></i>
+                    <i data-lucide="messages-square" class="text-primary w-20 h-20 md:w-28 md:h-28 relative z-10 animate-float"></i>
+                    <i data-lucide="message-circle-plus" class="text-secondary w-16 h-16 md:w-20 md:h-20 opacity-30 absolute -bottom-3 -right-3 transform rotate-[10deg]"></i>
+                </div>
+                
+                <h1 class="text-3xl md:text-5xl font-bold text-primary-dark mb-4">
+                    Chat Feature Coming Soon!
+                </h1>
+                <p class="text-gray-600 text-lg md:text-xl mb-8">
+                    We're working hard to bring you an interactive chat experience. Soon you'll be able to connect with tutors and fellow students right here. Stay tuned!
+                </p>
+                <div class="bg-primary-light/10 p-6 rounded-lg shadow-lg border-l-4 border-primary">
+                    <h3 class="text-xl font-semibold text-primary-dark mb-2">What to Expect:</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 text-left mx-auto max-w-md">
+                        <li>Direct messaging with your tutors.</li>
+                        <li>Group chats for your courses.</li>
+                        <li>Real-time notifications.</li>
+                        <li>File sharing capabilities.</li>
+                    </ul>
+                </div>
+                <p class="mt-10 text-sm text-gray-500">
+                    In the meantime, feel free to explore other features of DeenWise.
+                </p>
+                <a th:href="@{/student/dashboard}" class="mt-6 inline-block bg-secondary hover:bg-secondary-dark text-primary-dark font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                    Back to Dashboard
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient text-white py-6 relative z-30 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <div class="text-center md:text-left">
+                    <a th:href="@{/home}" class="font-bold text-xl hover:text-secondary-light transition duration-300">DeenWise</a>
+                    <p class="text-sm mt-2 opacity-80">© 2025 All rights reserved</p>
+                </div>
+                <div class="flex justify-center items-center">
+                    <span class="mr-3 text-sm font-medium">Follow Us:</span>
+                    <div class="flex space-x-3 items-center">
+                        <a href="https://facebook.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="https://wa.me/+2347063569494" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-whatsapp text-xl"></i></a>
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-sm">Powered By <a href="https://wa.me/+2347063569494" class="font-semibold hover:text-secondary-light transition duration-300">ACE TECH WORLD & HENRY TECH</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+<script>
+    function getUserName() {
+        return localStorage.getItem('deenWiseUserName') || ''; 
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const userName = getUserName();
+        
+        const navUserNameEl = document.getElementById('navUserName');
+        if (navUserNameEl && userName && userName.length > 10) {
+            navUserNameEl.textContent = "My Account";
+        } else if (navUserNameEl && userName) {
+            // navUserNameEl.textContent = userName; 
+        }
+
+        const dropdownUserNameEl = document.getElementById('dropdownUserName');
+        if (dropdownUserNameEl && userName && !dropdownUserNameEl.textContent.includes(userName)) {
+            // dropdownUserNameEl.textContent = userName; 
+        }
+        
+        const sidebarUserSpan = document.querySelector('#sidebarUserName span');
+        if (sidebarUserSpan && !sidebarUserSpan.textContent.trim() && userName) {
+            sidebarUserSpan.textContent = userName;
+        } else if (sidebarUserSpan && !sidebarUserSpan.textContent.trim()){
+             sidebarUserSpan.textContent = 'User';
+        }
+        
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const mainContent = document.getElementById('mainContent');
+
+        let isSidebarOpen = window.innerWidth >= 768; 
+
+        function applySidebarState() {
+            if (!sidebar || !mainContent || !sidebarOverlay) return; 
+
+            if (window.innerWidth < 768) { 
+                mainContent.classList.remove('md:ml-72');
+                sidebar.classList.remove('md:translate-x-0'); 
+
+                if (isSidebarOpen) {
+                    sidebar.classList.remove('-translate-x-full');
+                    sidebarOverlay.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden'; 
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    sidebarOverlay.classList.add('hidden');
+                    document.body.style.overflow = ''; 
+                }
+            } else { 
+                sidebarOverlay.classList.add('hidden'); 
+                document.body.style.overflow = ''; 
+
+                if (isSidebarOpen) {
+                    sidebar.classList.add('md:translate-x-0'); 
+                    sidebar.classList.remove('-translate-x-full'); 
+                    mainContent.classList.add('md:ml-72');
+                } else {
+                    sidebar.classList.remove('md:translate-x-0');
+                    sidebar.classList.add('-translate-x-full'); 
+                    mainContent.classList.remove('md:ml-72');
+                }
+            }
+        }
+
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            applySidebarState();
+        }
+
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', toggleSidebar);
+        }
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', () => {
+                if (window.innerWidth < 768 && isSidebarOpen) { 
+                    isSidebarOpen = false;
+                    applySidebarState();
+                }
+            });
+        }
+
+        window.addEventListener('resize', () => {
+            applySidebarState();
+        });
+        
+        applySidebarState(); 
+
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    });
+</script>
+
+</html>

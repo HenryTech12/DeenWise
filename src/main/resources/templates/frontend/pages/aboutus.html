@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us | DeenWise</title>
+    <link rel="shortcut icon" th:href="@{/assets/origlogo.png}" type="image/x-icon">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#00A5CF',
+                            DEFAULT: '#008793',
+                            dark: '#004d7a',
+                        },
+                        secondary: {
+                            light: '#FFE1A8',
+                            DEFAULT: '#FFC172',
+                            dark: '#E09F3E',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .group:hover .group-hover\:block {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen bg-gray-50 text-gray-800">
+    
+    <!-- Top Contact Bar -->
+    <div class="w-full py-2 bg-cover bg-no-repeat bg-center" style="background-image: url('../assets/white-marble-with-gray-texture-background.jpg');"> <!-- Adjusted path for assets -->
+        <div class="container mx-auto flex justify-center items-center text-sm px-4">
+            <span class="mx-2 md:mx-3">
+                <i class="fab fa-whatsapp text-green-600"></i>
+                <a href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...." class="no-underline text-gray-700 hover:text-primary-dark ml-1">Contact Us</a>
+            </span>
+            <span class="mx-2">|</span>
+            <span class="mx-2 md:mx-3">
+                <i class="fas fa-envelope text-red-600"></i>
+                <a href="mailto:sadiqadetola08@gmail.com" class="no-underline text-gray-700 hover:text-primary-dark ml-1">Email Address</a>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="bg-gray-900 text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <img th:src="@{/assets/nobgoriglogo.png}" alt="Logo" class="w-10 h-10 md:w-12 md:h-12 mr-2 animate-float" />
+                    <a th:href="@{/home}" class="text-xl md:text-2xl font-bold text-white hover:text-secondary-light transition-colors">DeenWise</a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a th:href="@{/aboutus}" class="text-secondary-light font-semibold border-b-2 border-secondary-light pb-1">About Us</a> <!-- Active -->
+                    <a th:href="@{/courses}" class="hover:text-secondary-light transition-colors">Our Courses</a>
+                    <a th:href="@{/pricing}" class="hover:text-secondary-light transition-colors">Pricing</a>
+                    <div class="relative group">
+                        <button class="flex items-center focus:outline-none p-1 rounded-full hover:bg-gray-700 transition-colors">
+                            <img th:src="@{/assets/contactlogo.png}" alt="Account" class="w-8 h-8 rounded-full" />
+                        </button>
+                        <div class="absolute right-0 w-48 mt-2 py-2 bg-white rounded-md shadow-lg hidden group-hover:block z-50 overflow-hidden border-t-2 border-secondary">
+                            <a th:href="@{/login}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-dark transition-colors">Sign in</a>
+                            <a th:href="@{/signup}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-dark transition-colors">Sign up</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none hover:text-secondary-light">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4">
+                <ul class="flex flex-col space-y-3 items-center">
+                    <li><a th:href="@{/aboutus}" class="block py-2 text-secondary-light font-semibold">About Us</a></li> <!-- Active -->
+                    <li><a th:href="@{/courses}" class="block py-2 hover:text-secondary-light transition-colors">Our Courses</a></li>
+                    <li><a th:href="@{/pricing}" class="block py-2 hover:text-secondary-light transition-colors">Pricing</a></li>
+                    <li><a th:href="@{/login}" class="block py-2 hover:text-secondary-light transition-colors">Sign in</a></li>
+                    <li><a th:href="@{/signup}" class="block py-2 hover:text-secondary-light transition-colors">Sign up</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content - Wrapped in flex-grow to push footer down -->
+    <div class="flex-grow">
+        <div class="container mx-auto text-center my-8 md:my-12 px-4">
+            <header class="mb-8">
+                <img th:src="@{/assets/origlogo.png}" alt="DeenWise Logo" class="mx-auto w-24 h-24 md:w-32 md:h-32 mb-4 animate-float">
+                <h1 class="text-4xl md:text-5xl font-bold text-primary-dark">DeenWise</h1>
+                <p class="text-xl text-gray-600">Online Quran Academy</p>
+            </header>
+
+            <hr class="border-t-2 border-gray-200 w-1/4 mx-auto my-8">
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-2">Special Classes for Kids & Adults</h2>
+                <p class="text-lg text-gray-500">(Male & Female)</p>
+            </section>
+
+            <hr class="border-t-2 border-gray-200 w-1/4 mx-auto my-8">
+
+            <section class="space-y-3 text-lg text-gray-700 mb-8">
+                <p>Qualified Male & Female Teachers</p>
+                <p>24/7 Flexible Scheduling</p>
+            </section>
+
+            <hr class="border-t-2 border-gray-200 w-1/4 mx-auto my-8">
+
+            <section class="mb-10">
+                <p class="text-xl text-primary-dark font-medium">
+                    <i class="fas fa-phone-alt mr-2"></i>
+                    <a href="tel:+2348100000000" class="hover:underline">+234 XXX XXX XXX</a>
+                    <!-- Example Number -->
+                </p>
+            </section>
+
+            <section>
+                <a th:href="@{/signup}" class="inline-block bg-primary text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-primary-dark transition-all duration-300 ease-in-out transform hover:scale-105 text-lg">
+                    Get Started
+                </a>
+            </section>
+        </div>
+    </div> <!-- end flex-grow for main content -->
+
+    <!-- Footer -->
+    <footer class="text-white text-center py-6 bg-cover bg-no-repeat bg-center mt-auto" style="background-image: url('../assets/bggg.jpeg');"> <!-- Adjusted path for assets -->
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm mb-4 md:mb-2"> <!-- Adjusted margin for better spacing -->
+                <p class="mb-2 md:mb-0">
+                    © 2025 <a th:href="@{/home}" class="font-bold hover:text-secondary-light transition-colors">DeenWise</a>. All rights reserved.
+                </p>
+                <!-- Updated Footer Section -->
+                <div class="flex justify-center items-center">
+                    <span class="mr-3 text-sm font-medium">Follow Us:</span>
+                    <div class="flex space-x-3 items-center">
+                        <a href="https://facebook.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="https://wa.me/+2347063569494" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-whatsapp text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+            <p class="text-sm">
+                Powered By <a href="https://wa.me/+2347063569494" class="font-bold hover:text-secondary-light transition-colors">ACE TECH & HENRY TECH</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mobileMenuButton = document.getElementById("mobile-menu-button");
+            const mobileMenu = document.getElementById("mobile-menu");
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener("click", function() {
+                    mobileMenu.classList.toggle("hidden");
+                });
+            }
+
+            if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+
+</html>

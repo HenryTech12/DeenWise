@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up | DeenWise</title>
+    <link rel="shortcut icon" th:href="@{/assets/origlogo.png}" type="image/x-icon" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#00A5CF',
+                            DEFAULT: '#008793',
+                            dark: '#004d7a',
+                        },
+                        secondary: {
+                            light: '#FFE1A8',
+                            DEFAULT: '#FFC172',
+                            dark: '#E09F3E',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <div class="flex-grow">
+        <!-- First Navbar (Top Contact Bar) -->
+        <div class="w-full text-center py-2 bg-cover" style="
+          background-image: url('./assets/white-marble-with-gray-texture-background.jpg');
+        ">
+            <a href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...." class="text-gray-800 no-underline hover:text-primary-dark mr-3">
+                <i class="fab fa-whatsapp mr-1"></i>Contact Number
+            </a>
+            |
+            <a href="mailto:sadiqadetola08@gmail.com" class="text-gray-800 no-underline hover:text-primary-dark ml-3">
+                <i class="fas fa-envelope mr-1"></i>Email Address
+            </a>
+        </div>
+
+        <!-- Second Navbar (Main Navigation) -->
+        <nav class="bg-gray-900 text-white shadow-md">
+            <div class="container mx-auto px-4 py-3">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <img th:src="@{/assets/nobgoriglogo.png}" alt="Logo" class="w-10 h-10 md:w-12 md:h-12 mr-2 animate-float" />
+                        <a th:href="@{/home}" class="text-xl md:text-2xl font-bold text-white hover:text-secondary-light transition-colors">DeenWise</a>
+                    </div>
+
+                    <div class="hidden md:flex items-center space-x-6">
+                        <a th:href="@{/aboutus}" class="hover:text-secondary-light transition-colors">About Us</a>
+                        <a th:href="@{/courses}" class="hover:text-secondary-light transition-colors">Our Courses</a>
+                        <a th:href="@{/pricing}" class="hover:text-secondary-light transition-colors">Pricing</a>
+                        <div class="relative group">
+                            <button class="flex items-center focus:outline-none p-1 rounded-full hover:bg-gray-700 transition-colors">
+                                <img th:src="@{/assets/contactlogo.png}" alt="Account" class="w-8 h-8 rounded-full" />
+                            </button>
+                            <div class="absolute right-0 w-48 mt-2 bg-white rounded-md shadow-lg hidden group-hover:block z-50 overflow-hidden border-t-2 border-secondary">
+                                <a th:href="@{/login}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-dark transition-colors">Sign in</a>
+                                <a th:href="@{/signup}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-dark transition-colors">Sign up</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button" class="text-white focus:outline-none hover:text-secondary-light">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile menu -->
+                <div id="mobile-menu" class="hidden md:hidden mt-4">
+                    <ul class="flex flex-col space-y-3 items-center">
+                        <li><a th:href="@{/aboutus}" class="block py-2 hover:text-secondary-light transition-colors">About Us</a></li>
+                        <li><a th:href="@{/courses}" class="block py-2 hover:text-secondary-light transition-colors">Our Courses</a></li>
+                        <li><a th:href="@{/pricing}" class="block py-2 hover:text-secondary-light transition-colors">Pricing</a></li>
+                        <li><a th:href="@{/login}" class="block py-2 hover:text-secondary-light transition-colors">Sign in</a></li>
+                        <li><a th:href="@{/signup}" class="block py-2 hover:text-secondary-light transition-colors">Sign up</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Sign Up Form -->
+        <div class="container mx-auto px-4 py-8 md:py-12">
+            <div class="max-w-md mx-auto bg-white rounded-lg shadow-xl overflow-hidden p-6 md:p-8">
+                <button type="button" class="bg-primary text-white py-2 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2 flex items-center gap-2 group mb-6 transition-all duration-300 ease-in-out transform hover:scale-105"
+                    th:formaction="@{/login}" id="backButton">
+                    <i data-lucide="arrow-left" class="w-5 h-5 text-white group-hover:animate-pulse"></i>
+                    <span>Back to Home</span>
+                </button>
+                <h2 id="greeting" class="text-2xl font-bold text-center text-primary-dark mb-6 mt-3"></h2>
+                <form id="signup-form" th:object="${user}" th:action="@{/register/add}" method="post">
+                    <div class="mb-4">
+                        <label for="name" class="block text-gray-700 font-medium mb-2">Name</label>
+                        <input type="text" id="name" th:field="*{name}" name="name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required />
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700 font-medium mb-2">Email address</label>
+                        <input type="email" id="email" th:field="*{email}" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required />
+                    </div>
+                    <div class="mb-1 relative">
+                        <label for="password1" class="block text-gray-700 font-medium mb-2">Password</label>
+                        <input title="Password" th:field="*{password}" type="password" id="password1" name="password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary pr-10" required />
+                        <button type="button" id="togglePassword1" tabindex="-1" class="absolute right-3 top-1/2 mt-3 transform -translate-y-1/2 text-gray-500 hover:text-primary-dark focus:outline-none">
+                            <i data-lucide="eye" id="eyeIcon1" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="mb-4">
+                        <p class="text-xs text-gray-500 italic">
+                            Passwords must be at least 8 characters and contain a letter, number, & symbol.
+                        </p>
+                    </div>
+                    <div class="mb-6 relative">
+                        <label for="password2" class="block text-gray-700 font-medium mb-2">Confirm Password</label>
+                        <input title="Confirm Password" th:field="*{cpassword}" type="password" id="password2" name="confirmPassword" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary pr-10" required />
+                        <button type="button" id="togglePassword2" tabindex="-1" class="absolute right-3 top-1/2 mt-3 transform -translate-y-1/2 text-gray-500 hover:text-primary-dark focus:outline-none">
+                            <i data-lucide="eye" id="eyeIcon2" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <p class="text-sm text-red-600 font-semibold mb-4" id="error-message">
+                        <!-- Error message will be displayed here -->
+                    </p>
+                    <button type="submit" class="w-full bg-primary text-white py-2.5 px-4 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2 font-medium transition-all duration-300 ease-in-out transform hover:scale-105">
+                    </button>
+
+                    <div class="text-center my-4 relative">
+                        <hr />
+                        <span class="px-3 bg-white text-gray-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">OR</span>
+                    </div>
+
+                    <button type="button" id="googleSignIn" class="w-full bg-red-600 text-white py-2.5 px-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 font-medium flex items-center justify-center gap-2 transition-all duration-300 ease-in-out transform hover:scale-105">
+                        <i class="fab fa-google"></i>
+                        <span>Continue with Google</span>
+                    </button>
+                    <div class="text-center mt-6">
+                        <p class="text-sm text-gray-600">
+                            Already have an account?
+                            <a th:href="@{/login}" class="font-medium text-primary hover:text-primary-dark hover:underline">Sign In</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-cover bg-center py-4 text-white mt-auto" style="background-image: url('./assets/bggg.jpeg')">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm">
+                <div class="mb-3 md:mb-0 text-center md:text-left">
+                    © 2025
+                    <a th:href="@{/home}" class="font-bold hover:text-secondary-light transition-colors">DeenWise</a>. All rights reserved.
+                </div>
+                <div class="flex items-center gap-2 mb-3 md:mb-0">
+                    <span>Payment Platforms:</span>
+                    <img th:src="@{/assets/visa2.png}" alt="Visa" class="inline-block h-5" />
+                    <span>Visa</span>
+                    <img th:src="@{/assets/verve3.jpeg}" alt="Verve" class="inline-block h-5" />
+                    <span>Verve</span>
+                </div>
+                <div class="text-center md:text-right">
+                    Powered By
+                    <a href="https://wa.me/+2347063569494" class="font-bold hover:text-secondary-light transition-colors">ACE TECH & HENRY TECH</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById("mobile-menu-button");
+            const mobileMenu = document.getElementById("mobile-menu");
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener("click", function() {
+                    mobileMenu.classList.toggle("hidden");
+                });
+            }
+
+            // Dynamic greeting based on time of day
+            const greeting = document.getElementById("greeting");
+            const hour = new Date().getHours();
+            if (greeting) {
+                if (hour < 12) {
+                    greeting.innerText = "Assalam Alaikum! Good Morning";
+                } else if (hour < 18) {
+                    greeting.innerText = "Assalam Alaikum! Good Afternoon";
+                } else {
+                    greeting.innerText = "Assalam Alaikum! Good Evening";
+                }
+            }
+
+            // Sign up form validation
+            const form = document.getElementById("signup-form");
+            const errorMessage = document.getElementById("error-message");
+            const password1Input = document.getElementById("password1");
+            const password2Input = document.getElementById("password2");
+
+            if (form && errorMessage && password1Input && password2Input) {
+                form.addEventListener("submit", function(e) {
+                    const password1 = password1Input.value;
+                    const password2 = password2Input.value;
+                    const hasLetter = /[a-zA-Z]/.test(password1);
+                    const hasNumber = /[0-9]/.test(password1);
+                    const hasSymbol = /[^a-zA-Z0-9]/.test(password1); // Checks for non-alphanumeric
+
+                    let currentError = "";
+
+                    if (password1.length < 8) {
+                        currentError = "Password must be at least 8 characters long!";
+                    } else if (!hasLetter || !hasNumber || !hasSymbol) {
+                        currentError = "Password must contain letters, numbers, and symbols!";
+                    } else if (password1 !== password2) {
+                        currentError = "Passwords do not match!";
+                    }
+
+                    if (currentError) {
+                        e.preventDefault(); // Prevent form submission
+                        errorMessage.innerText = currentError;
+                    } else {
+                        errorMessage.innerText = ""; // Clear error message
+                    }
+                });
+            }
+
+            // Password visibility toggle
+            const passwordToggleBtn = document.getElementById("togglePassword1");
+            const eyeIcon = document.getElementById("eyeIcon1");
+            const password2ToggleBtn = document.getElementById("togglePassword2");
+            const eyeIcon2 = document.getElementById("eyeIcon2");
+
+
+
+            if (password2ToggleBtn && eyeIcon2 && password2Input) {
+                password2ToggleBtn.addEventListener("click", function() {
+                    const isPassword = password2Input.type === "password";
+                    password2Input.type = isPassword ? "text" : "password";
+                    eyeIcon2.setAttribute("data-lucide", isPassword ? "eye-off" : "eye");
+                    if (typeof lucide !== "undefined" && lucide.createIcons) {
+                        lucide.createIcons(); // Re-render Lucide icons
+                    }
+                });
+            }
+
+            if (passwordToggleBtn && eyeIcon && password1Input) {
+                passwordToggleBtn.addEventListener("click", function() {
+                    const isPassword = password1Input.type === "password";
+                    password1Input.type = isPassword ? "text" : "password";
+                    eyeIcon.setAttribute("data-lucide", isPassword ? "eye-off" : "eye");
+                    if (typeof lucide !== "undefined" && lucide.createIcons) {
+                        lucide.createIcons(); // Re-render Lucide icons
+                    }
+                });
+            }
+
+            // Google Sign In Button
+            const googleSignInButton = document.getElementById('googleSignIn');
+            if (googleSignInButton) {
+                googleSignInButton.addEventListener('click', function() {
+                    // Placeholder for Firebase Google Sign-In logic
+                    // var provider = new firebase.auth.GoogleAuthProvider();
+                    // firebase.auth().signInWithPopup(provider)...
+                    alert('Google Sign-In (Firebase logic to be added here)');
+                });
+            }
+
+
+            // Initialize Lucide icons
+            if (typeof lucide !== "undefined" && lucide.createIcons) {
+                lucide.createIcons();
+            }
+        });
+
+        // Back button function
+        function back() {
+            const confirmGoBack = confirm(
+                "Are you sure you want to go back to the home page?"
+            );
+            if (confirmGoBack) {
+                window.location.href = "./index.html";
+            }
+        }
+    </script>
+</body>
+
+</html>
