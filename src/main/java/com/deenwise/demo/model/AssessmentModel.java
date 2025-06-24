@@ -1,9 +1,6 @@
 package com.deenwise.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -18,6 +15,7 @@ public class AssessmentModel {
     private Long id;
     private String type;
     private String title;
+    @Column(name = "description")
     private String desc;
     private String duedate;
     private String duetime;

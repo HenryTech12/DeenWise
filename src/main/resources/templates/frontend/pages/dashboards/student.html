@@ -333,12 +333,24 @@
 
 </body>
 <script>
-    function getUserName() {
+    function getUserName() {let myName = '';
+        async function getName() {
+          const response = await fetch('http://localhost:8080/user/name', {
+            method: 'GET',
+            credentials: "include",
+            headers: {'Content-Type':'application/json'}
+          });
+          const data = await response.json();
+          console.log('yo ', data.name);
+          localStorage.setItem('deenWiseUserName',data.name);
+
+        }
+        getName();
         // For Thymeleaf, the name should be passed from the model.
         // localStorage can be a fallback or secondary source.
         // For demonstration, we'll keep the localStorage logic.
         // Ensure your Spring controller adds 'name' to the model for th:text to work.
-        return localStorage.getItem('deenWiseUserName') || ''; // Return empty if not found, th:text will then show its fallback
+        return localStorage.getItem('deenWiseUserName'); // Return empty if not found, th:text will then show its fallback
     }
 
     document.addEventListener('DOMContentLoaded', function() {

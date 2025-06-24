@@ -14,6 +14,8 @@ import com.deenwise.demo.model.UserModel;
 import com.deenwise.demo.repo.StudentRepository;
 import com.deenwise.demo.repo.TeacherRepository;
 import com.deenwise.demo.repo.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,15 +79,31 @@ public class UserService
 		return null;
 	}
 
-	public void updatePassword(UserDTO userDTO, String newPassword) {
+	public void updatePassword(UserDTO userDTO, String newPassword, String email) {
 		if(!Objects.isNull(userDTO)) {
-			Optional<UserModel> optionalUserModel = userRepo.findByEmail(userDTO.getEmail());
+			Optional<UserModel> optionalUserModel = userRepo.findByEmail(email);
 			if(optionalUserModel.isPresent()) {
-				UserModel userModel = optionalUserModel.orElse(new UserModel());
-				userModel.setPassword(passwordEncoder.encode(userModel.getPassword()));
-				userRepo.save(userModel);
-				log.info("updated user password");
+				if(userDTO.getPassword().equals(userDTO.getCpassword())){
+					UserModel userModel = optionalUserModel.orElse(new UserModel());
+					if(passwordEncoder.matches(userDTO.getCurrentPassword(), userModel.getPassword())) {
+						userModel.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+						System.out.println("updated password");
+						userRepo.save(userModel);
+						log.info("updated user password");
+					}
+				}
 			}
 		}
 	}
+
+	public String convertToJson(String data) {
+		Map<String,String> mydata = new HashMap<>();
+		mydata.put("name",data);
+		ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(mydata);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

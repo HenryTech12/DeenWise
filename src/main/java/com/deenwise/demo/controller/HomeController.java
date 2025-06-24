@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 import java.util.Objects;
@@ -36,9 +37,10 @@ public class HomeController
 		return "login";
 	}
 	@GetMapping("/user/name")
-	public ResponseEntity<String> getUserName(Principal principal) {
+	@ResponseBody
+	public String getUserName(Principal principal) {
 		if(!Objects.isNull(principal)) {
-			return new ResponseEntity<>(userService.getByEmail(principal.getName()).getEmail(), HttpStatus.OK);
+			return userService.convertToJson(userService.getByEmail(principal.getName()).getName());
 		}
 		return null;
 	}
@@ -76,9 +78,9 @@ public class HomeController
 		return "pricing";
 	}
 
-	@GetMapping("/password/reset")
+	@PostMapping("/password/reset")
 	public String changePassword(@ModelAttribute UserDTO user, Model model, String newPassword) {
-		userService.updatePassword(user, newPassword);
+		userService.updatePassword(user, newPassword,user.getEmail());
 		model.addAttribute("user",user);
 		return "login";
 	}

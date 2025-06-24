@@ -9,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @RequestMapping("/student")
@@ -35,7 +38,10 @@ public class StudentController
     }
 
     @GetMapping("/settings")
-    public String accessSettings() {
+    public String accessSettings(Principal principal, Model model) {
+        if(!Objects.isNull(principal)) {
+            model.addAttribute("student", studentService.getByEmail(principal.getName()));
+        }
         return "settings";
     }
 
@@ -62,6 +68,21 @@ public class StudentController
         return "studentsPages/lessons";
     }
 
+    @PostMapping("/password/update")
+    public String changePassword(@ModelAttribute UserDTO user, Model model, Principal principal, String newPassword) {
+        if(!Objects.isNull(principal)) {
+            userService.updatePassword(user, newPassword,principal.getName());
+            model.addAttribute("user",new UserDTO());
+            model.addAttribute("student", studentService.getByEmail(principal.getName()));
+        }
+        return "profile";
+    }
+
+    @GetMapping("/chat")
+    public String accessChat() {
+        return "studentsPages/schat";
+    }
+
     public void setLessonStatus(Model model) {
         model.addAttribute("ip", LecturesStatus.IN_PROGRESS.name());
         model.addAttribute("ns", LecturesStatus.NOT_STARTED.name());
@@ -79,5 +100,14 @@ public class StudentController
         model.addAttribute("student",  studentService.getByEmail(principal.getName()));
         model.addAttribute("user", new UserDTO());
         return "profile";
+    }
+    @PostMapping("/profile/update")
+    public String updateProfile(Model model , Principal principal, @ModelAttribute StudentDTO student) {
+       if(!Objects.isNull(principal)) {
+           studentService.updateStudent(principal.getName(),student);
+           model.addAttribute("user", new UserDTO());
+           model.addAttribute("student", studentService.getByEmail(student.getEmail()));
+       }
+       return "profile";
     }
 }

@@ -308,9 +308,7 @@
 </body>
 <script>
     function getUserName() {
-        const getName = fetch('http://localhost:8080/user/name');
-        console.log(getName.json());
-        return localStorage.getItem('deenWiseUserName') || 'User';
+        return localStorage.getItem('deenWiseUserName');
     }
 
     document.addEventListener('DOMContentLoaded', function() {

@@ -10,12 +10,15 @@ import com.deenwise.demo.model.TeacherModel;
 import com.deenwise.demo.question.QuestionType;
 import com.deenwise.demo.repo.*;
 import com.deenwise.demo.mapper.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StudentService
 {
+	private static final Logger log = LoggerFactory.getLogger(StudentService.class);
 	@Autowired
 	private StudentRepository studentRepo;
 	@Autowired
@@ -49,5 +52,19 @@ public class StudentService
 		}
 		return assessmentDetailsList;
 	}
+
+	public void updateStudent(String email, StudentDTO studentDTO) {
+		Optional<StudentModel> optionalStudentModel =
+				studentRepo.findByEmail(email);
+		if(optionalStudentModel.isPresent()) {
+			StudentModel studentModel = optionalStudentModel.orElse(new StudentModel());
+			StudentModel updatedStudentModel = studentMapper.convertToModel(studentDTO);
+			updatedStudentModel.setId(studentModel.getId());
+			studentRepo.save(updatedStudentModel);
+			log.info("student data updated.");
+		}
+	}
+
+
 
 }

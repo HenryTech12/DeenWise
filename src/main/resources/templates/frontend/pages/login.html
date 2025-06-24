@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Log In | DeenWise</title>
-    <link rel="shortcut icon" th:href="@{/static/assets/origlogo.png}" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/assets/origlogo.png}" type="image/x-icon" />
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -158,7 +158,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
             <div class="container d-flex flex-column align-items-center justify-content-center">
                 <div class="d-flex align-items-center justify-content-center">
-                    <img th:src="@{/static/assets/nobgoriglogo.png}" alt="Logo" class="logome-2 me-2" style="max-width: 50px;" />
+                    <img th:src="@{/assets/nobgoriglogo.png}" alt="Logo" class="logome-2 me-2" style="max-width: 50px;" />
                     <a class="navbar-brand" th:href="@{/home}">DeenWise</a>
                 </div>
             </div>
@@ -171,6 +171,13 @@
                     <div class="card shadow-sm">
                         <div class="card-body p-4 p-md-5">
                             <h2 id="greeting" class="text-center mb-4 text-2xl font-bold text-gray-700"></h2>
+                            <div class="max-w-md mx-auto mt-4" th:if="${error}">
+                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                    <strong class="font-bold">Login failed!</strong>
+                                    <span class="block sm:inline">Invalid username or password.</span>
+                                </div>
+                            </div>
+
                             <form id="loginform" th:object="${user}" th:action="@{/user/login}" method="post">
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email address</label>

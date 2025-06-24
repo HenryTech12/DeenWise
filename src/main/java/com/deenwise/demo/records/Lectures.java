@@ -13,6 +13,7 @@ public class Lectures {
     @GeneratedValue(strategy =  GenerationType.AUTO)
     private Long id;
     private String title;
+    @Column(name = "description")
     private String desc;
     @Lob
     private byte[] video;
