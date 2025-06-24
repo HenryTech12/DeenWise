@@ -10,6 +10,7 @@ import com.deenwise.demo.model.AssessmentModel;
 import com.deenwise.demo.model.TeacherModel;
 import com.deenwise.demo.question.QuestionType;
 import com.deenwise.demo.records.Lectures;
+import com.deenwise.demo.response.LectureResponse;
 import com.deenwise.demo.status.AssessmentStatus;
 import com.deenwise.demo.status.LecturesStatus;
 import com.deenwise.demo.repo.AssessmentRepository;
@@ -62,16 +63,16 @@ public class TeacherService
         }
     }
 
-    public List<LectureDTO> getAllLectures() {
+    public List<LectureResponse> getAllLectures() {
         List<Lectures> lecturesList =
                         lecturesRepository.findAll();
-        List<LectureDTO> lectureDTOList = new ArrayList<>();
+        List<LectureResponse> lectureResponses = new ArrayList<>();
         if(!lecturesList.isEmpty()) {
             for(Lectures lectures : lecturesList) {
-                lectureDTOList.add(lectureMapper.convertToDTO(lectures));
+                lectureResponses.add(lectureMapper.convertToResponse(lectures));
             }
         }
-        return lectureDTOList;
+        return lectureResponses;
     }
 
 

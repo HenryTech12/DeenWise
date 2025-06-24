@@ -4,6 +4,7 @@ import com.deenwise.demo.dto.AssessmentDetails;
 import com.deenwise.demo.dto.LectureDTO;
 import com.deenwise.demo.dto.TeacherDTO;
 import com.deenwise.demo.dto.UserDTO;
+import com.deenwise.demo.response.LectureResponse;
 import com.deenwise.demo.service.TeacherService;
 import com.deenwise.demo.service.UserService;
 import com.deenwise.demo.status.AssessmentStatus;
@@ -82,9 +83,9 @@ public class TeacherController
 
     @GetMapping("/video")
     public String videoLessonPage(Model model) {
-        List<LectureDTO> lectureDTOList = teacherService.getAllLectures();
+        List<LectureResponse> lectureDTOList = teacherService.getAllLectures();
         model.addAttribute("lectures",lectureDTOList);
-        model.addAttribute("lecture", new LectureDTO());
+        model.addAttribute("lecture", new LectureResponse());
         return "teacher/video";
     }
 
@@ -98,9 +99,9 @@ public class TeacherController
             System.out.println("bytes: "+ Arrays.toString(videoBytes));
             teacherService.uploadRecordedLectures(lecture,videoBytes);
 
-            List<LectureDTO> lectureDTOList = teacherService.getAllLectures();
+            List<LectureResponse> lectureDTOList = teacherService.getAllLectures();
             model.addAttribute("lectures",lectureDTOList);
-            model.addAttribute("lecture", new LectureDTO());
+            model.addAttribute("lecture", new LectureResponse());
         }
         return "teacher/video";
     }
