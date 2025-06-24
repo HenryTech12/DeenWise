@@ -13,7 +13,6 @@ public class LectureDTO {
     private LocalDate uploadedDate;
     private String courseName;
     private Integer lessonOrder;
-    private MultipartFile video;
     private String status;
     private String assignedBy;
 }

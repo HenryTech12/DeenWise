@@ -45,17 +45,15 @@ public class TeacherService
     @Autowired
     private TeacherMapper teacherMapper;
 
-    public void uploadRecordedLectures(LectureDTO lectureDTO) {
+    public void uploadRecordedLectures(LectureDTO lectureDTO,byte[] video) {
         if(!Objects.isNull(lectureDTO)) {
             lectureDTO.setUploadedDate(LocalDate.now());
             lectureDTO.setStatus(LecturesStatus.NOT_STARTED.name());
             Lectures lectures = lectureMapper.convertToModel(lectureDTO);
-
-            MultipartFile videoFile = lectureDTO.getVideo();
             try {
-                lectures.setVideo(videoFile.getBytes());
+                lectures.setVideo(video);
             }
-            catch(IOException ie) {
+            catch(Exception ie) {
                 log.error("ERROR: {}",ie.getMessage());
             }
 

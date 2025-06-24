@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -80,20 +82,26 @@ public class TeacherController
 
     @GetMapping("/video")
     public String videoLessonPage(Model model) {
+        List<LectureDTO> lectureDTOList = teacherService.getAllLectures();
+        model.addAttribute("lectures",lectureDTOList);
         model.addAttribute("lecture", new LectureDTO());
         return "teacher/video";
     }
 
     @PostMapping("/video/upload")
-    public String uploadVideo(@ModelAttribute LectureDTO lecture, MultipartFile videoFile, Model model, Principal principal) {
-        lecture.setVideo(videoFile);
-        System.out.println(videoFile);
-        teacherService.uploadRecordedLectures(lecture);
-        TeacherDTO teacherDTO = teacherService.getTeacher(principal.getName());
-        lecture.setAssignedBy(teacherDTO.getName());
-        List<LectureDTO> lectureDTOList = teacherService.getAllLectures();
-        model.addAttribute("lectures",lectureDTOList);
-        model.addAttribute("lecture", new LectureDTO());
+    public String uploadVideo(@ModelAttribute LectureDTO lecture, @RequestParam("file") MultipartFile videoFile, Model model, Principal principal) throws IOException {
+        if(!Objects.isNull(videoFile)) {
+            TeacherDTO teacherDTO = teacherService.getTeacher(principal.getName());
+            lecture.setAssignedBy(teacherDTO.getName());
+
+            byte[] videoBytes = videoFile.getBytes();
+            System.out.println("bytes: "+ Arrays.toString(videoBytes));
+            teacherService.uploadRecordedLectures(lecture,videoBytes);
+
+            List<LectureDTO> lectureDTOList = teacherService.getAllLectures();
+            model.addAttribute("lectures",lectureDTOList);
+            model.addAttribute("lecture", new LectureDTO());
+        }
         return "teacher/video";
     }
 
