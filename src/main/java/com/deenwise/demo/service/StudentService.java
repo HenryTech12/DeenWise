@@ -13,6 +13,7 @@ import com.deenwise.demo.mapper.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,6 +36,7 @@ public class StudentService
 	}
 
 	public StudentDTO getByEmail(String email) {
+		System.out.println("email fetched is cached.");
 		Optional<StudentModel> studentModel = studentRepo.findByEmail(email);
 		if(studentModel.isPresent())
 			return studentMapper.convertToDTO(studentModel.orElse(new StudentModel()));

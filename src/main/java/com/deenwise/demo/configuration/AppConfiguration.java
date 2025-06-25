@@ -65,6 +65,8 @@ public class AppConfiguration
       return authenticationProvider;
    }
 
+
+
    @Bean
    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
          httpSecurity.csrf(csrf -> csrf.disable())

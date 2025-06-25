@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -62,7 +61,7 @@ public class StudentController
     }
     @GetMapping("/lessons")
     public String checkLesson(Model model) {
-        model.addAttribute("lectures",teacherService.getAllLectures());
+        model.addAttribute("lectures",teacherService.getLecturesInfo());
         model.addAttribute("lecture", new LectureDTO());
         setLessonStatus(model);
         return "studentsPages/lessons";

@@ -18,10 +18,9 @@ import com.deenwise.demo.repo.LecturesRepository;
 import com.deenwise.demo.repo.TeacherRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +51,7 @@ public class TeacherService
             lectureDTO.setStatus(LecturesStatus.NOT_STARTED.name());
             Lectures lectures = lectureMapper.convertToModel(lectureDTO);
             try {
-                lectures.setVideo(video);
+                //lectures.setVideo(video);
             }
             catch(Exception ie) {
                 log.error("ERROR: {}",ie.getMessage());
@@ -63,7 +62,7 @@ public class TeacherService
         }
     }
 
-    public List<LectureResponse> getAllLectures() {
+    public List<LectureResponse> getLecturesInfo() {
         List<Lectures> lecturesList =
                         lecturesRepository.findAll();
         List<LectureResponse> lectureResponses = new ArrayList<>();

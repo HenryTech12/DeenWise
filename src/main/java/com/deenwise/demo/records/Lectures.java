@@ -15,8 +15,6 @@ public class Lectures {
     private String title;
     @Column(name = "description")
     private String desc;
-    @Lob
-    private byte[] video;
     private String courseName;
     private Integer lessonOrder;
     private LocalDate uploadedDate;
