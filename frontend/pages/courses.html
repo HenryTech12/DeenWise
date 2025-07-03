@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Courses | DeenWise</title>
+    <link rel="shortcut icon" href="/pages/assets/origlogo.png" type="image/x-icon">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#00A5CF',
+                            DEFAULT: '#008793',
+                            dark: '#004d7a',
+                        },
+                        secondary: {
+                            light: '#FFE1A8',
+                            DEFAULT: '#FFC172',
+                            dark: '#E09F3E',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .course-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen bg-gray-100 text-gray-800">
+    <div class="flex-grow">
+        <!-- Top Contact Bar -->
+        <div class="w-full py-2 bg-cover bg-no-repeat bg-center" style="background-image: url('./assets/white-marble-with-gray-texture-background.jpg');">
+            <div class="container mx-auto flex justify-center items-center text-sm">
+                <span class="mx-2 md:mx-3">
+                    <i class="fab fa-whatsapp text-green-600"></i>
+                    <a href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...." class="no-underline text-gray-700 hover:text-primary-dark ml-1">Contact Us</a>
+                </span>
+                <span class="mx-2">|</span>
+                <span class="mx-2 md:mx-3">
+                    <i class="fas fa-envelope text-red-600"></i>
+                    <a href="mailto:sadiqadetola08@gmail.com" class="no-underline text-gray-700 hover:text-primary-dark ml-1">Email Address</a>
+                </span>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav class="bg-gray-900 text-white shadow-md sticky top-0 z-50">
+            <div class="container mx-auto px-4 py-3">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <img src="/pages/assets/nobgoriglogo.png" alt="Logo" class="w-10 h-10 md:w-12 md:h-12 mr-2 animate-float" />
+                        <a href="/pages/index.html" class="text-xl md:text-2xl font-bold text-white hover:text-secondary-light transition-colors">DeenWise</a>
+                    </div>
+
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex items-center space-x-6">
+                        <a href="/pages/aboutus.html" class="hover:text-secondary-light transition-colors">About Us</a>
+                        <a href="/pages/courses.html" class="text-secondary-light font-semibold border-b-2 border-secondary-light pb-1">Our Courses</a>
+                        <!-- Active Link -->
+                        <a href="/pages/pricing.html" class="hover:text-secondary-light transition-colors">Pricing</a>
+                        <div class="relative group">
+                            <button class="flex items-center focus:outline-none p-1 rounded-full hover:bg-gray-700 transition-colors">
+                                <img src="/pages/assets/contactlogo.png" alt="Account" class="w-8 h-8 rounded-full" />
+                            </button>
+                            <div class="absolute right-0 w-48 mt-2 py-2 bg-white rounded-md shadow-lg hidden group-hover:block z-50 overflow-hidden border-t-2 border-secondary">
+                                <a href="./login.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-dark transition-colors">Sign in</a>
+                                <a href="./signup.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-dark transition-colors">Sign up</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button" class="text-white focus:outline-none hover:text-secondary-light">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div id="mobile-menu" class="hidden md:hidden mt-4">
+                    <ul class="flex flex-col space-y-3 items-center">
+                        <li><a href="./aboutus.html" class="block py-2 hover:text-secondary-light transition-colors">About Us</a></li>
+                        <li><a href="./courses.html" class="block py-2 text-secondary-light font-semibold">Our Courses</a></li>
+                        <!-- Active Link -->
+                        <li><a href="./pricing.html" class="block py-2 hover:text-secondary-light transition-colors">Pricing</a></li>
+                        <li><a href="./login.html" class="block py-2 hover:text-secondary-light transition-colors">Sign in</a></li>
+                        <li><a href="./signup.html" class="block py-2 hover:text-secondary-light transition-colors">Sign up</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8 md:py-12">
+            <header class="text-center mb-8 md:mb-12">
+                <h1 class="text-3xl md:text-4xl font-bold text-primary-dark mb-2">Our Qur'an Recitation Courses</h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Master Qur'anic recitation, Tajweed, and memorization with our structured courses, designed for all levels.
+                </p>
+            </header>
+
+            <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                <!-- Course Card Template -->
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <img src="https://via.placeholder.com/400x250/008793/FFFFFF?text=Course+Image" alt="Basic Qur'an Reading" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Basic Qur'an Reading</h3>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">
+                            Learn to read Arabic letters, words, and basic phrases from the Qur'an. Perfect for absolute beginners.
+                        </p>
+                        <a href="/pages/login.html" class="mt-auto inline-block bg-secondary hover:bg-secondary-dark text-white font-medium py-2 px-5 rounded-lg text-center transition-colors duration-300">Enroll Now</a>
+                    </div>
+                </div>
+
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <img src="https://via.placeholder.com/400x250/00A5CF/FFFFFF?text=Tajweed" alt="Tajweed for Beginners" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Tajweed for Beginners</h3>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">
+                            Understand basic Tajweed rules and correct pronunciation of Arabic letters for beautiful recitation.
+                        </p>
+                        <a href="./login.html" class="mt-auto inline-block bg-secondary hover:bg-secondary-dark text-white font-medium py-2 px-5 rounded-lg text-center transition-colors duration-300">Enroll Now</a>
+                    </div>
+                </div>
+
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <img src="https://via.placeholder.com/400x250/004d7a/FFFFFF?text=Advanced+Tajweed" alt="Advanced Tajweed & Phonetics" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Advanced Tajweed & Phonetics</h3>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">
+                            Master Makharij (points of articulation) and Sifaat (letter characteristics) for precise recitation.
+                        </p>
+                        <a href="./login.html" class="mt-auto inline-block bg-secondary hover:bg-secondary-dark text-white font-medium py-2 px-5 rounded-lg text-center transition-colors duration-300">Enroll Now</a>
+                    </div>
+                </div>
+
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <img src="https://via.placeholder.com/400x250/E09F3E/FFFFFF?text=Hifdh" alt="Memorization Program" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Memorization (Hifdh) Program</h3>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">
+                            Step-by-step guidance and techniques for memorizing the Qur'an efficiently and effectively.
+                        </p>
+                        <a href="./login.html" class="mt-auto inline-block bg-secondary hover:bg-secondary-dark text-white font-medium py-2 px-5 rounded-lg text-center transition-colors duration-300">Enroll Now</a>
+                    </div>
+                </div>
+
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <img src="https://via.placeholder.com/400x250/FFC172/004d7a?text=Tafsir" alt="Qur'an with Tafsir" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Qur'an with Tafsir</h3>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">
+                            Learn to recite while understanding the meaning, context, and wisdom behind each verse.
+                        </p>
+                        <a href="./login.html" class="mt-auto inline-block bg-secondary hover:bg-secondary-dark text-white font-medium py-2 px-5 rounded-lg text-center transition-colors duration-300">Enroll Now</a>
+                    </div>
+                </div>
+
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <img src="https://via.placeholder.com/400x250/008793/FFFFFF?text=Arabic" alt="Qur'anic Arabic Basics" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Qur'anic Arabic Basics</h3>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">
+                            Understand essential Arabic grammar and vocabulary frequently used in the Holy Qur'an.
+                        </p>
+                        <a href="./login.html" class="mt-auto inline-block bg-secondary hover:bg-secondary-dark text-white font-medium py-2 px-5 rounded-lg text-center transition-colors duration-300">Enroll Now</a>
+                    </div>
+                </div>
+
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <img src="https://via.placeholder.com/400x250/00A5CF/FFFFFF?text=Adhkar" alt="Daily Adhkar & Short Surahs" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Daily Adhkar & Short Surahs</h3>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">
+                            Learn and memorize essential daily supplications (Adhkar) and short Surahs for prayer.
+                        </p>
+                        <a href="./login.html" class="mt-auto inline-block bg-secondary hover:bg-secondary-dark text-white font-medium py-2 px-5 rounded-lg text-center transition-colors duration-300">Enroll Now</a>
+                    </div>
+                </div>
+
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <img src="https://via.placeholder.com/400x250/004d7a/FFFFFF?text=Ijazah" alt="Ijazah Program" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Ijazah Program</h3>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">
+                            Earn an Ijazah (certification) in Qur'anic recitation and Tajweed mastery from qualified scholars.
+                        </p>
+                        <a href="./login.html" class="mt-auto inline-block bg-secondary hover:bg-secondary-dark text-white font-medium py-2 px-5 rounded-lg text-center transition-colors duration-300">Enroll Now</a>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-white text-center py-6 bg-cover bg-no-repeat bg-center mt-auto" style="background-image: url('./assets/bggg.jpeg');">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm mb-2">
+                <p class="mb-2 md:mb-0">
+                    © 2025 <a href="./index.html" class="font-bold hover:text-secondary-light transition-colors">DeenWise</a>. All rights reserved.
+                </p>
+                <div class="flex items-center gap-2 mb-2 md:mb-0">
+                    <span>Payment Platforms:</span>
+                    <img src="/pages/assets/visa2.png" alt="Visa" class="h-5 inline" />
+                    <span>Visa</span>
+                    <img src="/pages/assets/verve3.jpeg" alt="Verve" class="h-5 inline" />
+                    <span>Verve</span>
+                </div>
+            </div>
+            <p class="text-sm">
+                Powered By <a href="https://wa.me/+2347063569494" class="font-bold hover:text-secondary-light transition-colors">ACE TECH & HENRY TECH</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById("mobile-menu-button");
+            const mobileMenu = document.getElementById("mobile-menu");
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener("click", function() {
+                    mobileMenu.classList.toggle("hidden");
+                });
+            }
+
+            // Initialize Lucide icons
+            if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+
+</html>
