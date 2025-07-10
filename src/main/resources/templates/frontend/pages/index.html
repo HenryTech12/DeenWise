@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Started | DeenWise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#00A5CF',
+                            DEFAULT: '#008793',
+                            dark: '#004d7a',
+                        },
+                        secondary: {
+                            light: '#FFE1A8',
+                            DEFAULT: '#FFC172',
+                            dark: '#E09F3E',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .pricing-card {
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(0, 77, 122, 0.25);
+        }
+        
+        .bg-gradient {
+            background: linear-gradient(120deg, #004d7a, #008793, #00A5CF);
+            background-size: 200% 200%;
+            animation: gradientBG 10s ease infinite;
+        }
+        
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%
+            }
+            50% {
+                background-position: 100% 50%
+            }
+            100% {
+                background-position: 0% 50%
+            }
+        }
+        
+        .sidebar-link {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .sidebar-link:hover {
+            border-left: 4px solid #FFC172;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans flex flex-col min-h-screen overflow-x-hidden">
+    <!-- Animated Top Bar -->
+    <div class="w-full bg-gradient-to-r from-primary-dark to-primary py-2 text-sm border-b relative overflow-hidden">
+        <div class="absolute inset-0 bg-white opacity-10">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23ffffff\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E');">
+            </div>
+        </div>
+        <div class="container mx-auto flex justify-center items-center gap-6 text-white relative z-10">
+            <div class="flex items-center transition-all hover:text-secondary-light">
+                <i class="fa-brands fa-whatsapp text-lg mr-2"></i>
+                <a href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...." class="hover:underline">Connect with Us</a>
+            </div>
+            <div class="h-4 w-px bg-white/30"></div>
+            <div class="flex items-center transition-all hover:text-secondary-light">
+                <i class="fa-solid fa-envelope text-lg mr-2"></i>
+                <a href="mailto:sadiqadetola08@gmail.com" class="hover:underline">Email Support</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-gradient py-4 text-white sticky top-0 z-50 shadow-lg flex items-center justify-center">
+        <div class="container mx-auto px-4 flex flex-col items-center justify-center">
+            <div class="flex items-center gap-2">
+                <img th:src="@{/assets/nobgoriglogo.png}" alt="DeenWise Logo" class="w-10 h-10 animate-float" />
+                <a th:href="@{/home}" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-secondary-light">DeenWise</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar & Main -->
+
+    <!--<div class="flex flex-grow"> -->
+    <!-- Sidebar -->
+    <!--  <div id="sidebar" class="w-72 bg-gradient text-white fixed h-full z-40 transition-all duration-300 transform -translate-x-full overflow-y-auto scrollbar-hide shadow-2xl">
+            <div class="p-6 space-y-8"> -->
+    <!-- User Profile Preview -->
+    <!--    <div class="flex flex-col items-center text-center p-4 bg-white/10 rounded-xl">
+                    <div class="w-20 h-20 rounded-full bg-secondary flex items-center justify-center text-white text-xl font-bold mb-3">
+                        <i class="fas fa-user text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold">DeenWise User</h3>
+                    <p class="text-xs text-white/70">Student Account</p>
+                </div>
+                -->
+    <!-- Navigation -->
+    <!-- <div class="space-y-1">
+                    <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Main Navigation
+                    </p>
+                    <a href="../dashboards/teacher.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i class="fas fa-home w-5 text-center"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="../teacher's/video.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i class="fas fa-video w-5 text-center"></i>
+                        <span>Video Lessons</span>
+                    </a>
+                    <a href="../teacher's/tassignments.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i class="fas fa-pen w-5 text-center"></i>
+                        <span>Assignments</span>
+                    </a>
+                    <a href="../teacher's/quran.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i class="fas fa-book w-5 text-center"></i>
+                        <span>Read Qur'an</span>
+                    </a>
+                    <a href="../teacher's/tchat.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i class="fas fa-comment-alt w-5 text-center"></i>
+                        <span>Chat</span>
+                        <span class="ml-auto bg-secondary text-white text-xs px-2 py-1 rounded-full">3</span>
+                    </a>
+                </div>
+                -->
+    <!-- Settings & Support -->
+    <!--  <div class="space-y-1">
+                    <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Support</p>
+                    <a href="../settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i class="fas fa-cog w-5 text-center"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i class="fas fa-question-circle w-5 text-center"></i>
+                        <span>Help Center</span>
+                    </a>
+                </div>
+            </div>
+        </div> -->
+
+    <!-- Main Content with Overlay -->
+    <div class="fixed inset-0 bg-black/50 z-30 hidden" id="sidebarOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="text-center flex-grow bg-gray-50 transition-all duration-300 md:ml-0">
+        <!-- Hero Section -->
+        <section class="py-20 relative overflow-hidden bg-gradient">
+            <div class="absolute inset-0 opacity-10">
+                <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'52\' height=\'26\' viewBox=\'0 0 52 26\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z\' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E');">
+                </div>
+            </div>
+            <div class="max-w-4xl mx-auto px-6 relative z-10">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Elevate Your Qur'anic Journey</h1>
+                <p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">Choose the perfect plan to deepen your connection with the Qur'an and enhance your Islamic education.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a th:href="@{/pricing}" class="bg-white text-primary-dark px-6 py-3 rounded-full font-medium hover:bg-secondary hover:text-white transition-all shadow-lg">
+                            View Plans
+                        </a>
+                    <a href="#features" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-full font-medium lg:bg-white lg:text-primary-dark lg:hover:bg-secondary lg:border-none lg:hover:text-white hover:bg-white/10 transition-all">
+                            Explore Features
+                        </a>
+                </div>
+            </div>
+            <!-- Wave Divider -->
+            <div class="absolute bottom-0 left-0 right-0">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="w-full h-auto">
+                        <path fill="#f9fafb" fill-opacity="1"
+                            d="M0,192L48,197.3C96,203,192,213,288,202.7C384,192,480,160,576,165.3C672,171,768,213,864,213.3C960,213,1056,171,1152,154.7C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                        </path>
+                    </svg>
+            </div>
+        </section>
+        <!-- Login Button for already existing users  -->
+        <div class="flex flex-wrap justify-center gap-4">
+            <a th:href="@{/login}" class="bg-white text-primary-dark px-8 py-4 rounded-full font-medium hover:bg-secondary hover:text-white transition-all shadow-lg text-lg mt-5">
+                    Not New? Login Here
+                </a>
+        </div>
+
+        <!-- Features Section -->
+        <section id="features" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold mb-2 text-primary-dark">Why Choose DeenWise?</h2>
+                <p class="text-gray-600 mb-12 max-w-2xl mx-auto">Our platform is designed to help you connect with the Qur'an in meaningful ways</p>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition-all">
+                        <div class="w-16 h-16 rounded-full bg-primary-light/20 flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-book-open text-primary-light text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Interactive Learning</h3>
+                        <p class="text-gray-600">Engaging video lessons and quizzes to make your learning experience enjoyable and effective.
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition-all">
+                        <div class="w-16 h-16 rounded-full bg-primary-light/20 flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-users text-primary-light text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Expert Teachers</h3>
+                        <p class="text-gray-600">Learn from qualified scholars who provide authentic and accurate knowledge.
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition-all">
+                        <div class="w-16 h-16 rounded-full bg-primary-light/20 flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-mobile-alt text-primary-light text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Study Anywhere</h3>
+                        <p class="text-gray-600">Access your courses from any device, anytime. Learn at your own pace.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold mb-2 text-primary-dark">Choose Your Perfect Plan</h2>
+                <p class="text-gray-600 mb-12 max-w-2xl mx-auto">Flexible pricing options to meet your learning needs and goals
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <!-- Free Plan -->
+                    <div class="pricing-card relative bg-white rounded-2xl shadow-md overflow-hidden">
+                        <div class="h-2 bg-gray-200"></div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-2 text-gray-800">Free Plan</h3>
+                            <div class="flex items-baseline mb-4">
+                                <span class="text-3xl font-bold text-gray-800">$0</span>
+                                <span class="text-gray-500 ml-1">/month</span>
+                            </div>
+                            <p class="text-gray-500 mb-6">Perfect for beginners exploring Islamic studies</p>
+
+                            <ul class="space-y-3 mb-8">
+                                <li class="flex items-center text-gray-600">
+                                    <span class="feature-icon bg-green-100 text-green-500">
+                                            <i class="fas fa-check text-xs"></i>
+                                        </span> Limited Access to Lessons
+                                </li>
+                                <li class="flex items-center text-gray-600">
+                                    <span class="feature-icon bg-green-100 text-green-500">
+                                            <i class="fas fa-check text-xs"></i>
+                                        </span> Basic Community Support
+                                </li>
+                                <li class="flex items-center text-gray-400">
+                                    <span class="feature-icon bg-gray-100 text-gray-400">
+                                            <i class="fas fa-times text-xs"></i>
+                                        </span> No Live Sessions
+                                </li>
+                                <li class="flex items-center text-gray-400">
+                                    <span class="feature-icon bg-gray-100 text-gray-400">
+                                            <i class="fas fa-times text-xs"></i>
+                                        </span> No Certification
+                                </li>
+                            </ul>
+
+                            <a th:href="@{/login}" class="block w-full py-3 px-6 text-center font-medium text-primary-dark border-2 border-primary-dark rounded-lg hover:bg-primary-dark hover:text-white transition-all">
+                                    Start Free
+                                </a>
+                        </div>
+                    </div>
+
+                    <!-- Standard Plan -->
+                    <div class="pricing-card relative bg-white rounded-2xl shadow-lg border-2 border-primary z-10 transform scale-105">
+                        <div class="badge bg-primary text-white">Popular</div>
+                        <div class="h-2 bg-primary"></div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-2 text-primary">Standard Plan</h3>
+                            <div class="flex items-baseline mb-4">
+                                <span class="text-3xl font-bold text-primary">$19</span>
+                                <span class="text-gray-500 ml-1">/month</span>
+                            </div>
+                            <p class="text-gray-500 mb-6">Most popular choice for dedicated students</p>
+
+                            <ul class="space-y-3 mb-8">
+                                <li class="flex items-center text-gray-600">
+                                    <span class="feature-icon bg-green-100 text-green-500">
+                                            <i class="fas fa-check text-xs"></i>
+                                        </span> Full Access to All Lessons
+                                </li>
+                                <li class="flex items-center text-gray-600">
+                                    <span class="feature-icon bg-green-100 text-green-500">
+                                            <i class="fas fa-check text-xs"></i>
+                                        </span> Weekly Live Q&A Sessions
+                                </li>
+                                <li class="flex items-center text-gray-600">
+                                    <span class="feature-icon bg-green-100 text-green-500">
+                                            <i class="fas fa-check text-xs"></i>
+                                        </span> Priority Community Support
+                                </li>
+                                <li class="flex items-center text-gray-400">
+                                    <span class="feature-icon bg-gray-100 text-gray-400">
+                                            <i class="fas fa-times text-xs"></i>
+                                        </span> No Certification
+                                </li>
+                            </ul>
+
+                            <a th:href="@{/login}" class="block w-full py-3 px-6 text-center font-medium text-white bg-primary rounded-lg hover:bg-primary-dark transition-all">
+                                    Upgrade Now
+                                </a>
+                        </div>
+                    </div>
+
+                    <!-- Premium Plan -->
+                    <div class="pricing-card relative bg-white rounded-2xl shadow-md overflow-hidden">
+                        <div class="h-2 bg-secondary"></div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-2 text-secondary-dark">Premium Plan</h3>
+                            <div class="flex items-baseline mb-4">
+                                <span class="text-3xl font-bold text-secondary-dark">$39</span>
+                                <span class="text-gray-500 ml-1">/month</span>
+                            </div>
+                            <p class="text-gray-500 mb-6">Complete experience with personalized coaching</p>
+
+                            <ul class="space-y-3 mb-8">
+                                <li class="flex items-center text-gray-600">
+                                    <span class="feature-icon bg-green-100 text-green-500">
+                                            <i class="fas fa-check text-xs"></i>
+                                        </span> All Standard Plan Features
+                                </li>
+                                <li class="flex items-center text-gray-600">
+                                    <span class="feature-icon bg-green-100 text-green-500">
+                                            <i class="fas fa-check text-xs"></i>
+                                        </span> 1-on-1 Coaching Sessions
+                                </li>
+                                <li class="flex items-center text-gray-600">
+                                    <span class="feature-icon bg-green-100 text-green-500">
+                                            <i class="fas fa-check text-xs"></i>
+                                        </span> Advanced Learning Materials
+                                </li>
+                                <li class="flex items-center text-gray-600">
+                                    <span class="feature-icon bg-green-100 text-green-500">
+                                            <i class="fas fa-check text-xs"></i>
+                                        </span> Official Certification
+                                </li>
+                            </ul>
+
+                            <a th:href="@{/login}" class="block w-full py-3 px-6 text-center font-medium text-white bg-secondary-dark rounded-lg hover:bg-secondary transition-all">
+                                    Get Premium
+                                </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold mb-2 text-primary-dark">What Our Students Say</h2>
+                <p class="text-gray-600 mb-12 max-w-2xl mx-auto">Join thousands of satisfied students on their journey to Qur'anic excellence</p>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-primary-light/20 flex items-center justify-center text-primary-dark font-bold text-lg">
+                                AA
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold">Ahmed Abdullah</h4>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"DeenWise has transformed my relationship with the Qur'an. The teachers are knowledgeable and the lessons are structured perfectly for busy professionals like me."</p>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-primary-light/20 flex items-center justify-center text-primary-dark font-bold text-lg">
+                                SH
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold">Sarah Hassan</h4>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"The Premium plan is absolutely worth it! The one-on-one coaching sessions have helped me improve my tajweed significantly. I'm proud of my progress."
+                        </p>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-all">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-primary-light/20 flex items-center justify-center text-primary-dark font-bold text-lg">
+                                MK
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold">Mohammed Khan</h4>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 italic">"I started with the Free plan and quickly upgraded to Standard. The community support and live Q&A sessions are incredibly valuable. Highly recommended!"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="py-16 bg-gradient relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10">
+                <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'52\' height=\'26\' viewBox=\'0 0 52 26\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z\' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E');">
+                </div>
+            </div>
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Begin Your Qur'anic Journey?
+                </h2>
+                <p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">Join thousands of students worldwide who are deepening their connection with the Qur'an</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a th:href="@{/signup}" class="bg-white text-primary-dark px-8 py-4 rounded-full font-medium hover:bg-secondary hover:text-white transition-all shadow-lg text-lg">
+                            Get Started Today
+                        </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    </div>
+    <!-- Footer  -->
+    <footer class="bg-gradient-to-r from-indigo-600 to-blue-500 text-white py-6 relative z-30">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <!-- Company Info -->
+                <div class="text-center md:text-left">
+                    <a th:href="@{/home}" class="font-bold text-xl hover:text-blue-100 transition duration-300">DeenWise</a>
+                    <p class="text-sm mt-2 opacity-80">&copy; 2025 All rights reserved</p>
+                </div>
+
+                <!-- Social Media Icons -->
+                <div class="flex justify-center items-center">
+                    <span class="mr-3 text-sm font-medium">Follow Us:</span>
+                    <div class="flex space-x-3 items-center">
+                        <a href="https://facebook.com" target="_blank" rel="noopener" class="hover:text-blue-200 transition">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener" class="hover:text-blue-200 transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener" class="hover:text-blue-200 transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://wa.me/+2347063569494" target="_blank" rel="noopener" class="hover:text-blue-200 transition">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Powered By -->
+                <div class="text-center md:text-right">
+                    <p class="text-sm">
+                        Powered By
+                        <a href="https://wa.me/+2347063569494" class="font-semibold hover:text-blue-100 transition duration-300">ACE TECH WORLD & HENRY TECH</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </main>
+    </div>
+</body>
+<script>
+    // DOM Elements
+    document.addEventListener('DOMContentLoaded', function() {
+        // Sidebar toggle functionality
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const mainContent = document.querySelector('main');
+
+        // Toggle sidebar function
+        function toggleSidebar() {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebarOverlay.classList.toggle('hidden');
+
+            // Add a slight push to the main content on larger screens
+            if (window.innerWidth >= 768) {
+                mainContent.classList.toggle('md:ml-72');
+            }
+        }
+
+        // Event listeners for sidebar
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', toggleSidebar);
+        }
+
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', toggleSidebar);
+        }
+
+        // Pricing card hover effects
+        const pricingCards = document.querySelectorAll('.pricing-card');
+
+        pricingCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                pricingCards.forEach(c => c.classList.remove('border-primary', 'z-10', 'transform', 'scale-105'));
+                this.classList.add('border-2', 'border-primary', 'z-10', 'transform', 'scale-105');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70, // Adjust for fixed header
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Mobile responsiveness enhancement
+        function handleResize() {
+            if (window.innerWidth >= 768) {
+                if (!sidebar.classList.contains('-translate-x-full')) {
+                    mainContent.classList.add('md:ml-72');
+                } else {
+                    mainContent.classList.remove('md:ml-72');
+                }
+            } else {
+                mainContent.classList.remove('md:ml-72');
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Initial call
+
+        // Payment section animation
+        const pricingSection = document.getElementById('pricing');
+        if (pricingSection) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.querySelectorAll('.pricing-card').forEach((card, index) => {
+                            setTimeout(() => {
+                                card.classList.add('animate-fade-in');
+                            }, index * 200);
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+
+            observer.observe(pricingSection);
+        }
+
+        // Add theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
+
+                // Update icon
+                const icon = this.querySelector('i');
+                if (document.body.classList.contains('dark-mode')) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                }
+            });
+
+            // Check for saved theme preference
+            if (localStorage.getItem('dark-mode') === 'true') {
+                document.body.classList.add('dark-mode');
+                const icon = themeToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                }
+            }
+        }
+
+        // Notification badge functionality
+        const notificationBadges = document.querySelectorAll('.notification-badge');
+
+        notificationBadges.forEach(badge => {
+            badge.addEventListener('click', function() {
+                this.classList.add('animate-ping');
+                setTimeout(() => {
+                    this.classList.remove('animate-ping');
+                }, 500);
+            });
+        });
+    });
+</script>
+
+</html>

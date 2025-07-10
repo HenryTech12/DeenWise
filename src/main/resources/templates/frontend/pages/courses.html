@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Courses | DeenWise</title>
+    <link rel="shortcut icon" th:href="@{/assets/origlogo.png}" type="image/x-icon">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#00A5CF',
+                            DEFAULT: '#008793',
+                            dark: '#004d7a',
+                        },
+                        secondary: {
+                            light: '#FFE1A8',
+                            DEFAULT: '#FFC172',
+                            dark: '#E09F3E',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .group:hover .group-hover\:block { /* For account dropdown */
+            display: block;
+        }
+        .course-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            opacity: 0; /* Initial state for animation */
+        }
+        .course-card:hover {
+            transform: translateY(-8px); /* Enhanced hover effect */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        /* CORRECTED CSS SELECTOR FOR ANIMATION */
+        #courseGridContainer.loaded .course-card { 
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen bg-gray-100 text-gray-800">
+    
+    <!-- Top Contact Bar -->
+    <div class="w-full py-2 bg-white border-b border-gray-200">
+        <div class="container mx-auto flex justify-center items-center text-sm px-4">
+            <span class="mx-2 md:mx-3">
+                <i class="fab fa-whatsapp text-green-600"></i>
+                <a href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...." class="no-underline text-gray-700 hover:text-primary-dark ml-1">Contact Us</a>
+            </span>
+            <span class="mx-2 text-gray-400">|</span>
+            <span class="mx-2 md:mx-3">
+                <i class="fas fa-envelope text-red-600"></i>
+                <a href="mailto:sadiqadetola08@gmail.com" class="no-underline text-gray-700 hover:text-primary-dark ml-1">Email Address</a>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="bg-gray-900 text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <img th:src="@{/assets/nobgoriglogo.png}" alt="Logo" class="w-10 h-10 md:w-12 md:h-12 mr-2 animate-float" />
+                    <a th:href="@{/home}" class="text-xl md:text-2xl font-bold text-white hover:text-secondary-light transition-colors">DeenWise</a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a th:href="@{/aboutus}" class="hover:text-secondary-light transition-colors">About Us</a>
+                    <a th:href="@{/courses}" class="text-secondary-light font-semibold border-b-2 border-secondary-light pb-1">Our Courses</a> <!-- ACTIVE -->
+                    <a th:href="@{/pricing}" class="hover:text-secondary-light transition-colors">Pricing</a>
+                    <div class="relative group">
+                        <button class="flex items-center focus:outline-none p-1 rounded-full hover:bg-gray-700 transition-colors">
+                            <th:block th:if="${#authentication.principal != 'anonymousUser' and #authentication.principal != null and #strings.defaultString(#authentication.principal.profilePictureUrl, '') != ''}">
+                                <img th:src="${#authentication.principal.profilePictureUrl}" alt="Account" class="w-8 h-8 rounded-full object-cover" />
+                            </th:block>
+                            <th:block th:unless="${#authentication.principal != 'anonymousUser' and #authentication.principal != null and #strings.defaultString(#authentication.principal.profilePictureUrl, '') != ''}">
+                                <img th:src="@{/assets/contactlogo.png}" alt="Account" class="w-8 h-8 rounded-full" />
+                            </th:block>
+                        </button>
+                        <div class="absolute right-0 w-48 mt-2 py-2 bg-white rounded-md shadow-lg hidden group-hover:block z-50 overflow-hidden border-t-2 border-secondary">
+                            <th:block th:if="${#authentication.principal == 'anonymousUser' or #authentication.principal == null}">
+                                <a th:href="@{/login}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-dark transition-colors">Sign in</a>
+                                <a th:href="@{/signup}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-dark transition-colors">Sign up</a>
+                            </th:block>
+                            <th:block th:unless="${#authentication.principal == 'anonymousUser' or #authentication.principal == null}">
+                                <a th:href="@{/student/dashboard}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary-dark transition-colors">My Dashboard</a>
+                                <a th:href="@{/logout}" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 hover:text-red-700 transition-colors">Log Out</a>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none hover:text-secondary-light">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4">
+                <ul class="flex flex-col space-y-3 items-center">
+                    <li><a th:href="@{/aboutus}" class="block py-2 hover:text-secondary-light transition-colors">About Us</a></li>
+                    <li><a th:href="@{/courses}" class="block py-2 text-secondary-light font-semibold">Our Courses</a></li> <!-- ACTIVE -->
+                    <li><a th:href="@{/pricing}" class="block py-2 hover:text-secondary-light transition-colors">Pricing</a></li>
+                     <th:block th:if="${#authentication.principal == 'anonymousUser' or #authentication.principal == null}">
+                        <li><a th:href="@{/login}" class="block py-2 hover:text-secondary-light transition-colors">Sign in</a></li>
+                        <li><a th:href="@{/signup}" class="block py-2 hover:text-secondary-light transition-colors">Sign up</a></li>
+                    </th:block>
+                     <th:block th:unless="${#authentication.principal == 'anonymousUser' or #authentication.principal == null}">
+                        <li><a th:href="@{/student/dashboard}" class="block py-2 hover:text-secondary-light transition-colors">My Dashboard</a></li>
+                        <li><a th:href="@{/logout}" class="block py-2 text-red-400 hover:text-red-300 transition-colors">Log Out</a></li>
+                    </th:block>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="flex-grow">
+        <main id="courseGridContainer" class="container mx-auto px-4 py-8 md:py-12">
+            <header class="text-center mb-10 md:mb-16">
+                <h1 class="text-4xl md:text-5xl font-bold text-primary-dark mb-4">Explore Our Courses</h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                    Embark on a transformative journey of Islamic learning. Find the perfect course to deepen your understanding and connection with the Qur'an.
+                </p>
+            </header>
+
+            <section id="courseGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                <!-- Course Card 1 -->
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col border border-transparent hover:border-primary-light">
+                    <img th:src="@{/assets/course-tajweed.jpg}" alt="Basic Qur'an Reading" class="w-full h-52 object-cover">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Basic Qur'an Reading</h3>
+                        <p class="text-sm text-gray-500 mb-2 flex items-center"><i data-lucide="layers" class="w-4 h-4 mr-1.5 text-primary"></i> Beginners Level</p>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow line-clamp-3">
+                            Learn to read Arabic letters, words, and basic phrases from the Qur'an. Perfect for absolute beginners.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-2xl font-bold text-primary mr-1">$29</span>
+                            <span class="text-sm text-gray-500">/ month</span>
+                        </div>
+                        <a th:href="@{/payment(courseId='basic-quran-reading')}" class="mt-auto block text-center bg-secondary hover:bg-secondary-dark text-primary-dark font-semibold py-2.5 px-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center gap-2">
+                           <i data-lucide="arrow-right-circle" class="w-5 h-5"></i> Enroll Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Course Card 2 -->
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col border border-transparent hover:border-primary-light">
+                    <img th:src="@{/assets/course-tajweed-adv.jpg}" alt="Tajweed for Beginners" class="w-full h-52 object-cover">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Tajweed for Beginners</h3>
+                         <p class="text-sm text-gray-500 mb-2 flex items-center"><i data-lucide="layers" class="w-4 h-4 mr-1.5 text-primary"></i> Beginners Level</p> <!-- Corrected level -->
+                        <p class="text-gray-600 text-sm mb-4 flex-grow line-clamp-3">
+                            Understand basic Tajweed rules and correct pronunciation of Arabic letters for beautiful recitation.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-2xl font-bold text-primary mr-1">$39</span>
+                            <span class="text-sm text-gray-500">/ month</span>
+                        </div>
+                        <a th:href="@{/payment(courseId='tajweed-beginners')}" class="mt-auto block text-center bg-secondary hover:bg-secondary-dark text-primary-dark font-semibold py-2.5 px-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center gap-2">
+                           <i data-lucide="arrow-right-circle" class="w-5 h-5"></i> Enroll Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Course Card 3 -->
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col border border-transparent hover:border-primary-light">
+                    <img th:src="@{/assets/course-hifdh.jpg}" alt="Memorization Program" class="w-full h-52 object-cover">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Qur'an Memorization (Hifdh)</h3>
+                         <p class="text-sm text-gray-500 mb-2 flex items-center"><i data-lucide="layers" class="w-4 h-4 mr-1.5 text-primary"></i> All Levels</p>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow line-clamp-3">
+                            Step-by-step guidance and techniques for memorizing the Qur'an efficiently and effectively with qualified Huffaz.
+                        </p>
+                         <div class="mb-4">
+                            <span class="text-2xl font-bold text-primary mr-1">$79</span>
+                            <span class="text-sm text-gray-500">/ month</span>
+                        </div>
+                        <a th:href="@{/payment(courseId='hifdh-program')}" class="mt-auto block text-center bg-secondary hover:bg-secondary-dark text-primary-dark font-semibold py-2.5 px-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center gap-2">
+                           <i data-lucide="arrow-right-circle" class="w-5 h-5"></i> Enroll Now
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Course Card 4 -->
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col border border-transparent hover:border-primary-light">
+                    <img th:src="@{/assets/course-tafsir.jpg}" alt="Qur'an with Tafsir" class="w-full h-52 object-cover">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Understanding Qur'an (Tafsir)</h3>
+                         <p class="text-sm text-gray-500 mb-2 flex items-center"><i data-lucide="layers" class="w-4 h-4 mr-1.5 text-primary"></i> Intermediate to Advanced</p>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow line-clamp-3">
+                           Dive into the meanings and interpretations of the Qur'anic verses, exploring their context and timeless wisdom.
+                        </p>
+                         <div class="mb-4">
+                            <span class="text-2xl font-bold text-primary mr-1">$59</span>
+                            <span class="text-sm text-gray-500">/ month</span>
+                        </div>
+                        <a th:href="@{/payment(courseId='tafsir')}" class="mt-auto block text-center bg-secondary hover:bg-secondary-dark text-primary-dark font-semibold py-2.5 px-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center gap-2">
+                           <i data-lucide="arrow-right-circle" class="w-5 h-5"></i> Enroll Now
+                        </a>
+                    </div>
+                </div>
+                <!-- The existing course cards from your HTML are below -->
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col border border-transparent hover:border-primary-light">
+                    <img src="https://via.placeholder.com/400x250/FFC172/004d7a?text=Tafsir" alt="Qur'an with Tafsir" class="w-full h-52 object-cover"> <!-- Placeholder image path was different, kept it -->
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Qur'an with Tafsir (Alt)</h3> <!-- Added (Alt) to differentiate if needed -->
+                        <p class="text-sm text-gray-500 mb-2 flex items-center"><i data-lucide="layers" class="w-4 h-4 mr-1.5 text-primary"></i> Intermediate Level</p>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow line-clamp-3">
+                            Learn to recite while understanding the meaning, context, and wisdom behind each verse.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-2xl font-bold text-primary mr-1">$49</span>
+                            <span class="text-sm text-gray-500">/ month</span>
+                        </div>
+                        <a th:href="@{/payment(courseId='quran-tafsir-alt')}" class="mt-auto block text-center bg-secondary hover:bg-secondary-dark text-primary-dark font-semibold py-2.5 px-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center gap-2">
+                           <i data-lucide="arrow-right-circle" class="w-5 h-5"></i> Enroll Now
+                        </a>
+                    </div>
+                </div>
+
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col border border-transparent hover:border-primary-light">
+                    <img src="https://via.placeholder.com/400x250/008793/FFFFFF?text=Quranic+Arabic" alt="Qur'anic Arabic Basics" class="w-full h-52 object-cover">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Qur'anic Arabic Basics</h3>
+                        <p class="text-sm text-gray-500 mb-2 flex items-center"><i data-lucide="layers" class="w-4 h-4 mr-1.5 text-primary"></i> Beginners Level</p>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow line-clamp-3">
+                            Understand essential Arabic grammar and vocabulary frequently used in the Holy Qur'an.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-2xl font-bold text-primary mr-1">$45</span>
+                            <span class="text-sm text-gray-500">/ month</span>
+                        </div>
+                        <a th:href="@{/payment(courseId='quranic-arabic')}" class="mt-auto block text-center bg-secondary hover:bg-secondary-dark text-primary-dark font-semibold py-2.5 px-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center gap-2">
+                           <i data-lucide="arrow-right-circle" class="w-5 h-5"></i> Enroll Now
+                        </a>
+                    </div>
+                </div>
+
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col border border-transparent hover:border-primary-light">
+                    <img src="https://via.placeholder.com/400x250/00A5CF/FFFFFF?text=Adhkar" alt="Daily Adhkar & Short Surahs" class="w-full h-52 object-cover">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Daily Adhkar & Short Surahs</h3>
+                        <p class="text-sm text-gray-500 mb-2 flex items-center"><i data-lucide="layers" class="w-4 h-4 mr-1.5 text-primary"></i> All Levels</p>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow line-clamp-3">
+                            Learn and memorize essential daily supplications (Adhkar) and short Surahs for prayer.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-2xl font-bold text-primary mr-1">$19</span>
+                            <span class="text-sm text-gray-500">/ month</span>
+                        </div>
+                        <a th:href="@{/payment(courseId='adhkar-short-surahs')}" class="mt-auto block text-center bg-secondary hover:bg-secondary-dark text-primary-dark font-semibold py-2.5 px-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center gap-2">
+                           <i data-lucide="arrow-right-circle" class="w-5 h-5"></i> Enroll Now
+                        </a>
+                    </div>
+                </div>
+
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col border border-transparent hover:border-primary-light">
+                    <img src="https://via.placeholder.com/400x250/004d7a/FFFFFF?text=Ijazah" alt="Ijazah Program" class="w-full h-52 object-cover">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Ijazah Program</h3>
+                        <p class="text-sm text-gray-500 mb-2 flex items-center"><i data-lucide="layers" class="w-4 h-4 mr-1.5 text-primary"></i> Advanced Level</p>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow line-clamp-3">
+                            Earn an Ijazah (certification) in Qur'anic recitation and Tajweed mastery from qualified scholars.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-lg font-medium text-primary">Contact for Pricing</span>
+                        </div>
+                        <a th:href="@{/contact(program='ijazah')}" class="mt-auto block text-center bg-secondary hover:bg-secondary-dark text-primary-dark font-semibold py-2.5 px-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center gap-2">
+                           <i data-lucide="mail" class="w-5 h-5"></i> Contact Us
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-white text-center py-6 bg-cover bg-no-repeat bg-center mt-auto" style="background-image: url('../assets/bggg.jpeg');">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm mb-4 md:mb-2">
+                <p class="mb-2 md:mb-0">
+                    © 2025 <a th:href="@{/home}" class="font-bold hover:text-secondary-light transition-colors">DeenWise</a>. All rights reserved.
+                </p>
+                <div class="flex justify-center items-center">
+                    <span class="mr-3 text-sm font-medium">Follow Us:</span>
+                    <div class="flex space-x-3 items-center">
+                        <a href="https://facebook.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="https://wa.me/+2347063569494" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-whatsapp text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+            <p class="text-sm">
+                Powered By <a href="https://wa.me/+2347063569494" class="font-bold hover:text-secondary-light transition-colors">ACE TECH & HENRY TECH</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mobileMenuButton = document.getElementById("mobile-menu-button");
+            const mobileMenu = document.getElementById("mobile-menu");
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener("click", function() {
+                    mobileMenu.classList.toggle("hidden");
+                });
+            }
+
+            if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                lucide.createIcons();
+            }
+
+            const courseGridContainer = document.getElementById('courseGridContainer');
+            if (courseGridContainer) {
+                const courseCards = courseGridContainer.querySelectorAll('.course-card');
+                courseCards.forEach((card, index) => {
+                    card.style.animationDelay = `${index * 0.1}s`;
+                });
+                setTimeout(() => {
+                    // Add 'loaded' to the PARENT of #courseGrid for the animation to trigger correctly
+                    // assuming #courseGrid is the direct child that needs this class for its children
+                    const courseGrid = document.getElementById('courseGrid');
+                    if(courseGrid && courseGrid.parentElement) {
+                        courseGrid.parentElement.classList.add('loaded'); 
+                    } else {
+                        // Fallback if structure is different or #courseGrid is not found
+                         courseGridContainer.classList.add('loaded');
+                    }
+                }, 100); 
+            }
+        });
+    </script>
+</body>
+
+</html>

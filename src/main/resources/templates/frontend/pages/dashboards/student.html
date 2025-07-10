@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard | DeenWise</title>
+    <link rel="shortcut icon" th:href="@{/assets/origlogo.png}" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#00A5CF',
+                            DEFAULT: '#008793',
+                            dark: '#004d7a',
+                        },
+                        secondary: {
+                            light: '#FFE1A8',
+                            DEFAULT: '#FFC172',
+                            dark: '#E09F3E',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .sidebar-link {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            border-left: 4px solid #FFC172;
+            /* secondary.DEFAULT */
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .bg-gradient {
+            background: linear-gradient(120deg, #004d7a, #008793, #00A5CF);
+            background-size: 200% 200%;
+            animation: gradientBG 10s ease infinite;
+        }
+        
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%
+            }
+            50% {
+                background-position: 100% 50%
+            }
+            100% {
+                background-position: 0% 50%
+            }
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .dashboard-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        /* Estimate navbar height for calculations, py-4 + logo height, approx 4.5rem. Tailwind: h-18 */
+        :root {
+            --navbar-height: 4.5rem; /* Adjust if navbar content height changes significantly */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans flex flex-col min-h-screen overflow-x-hidden">
+    <!-- Animated Top Bar -->
+    <div class="w-full bg-gradient-to-r from-primary-dark to-primary py-2 text-sm border-b relative overflow-hidden">
+        <div class="absolute inset-0 bg-white opacity-10">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23ffffff\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E');"></div>
+        </div>
+        <div class="container mx-auto flex justify-center items-center gap-6 text-white relative z-10">
+            <div class="flex items-center transition-all hover:text-secondary-light">
+                <i class="fa-brands fa-whatsapp text-lg mr-2"></i>
+                <a href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...." class="hover:underline">Connect with Us</a>
+            </div>
+            <div class="h-4 w-px bg-white/30"></div>
+            <div class="flex items-center transition-all hover:text-secondary-light">
+                <i class="fa-solid fa-envelope text-lg mr-2"></i>
+                <a href="mailto:sadiqadetola08@gmail.com" class="hover:underline">Email Support</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-gradient py-4 text-white sticky top-0 z-50 shadow-lg" style="height: var(--navbar-height);">
+        <div class="container mx-auto px-4 flex items-center justify-between h-full">
+            <div class="flex items-center gap-3">
+                <button id="sidebarToggle" class="text-white p-2 hover:bg-white/10 rounded-lg transition-all">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <div class="flex items-center gap-2">
+                    <img th:src="@{/assets/nobgoriglogo.png}" alt="DeenWise Logo" class="w-10 h-10 animate-float" />
+                    <a th:href="@{/home}" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-secondary-light">DeenWise</a>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-6">
+                <a th:href="@{/student/dashboard}" class="text-secondary-light font-semibold transition-all">Dashboard</a>
+                <a th:href="@{/student/lessons}" class="text-white/80 hover:text-white transition-all">Lessons</a>
+                <a th:href="@{/student/quran}" class="text-white/80 hover:text-white transition-all">Qur'an</a>
+            </div>
+
+            <div class="relative group">
+                <button class="flex items-center gap-2 bg-white/10 hover:bg-white/20 rounded-full px-4 py-2 transition-all">
+                    <span class="hidden md:inline text-sm" id="navUserName">My Account</span>
+                    <i class="fas fa-user-circle text-lg"></i>
+                </button>
+                <div class="absolute right-0 hidden group-hover:block bg-white text-gray-800 shadow-xl mt-2 rounded-lg overflow-hidden z-50 w-48 border-t-4 border-secondary">
+                    <div class="p-3 bg-gray-100 border-b">
+                        <p class="font-medium text-primary-dark" id="dropdownUserName">User Account</p>
+                    </div>
+                    <ul class="py-2">
+                        <li>
+                            <a th:href="@{/student/profile}" class="flex items-center px-4 py-2 hover:bg-gray-100">
+                                <i class="fas fa-user-circle mr-3 text-primary"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/student/settings}" class="flex items-center px-4 py-2 hover:bg-gray-100">
+                                <i class="fas fa-cog mr-3 text-primary"></i>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                        <li class="border-t">
+                            <a th:href="@{/logout}" class="flex items-center px-4 py-2 hover:bg-gray-100 text-red-500">
+                                <i class="fas fa-sign-out-alt mr-3"></i>
+                                <span>Log Out</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar & Main -->
+    <div class="flex flex-grow">
+        <!-- Sidebar -->
+        <div id="sidebar" class="w-72 bg-gradient text-white fixed z-40 transition-transform duration-300 transform -translate-x-full md:translate-x-0 overflow-y-auto scrollbar-hide shadow-2xl" 
+             style="top: var(--navbar-height); height: calc(100vh - var(--navbar-height));">
+            <div class="p-6 space-y-8">
+                <div class="flex flex-col items-center text-center p-4 bg-white/10 rounded-xl">
+                    <div class="w-20 h-20 rounded-full bg-secondary flex items-center justify-center text-white text-xl font-bold mb-3">
+                        <i class="fas fa-user text-3xl"></i> <!-- Student Icon -->
+                    </div>
+                    <!-- Updated sidebarUserName structure for consistency -->
+                    <h3 class="font-semibold" id="sidebarUserName">Student <span th:text="${name}">User</span></h3>
+                    <p class="text-xs text-white/70">Student Account</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Main Navigation</p>
+                    <a th:href="@{/student/dashboard}" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="layout-dashboard" class="w-5 h-5"></i><span>Dashboard</span>
+                    </a>
+                    <a th:href="@{/student/lessons}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="video" class="w-5 h-5"></i><span>View Lessons</span>
+                    </a>
+                    <a th:href="@{/student/assignment}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="file-pen-line" class="w-5 h-5"></i><span>Assignments</span>
+                    </a>
+                    <a th:href="@{/student/quran}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="book-open-check" class="w-5 h-5"></i><span>Read Qur'an</span>
+                    </a>
+                    <a th:href="@{/student/chat}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i><span>Chat</span>
+                        <span class="ml-auto bg-secondary text-white text-xs px-2 py-1 rounded-full">3</span>
+                    </a>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Account</p>
+                    <a th:href="@{/student/settings}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="settings-2" class="w-5 h-5"></i><span>Settings</span>
+                    </a>
+                    <a th:href="@{/student/profile}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="user-circle-2" class="w-5 h-5"></i><span>My Profile</span>
+                    </a>
+                    <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="help-circle" class="w-5 h-5"></i><span>Help Center</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="fixed inset-0 bg-black/50 z-30 hidden md:hidden" id="sidebarOverlay"></div>
+
+        <!-- Main Content -->
+        <main id="mainContent" class="flex-grow bg-gray-50 transition-all duration-300 md:ml-72 pb-12 px-4 md:px-8"
+              style="padding-top: var(--navbar-height);">
+            <header class="my-8 flex flex-col text-center"> <!-- Changed mb-8 to my-8 -->
+                <h1 class="text-3xl md:text-4xl font-bold text-primary-dark">
+                    Welcome, <span id="mainUserName" class="text-secondary-dark" th:text="${name}">User</span>!
+                </h1>
+                <p class="text-gray-600 mt-1">Here's a quick overview of your learning journey.</p>
+            </header>
+
+            <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div class="dashboard-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="p-3 bg-primary-light rounded-full mb-4">
+                        <i data-lucide="book-open" class="w-8 h-8 text-primary-dark"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Your Lessons</h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">
+                        Continue your Qur'an lessons and track your progress.
+                    </p>
+                    <a th:href="@{/student/lessons}" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
+                        <span>Go to Lessons</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+                <div class="dashboard-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="p-3 bg-secondary-light rounded-full mb-4">
+                        <i data-lucide="clipboard-check" class="w-8 h-8 text-secondary-dark"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Assignments</h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">
+                        Check pending tasks, submit your work, and view feedback.
+                    </p>
+                    <a th:href="@{/student/assignment}" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
+                        <span>View Assignments</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+                <div class="dashboard-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="p-3 bg-green-100 rounded-full mb-4">
+                        <i data-lucide="book-text" class="w-8 h-8 text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Read Qur'an</h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">
+                        Access the digital Mushaf for recitation and reflection.
+                    </p>
+                    <a th:href="@{/student/quran}" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
+                        <span>Start Reading</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+                <div class="dashboard-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="p-3 bg-blue-100 rounded-full mb-4">
+                        <i data-lucide="message-circle-more" class="w-8 h-8 text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Chat</h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">
+                        Connect with your tutors and fellow learners for support.
+                    </p>
+                    <a th:href="@{/student/chat}" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
+                        <span>Join Chat</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer - Updated with Social Media Icons -->
+    <footer class="bg-gradient text-white py-6 relative z-30 mt-auto"> <!-- Kept original gradient, can be changed to from-indigo-600 to-blue-500 if preferred -->
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <!-- Company Info -->
+                <div class="text-center md:text-left">
+                    <a th:href="@{/home}" class="font-bold text-xl hover:text-secondary-light transition duration-300">DeenWise</a>
+                    <p class="text-sm mt-2 opacity-80">© 2025 All rights reserved</p>
+                </div>
+
+                <!-- Social Media Icons -->
+                <div class="flex justify-center items-center">
+                    <span class="mr-3 text-sm font-medium">Follow Us:</span>
+                    <div class="flex space-x-3 items-center">
+                        <a href="https://facebook.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://wa.me/+2347063569494" target="_blank" rel="noopener" class="hover:text-secondary-light transition">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Powered By -->
+                <div class="text-center md:text-right">
+                    <p class="text-sm">
+                        Powered By
+                        <a href="https://wa.me/+2347063569494" class="font-semibold hover:text-secondary-light transition duration-300">ACE TECH WORLD & HENRY TECH</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+<script>
+    function getUserName() {let myName = '';
+        async function getName() {
+          const response = await fetch('http://localhost:8080/user/name', {
+            method: 'GET',
+            credentials: "include",
+            headers: {'Content-Type':'application/json'}
+          });
+          const data = await response.json();
+          console.log('yo ', data.name);
+          localStorage.setItem('deenWiseUserName',data.name);
+
+        }
+        getName();
+        // For Thymeleaf, the name should be passed from the model.
+        // localStorage can be a fallback or secondary source.
+        // For demonstration, we'll keep the localStorage logic.
+        // Ensure your Spring controller adds 'name' to the model for th:text to work.
+        return localStorage.getItem('deenWiseUserName'); // Return empty if not found, th:text will then show its fallback
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const userName = getUserName(); // Get from localStorage as a potential fallback
+        
+        // Update user name placeholders. Thymeleaf's th:text should ideally handle this.
+        // This JS part handles cases where th:text might not be populated or for elements without th:text.
+        const navUserNameEl = document.getElementById('navUserName');
+        if (navUserNameEl && userName && userName.length > 10) {
+            navUserNameEl.textContent = "My Account";
+        } else if (navUserNameEl && userName) {
+            // navUserNameEl.textContent = userName; // This would override "My Account"
+        }
+
+        const dropdownUserNameEl = document.getElementById('dropdownUserName');
+        if (dropdownUserNameEl && userName) {
+            // If th:text is not on this element but you want to set it
+            // dropdownUserNameEl.textContent = userName; // Or keep "User Account" as default
+        }
+        
+        // For elements with th:text="${name}", that will take precedence if 'name' is in the model.
+        // This JS provides a fallback if 'name' isn't in model AND localStorage has a value.
+        const sidebarUserSpan = document.querySelector('#sidebarUserName span');
+        if (sidebarUserSpan && !sidebarUserSpan.textContent.trim() && userName) { // if th:text was empty and localStorage has name
+            sidebarUserSpan.textContent = userName;
+        } else if (sidebarUserSpan && !sidebarUserSpan.textContent.trim()){ // if both empty, set to "User"
+             sidebarUserSpan.textContent = 'User';
+        }
+
+
+        const mainUserSpan = document.querySelector('#mainUserName span'); // Assuming mainUserName IS the span now
+        if (document.getElementById('mainUserName') && document.getElementById('mainUserName').tagName === 'SPAN'){
+            const mainUserNameDirect = document.getElementById('mainUserName');
+            if (!mainUserNameDirect.textContent.trim() && userName) {
+                mainUserNameDirect.textContent = userName;
+            } else if (!mainUserNameDirect.textContent.trim()) {
+                mainUserNameDirect.textContent = 'User';
+            }
+        }
+
+
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const mainContent = document.getElementById('mainContent');
+
+        let isSidebarOpen = window.innerWidth >= 768;
+
+        function applySidebarState() {
+            if (!sidebar || !mainContent || !sidebarOverlay) return; // Defensive check
+
+            if (window.innerWidth < 768) { // Mobile view
+                mainContent.classList.remove('md:ml-72');
+                sidebar.classList.remove('md:translate-x-0');
+
+                if (isSidebarOpen) {
+                    sidebar.classList.remove('-translate-x-full');
+                    sidebarOverlay.classList.remove('hidden');
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    sidebarOverlay.classList.add('hidden');
+                }
+            } else { // Desktop view
+                sidebarOverlay.classList.add('hidden'); 
+
+                if (isSidebarOpen) {
+                    sidebar.classList.add('md:translate-x-0');
+                    sidebar.classList.remove('-translate-x-full');
+                    mainContent.classList.add('md:ml-72');
+                } else {
+                    sidebar.classList.remove('md:translate-x-0');
+                    sidebar.classList.add('-translate-x-full'); 
+                    mainContent.classList.remove('md:ml-72');
+                }
+            }
+        }
+
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            applySidebarState();
+        }
+
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', toggleSidebar);
+        }
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', () => {
+                if (window.innerWidth < 768 && isSidebarOpen) {
+                    isSidebarOpen = false;
+                    applySidebarState();
+                }
+            });
+        }
+
+        window.addEventListener('resize', () => {
+            // On resize, determine if the intended state based on new screen size should change
+            // For example, if resizing from mobile (sidebar closed) to desktop, should it open?
+            // Current logic: maintain current open/closed state, but apply correct classes for new size.
+            // If you want sidebar to always open when resizing to desktop:
+            // if (window.innerWidth >= 768 && !isSidebarOpen) isSidebarOpen = true;
+            applySidebarState();
+        });
+
+        applySidebarState(); // Initial application
+
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    });
+</script>
+
+</html>

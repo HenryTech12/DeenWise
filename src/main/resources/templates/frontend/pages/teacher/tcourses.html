@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Courses | DeenWise - Tutor</title>
+    <link rel="shortcut icon" th:href="@{/assets/origlogo.png}" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#00A5CF',
+                            DEFAULT: '#008793',
+                            dark: '#004d7a',
+                        },
+                        secondary: {
+                            light: '#FFE1A8',
+                            DEFAULT: '#FFC172',
+                            dark: '#E09F3E',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .sidebar-link {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            border-left: 4px solid #FFC172;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .bg-gradient {
+            background: linear-gradient(120deg, #004d7a, #008793, #00A5CF);
+            background-size: 200% 200%;
+            animation: gradientBG 10s ease infinite;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        
+        .course-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 77, 122, 0.15);
+        }
+        :root {
+            --navbar-height: 4.5rem; 
+            /* --topbar-height: 2.75rem; Only define if top bar is also fixed affecting layout below */
+        }
+        @media (max-width: 767px) { 
+            :root {
+                --navbar-height: 3.75rem; 
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans flex flex-col min-h-screen overflow-x-hidden">
+    <!-- Animated Top Bar -->
+    <!-- Assuming this scrolls away and is NOT part of the fixed header stack affecting sidebar/main content positioning -->
+    <div class="w-full bg-gradient-to-r from-primary-dark to-primary py-2 text-sm border-b relative overflow-hidden">
+        <div class="absolute inset-0 bg-white opacity-10">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23ffffff\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E');"></div>
+        </div>
+        <div class="container mx-auto flex justify-center items-center gap-6 text-white relative z-10 px-2 h-full">
+            <div class="flex items-center transition-all hover:text-secondary-light"><i class="fa-brands fa-whatsapp text-lg mr-2"></i><a href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...." class="hover:underline">Connect</a></div>
+            <div class="h-4 w-px bg-white/30"></div>
+            <div class="flex items-center transition-all hover:text-secondary-light"><i class="fa-solid fa-envelope text-lg mr-2"></i><a href="mailto:sadiqadetola08@gmail.com" class="hover:underline">Email</a></div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-gradient py-3 md:py-4 text-white sticky top-0 z-50 shadow-lg" style="height: var(--navbar-height);">
+        <div class="container mx-auto px-2 md:px-4 flex items-center justify-between h-full">
+            <div class="flex items-center gap-1 md:gap-3">
+                <button id="sidebarToggle" class="text-white p-2 hover:bg-white/10 rounded-lg transition-all"><i class="fas fa-bars text-xl"></i></button>
+                <div class="flex items-center gap-1 md:gap-2">
+                    <img th:src="@{/assets/nobgoriglogo.png}" alt="DeenWise Logo" class="w-8 h-8 md:w-10 md:h-10 animate-float" />
+                    <a th:href="@{/home}" class="text-lg md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-secondary-light">DeenWise</a>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center space-x-4 lg:space-x-6">
+                <a th:href="@{/teacher/dashboard}" class="text-white/80 hover:text-white transition-all">Dashboard</a>
+                <a th:href="@{/teacher/video}" class="text-secondary-light font-semibold transition-all">Video Lessons</a> <!-- Active -->
+                <a th:href="@{/teacher/quran}" class="text-white/80 hover:text-white transition-all">Qur'an</a>
+            </div>
+            <div class="relative group">
+                <button class="flex items-center gap-2 bg-white/10 hover:bg-white/20 rounded-full px-3 py-1.5 md:px-4 md:py-2 transition-all">
+                    <span class="hidden sm:inline text-xs md:text-sm" id="navUserName">My Account</span>
+                    <i class="fas fa-user-circle text-base md:text-lg"></i>
+                </button>
+                <div class="absolute right-0 hidden group-hover:block bg-white text-gray-800 shadow-xl mt-2 rounded-lg overflow-hidden z-50 w-48 border-t-4 border-secondary">
+                    <div class="p-3 bg-gray-100 border-b">
+                        <p class="font-medium text-primary-dark text-sm" id="dropdownUserName">User Account</p>
+                    </div>
+                    <ul class="py-1">
+                        <li><a th:href="@{/teacher/profile}" class="flex items-center px-4 py-2 text-sm hover:bg-gray-100"><i class="fas fa-user-circle mr-3 text-primary"></i>My Profile</a></li>
+                        <li><a th:href="@{/teacher/settings}" class="flex items-center px-4 py-2 text-sm hover:bg-gray-100"><i class="fas fa-cog mr-3 text-primary"></i>Settings</a></li>
+                        <li class="border-t mt-1 pt-1"><a th:href="@{/logout}" class="flex items-center px-4 py-2 text-sm hover:bg-gray-100 text-red-500"><i class="fas fa-sign-out-alt mr-3"></i>Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar & Main -->
+    <div class="flex flex-grow">
+        <!-- Sidebar -->
+        <div id="sidebar" class="w-72 bg-gradient text-white fixed z-40 transition-transform duration-300 transform -translate-x-full md:translate-x-0 overflow-y-auto scrollbar-hide shadow-2xl" 
+             style="top: var(--navbar-height); height: calc(100vh - var(--navbar-height));">
+             <!-- Removed - var(--topbar-height) as top bar is assumed to scroll -->
+            <div class="p-4 md:p-6 space-y-6 md:space-y-8">
+                <div class="flex flex-col items-center text-center p-3 md:p-4 bg-white/10 rounded-xl">
+                    <!-- Removed closeSidebarButton from here -->
+                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-secondary flex items-center justify-center text-white text-2xl md:text-3xl font-bold mb-2 md:mb-3"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3 class="font-semibold text-sm md:text-base" id="sidebarUserName">Tutor <span th:text="${name}">User</span></h3>
+                    <p class="text-xs text-white/70">Teacher Account</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Main Navigation</p>
+                    <a th:href="@{/teacher/dashboard}" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="layout-dashboard" class="w-4 h-4 md:w-5 md:h-5"></i><span>Dashboard</span></a>
+                    <a th:href="@{/teacher/video}" class="sidebar-link active flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="video" class="w-4 h-4 md:w-5 md:h-5"></i><span>Video Lessons</span></a> <!-- Active -->
+                    <a th:href="@{/teacher/assessment}" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="file-pen-line" class="w-4 h-4 md:w-5 md:h-5"></i><span>Assignments</span></a>
+                    <a th:href="@{/teacher/quran}" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="book-open-check" class="w-4 h-4 md:w-5 md:h-5"></i><span>Read Qur'an</span></a>
+                    <a th:href="@{/teacher/chat}" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="message-circle-more" class="w-4 h-4 md:w-5 md:h-5"></i><span>Chat</span></a>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Account</p>
+                    <a th:href="@{/teacher/settings}" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="settings-2" class="w-4 h-4 md:w-5 md:h-5"></i><span>Settings</span></a>
+                    <a th:href="@{/teacher/profile}" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="user-circle-2" class="w-4 h-4 md:w-5 md:h-5"></i><span>My Profile</span></a>
+                    <a href="#" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="help-circle" class="w-4 h-4 md:w-5 md:h-5"></i><span>Help Center</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-30 hidden md:hidden"></div>
+
+        <!-- Main Content Area -->
+        <main id="mainContent" class="flex-grow bg-gray-50 transition-all duration-300 md:ml-72 pb-12 px-4 md:px-8"
+              style="padding-top: var(--navbar-height);"> 
+              <!-- Removed var(--topbar-height) as top bar scrolls -->
+            <header class="mb-6 md:mb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-primary-dark">My Courses</h1>
+                    <p class="text-sm md:text-base text-gray-600 mt-1">Create, edit, and organize the courses you offer.</p>
+                </div>
+                <button id="addNewCourseBtn" class="w-full sm:w-auto bg-primary hover:bg-primary-dark text-white font-medium py-2.5 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 text-sm">
+                    <i data-lucide="plus-circle" class="w-5 h-5"></i>
+                    Add New Course
+                </button>
+            </header>
+
+            <section id="courseGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Course cards remain the same -->
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <img src="https://via.placeholder.com/400x225/008793/FFFFFF?text=Tajweed+101" alt="Course Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold text-primary-dark mb-2">Tajweed 101: Mastering Pronunciation</h3>
+                        <p class="text-xs text-gray-500 mb-1">15 Lessons • 40 Students</p>
+                        <p class="text-sm text-gray-600 mb-4 flex-grow line-clamp-3">An introductory course to the fundamental rules of Tajweed, focusing on correct letter articulation and basic principles.</p>
+                        <div class="mb-3"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">Published</span></div>
+                        <div class="border-t pt-3 mt-auto flex justify-between items-center space-x-2">
+                            <button title="Edit Course" class="p-2 text-gray-500 hover:text-primary transition-colors rounded-full hover:bg-primary-light/10"><i data-lucide="edit" class="w-5 h-5"></i></button>
+                            <button title="Manage Lessons" class="p-2 text-gray-500 hover:text-primary transition-colors rounded-full hover:bg-primary-light/10"><i data-lucide="list-video" class="w-5 h-5"></i></button>
+                            <button title="View Students" class="p-2 text-gray-500 hover:text-primary transition-colors rounded-full hover:bg-primary-light/10"><i data-lucide="users" class="w-5 h-5"></i></button>
+                            <button title="Delete Course" class="p-2 text-red-500 hover:text-red-700 transition-colors rounded-full hover:bg-red-100/50"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <img src="https://via.placeholder.com/400x225/00A5CF/FFFFFF?text=Quranic+Stories" alt="Course Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold text-primary-dark mb-2">Stories of the Prophets</h3>
+                        <p class="text-xs text-gray-500 mb-1">10 Lessons • 25 Students</p>
+                        <p class="text-sm text-gray-600 mb-4 flex-grow line-clamp-3">Explore the lives and lessons from the stories of the Prophets mentioned in the Qur'an.</p>
+                        <div class="mb-3"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-700">Draft</span></div>
+                        <div class="border-t pt-3 mt-auto flex justify-between items-center space-x-2">
+                            <button title="Edit Course" class="p-2 text-gray-500 hover:text-primary transition-colors rounded-full hover:bg-primary-light/10"><i data-lucide="edit" class="w-5 h-5"></i></button>
+                            <button title="Manage Lessons" class="p-2 text-gray-500 hover:text-primary transition-colors rounded-full hover:bg-primary-light/10"><i data-lucide="list-video" class="w-5 h-5"></i></button>
+                            <button title="View Students" class="p-2 text-gray-500 hover:text-primary transition-colors rounded-full hover:bg-primary-light/10"><i data-lucide="users" class="w-5 h-5"></i></button>
+                            <button title="Delete Course" class="p-2 text-red-500 hover:text-red-700 transition-colors rounded-full hover:bg-red-100/50"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <img src="https://via.placeholder.com/400x225/004D7A/FFFFFF?text=Arabic+Beginners" alt="Course Thumbnail" class="w-full h-48 object-cover">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold text-primary-dark mb-2">Basic Arabic for Qur'an Understanding</h3>
+                        <p class="text-xs text-gray-500 mb-1">20 Lessons • 18 Students</p>
+                        <p class="text-sm text-gray-600 mb-4 flex-grow line-clamp-3">Learn essential Arabic vocabulary and grammar to begin understanding the Qur'an directly.</p>
+                        <div class="mb-3"><span class="px-3 py-1 text-xs font-semibold rounded-full bg-gray-200 text-gray-700">Archived</span></div>
+                        <div class="border-t pt-3 mt-auto flex justify-between items-center space-x-2">
+                            <button title="Edit Course" class="p-2 text-gray-500 hover:text-primary transition-colors rounded-full hover:bg-primary-light/10"><i data-lucide="edit" class="w-5 h-5"></i></button>
+                            <button title="Manage Lessons" class="p-2 text-gray-500 hover:text-primary transition-colors rounded-full hover:bg-primary-light/10"><i data-lucide="list-video" class="w-5 h-5"></i></button>
+                            <button title="View Students" class="p-2 text-gray-500 hover:text-primary transition-colors rounded-full hover:bg-primary-light/10"><i data-lucide="users" class="w-5 h-5"></i></button>
+                            <button title="Delete Course" class="p-2 text-red-500 hover:text-red-700 transition-colors rounded-full hover:bg-red-100/50"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="emptyState" class="hidden text-center py-12">
+                <i data-lucide="folder-open" class="mx-auto text-gray-300 w-24 h-24 mb-6"></i>
+                <h2 class="text-xl font-semibold text-gray-700 mb-2">No Courses Yet</h2>
+                <p class="text-gray-500 mb-6">You haven't created any courses. Get started by adding your first one!</p>
+                <button id="createFirstCourseBtn" class="bg-primary hover:bg-primary-dark text-white font-medium py-2.5 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 mx-auto text-sm">
+                    <i data-lucide="plus-circle" class="w-5 h-5"></i> Create Your First Course
+                </button>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient text-white py-6 relative z-30 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <div class="text-center md:text-left"><a th:href="@{/home}" class="font-bold text-xl hover:text-secondary-light transition duration-300">DeenWise</a>
+                    <p class="text-sm mt-2 opacity-80">© 2025 All rights reserved</p>
+                </div>
+                <div class="flex justify-center items-center">
+                    <span class="mr-3 text-sm font-medium">Follow Us:</span>
+                    <div class="flex space-x-3 items-center">
+                        <a href="https://facebook.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-facebook-f text-xl"></i></a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="https://wa.me/+2347063569494" target="_blank" rel="noopener" class="hover:text-secondary-light transition"><i class="fab fa-whatsapp text-xl"></i></a>
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-sm">Powered By <a href="https://wa.me/+2347063569494" class="font-semibold hover:text-secondary-light transition duration-300">ACE TECH WORLD & HENRY TECH</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+<script>
+    function getUserName() {
+        return localStorage.getItem('deenWiseUserName') || ''; 
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const userName = getUserName();
+        
+        const navUserNameEl = document.getElementById('navUserName');
+        if (navUserNameEl && userName && userName.length > 10) {
+            navUserNameEl.textContent = "My Account";
+        } else if (navUserNameEl && userName) {
+            // navUserNameEl.textContent = userName; 
+        }
+
+        const dropdownUserNameEl = document.getElementById('dropdownUserName');
+        if (dropdownUserNameEl && userName && !dropdownUserNameEl.textContent.includes(userName)) {
+            // dropdownUserNameEl.textContent = userName; 
+        }
+        
+        const sidebarUserSpan = document.querySelector('#sidebarUserName span');
+        if (sidebarUserSpan && !sidebarUserSpan.textContent.trim() && userName) {
+            sidebarUserSpan.textContent = userName;
+        } else if (sidebarUserSpan && !sidebarUserSpan.textContent.trim()){
+             sidebarUserSpan.textContent = 'User';
+        }
+        
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const mainContent = document.getElementById('mainContent');
+        
+        let isSidebarOpen = window.innerWidth >= 768; 
+
+        function applySidebarState() {
+            if (!sidebar || !mainContent || !sidebarOverlay) return; 
+
+            const sidebarWidthClass = 'md:ml-72';
+
+            if (window.innerWidth < 768) { 
+                mainContent.classList.remove(sidebarWidthClass);
+                sidebar.classList.remove('md:translate-x-0'); 
+
+                if (isSidebarOpen) {
+                    sidebar.classList.remove('-translate-x-full');
+                    sidebarOverlay.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden'; 
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    sidebarOverlay.classList.add('hidden');
+                    document.body.style.overflow = ''; 
+                }
+            } else { 
+                sidebarOverlay.classList.add('hidden'); 
+                document.body.style.overflow = ''; 
+
+                if (isSidebarOpen) {
+                    sidebar.classList.add('md:translate-x-0'); 
+                    sidebar.classList.remove('-translate-x-full'); 
+                    mainContent.classList.add(sidebarWidthClass);
+                } else {
+                    sidebar.classList.remove('md:translate-x-0');
+                    sidebar.classList.add('-translate-x-full'); 
+                    mainContent.classList.remove(sidebarWidthClass);
+                }
+            }
+        }
+
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            applySidebarState();
+        }
+
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', toggleSidebar);
+        }
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', () => {
+                if (window.innerWidth < 768 && isSidebarOpen) { 
+                    isSidebarOpen = false;
+                    applySidebarState();
+                }
+            });
+        }
+
+        window.addEventListener('resize', () => {
+            applySidebarState();
+        });
+        
+        applySidebarState(); 
+
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        const courseGrid = document.getElementById('courseGrid');
+        const emptyState = document.getElementById('emptyState');
+        if (courseGrid && emptyState) {
+            const coursesExist = courseGrid.children.length > 0;
+            if (!coursesExist) {
+                courseGrid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+            }
+        }
+
+        const addNewCourseBtn = document.getElementById('addNewCourseBtn');
+        if (addNewCourseBtn) {
+            addNewCourseBtn.addEventListener('click', () => {
+                alert('Redirect to Add New Course page or open modal.');
+            });
+        }
+        const createFirstCourseBtn = document.getElementById('createFirstCourseBtn');
+        if (createFirstCourseBtn) {
+            createFirstCourseBtn.addEventListener('click', () => {
+                alert('Redirect to Add New Course page or open modal.');
+            });
+        }
+        document.querySelectorAll('.course-card button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const action = e.currentTarget.title;
+                alert(`${action} clicked! (Implement actual logic)`);
+            });
+        });
+    });
+</script>
+
+</html>

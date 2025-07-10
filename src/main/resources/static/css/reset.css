@@ -1,0 +1,132 @@
+html,
+      body {
+          height: 100vh;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          overflow-x: hidden;
+          overflow-y: auto;
+          background-image: url(../pages/assets/whitebg.jpeg); 
+          background-position: absolute;
+          background-repeat: none;
+          background-size: cover; 
+          animation: floatBackground 10s infinite ease-in-out;
+      }
+@keyframes floatBackground {
+  from {
+        background-position: center top;
+      }
+  to {
+        background-position: center bottom;
+      }
+}
+.content {
+  flex: 1; /* Pushes the footer down */
+  align-items: center;
+  justify-content: center;
+  }
+#card {
+    border-radius: 10px;
+    border: none;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.8s ease-in-out;
+}
+@keyframes fadeIn {
+    from {
+      opacity: 0; 
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+}
+.btn {
+  font-weight: bold;
+}
+.btn-primary {
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 255, 13, 0.63);
+}
+.btn-primary:active {
+  transform: scale(1);
+}
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.dropbtn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #fff;
+  min-width: 120px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border: 1px solid #f1f1f1;
+  border-radius: 8px;
+  gap: 10px;
+}
+.nav-item {
+  position: relative;
+  display: inline-block;
+  /* background-color: #fff; */
+  /* min-width: 120px; */
+  /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); */
+  z-index: 1;
+}
+#vervelogo{
+  height: 20px; 
+  margin-left:10px; 
+  border-radius: 20px;
+  width: 20px;
+}
+.signin, .signup {
+  color: black;
+  padding: 10px;
+  text-decoration: none;
+  text-align: left;
+  font-weight: bold;
+  /* background: white; */
+  border-radius: 8px;
+  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); */
+  /* transition: all 0.3s ease; */
+}
+.signin:hover {
+cursor: pointer;
+transform: scale(1.1);
+transition: transform 0.3s ease;
+/* size: 100px; */
+}
+.signin, .signup a {
+/* display: block; */
+padding: 10px;
+text-decoration: none;
+/* color: #333; */
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.addw{
+  text-decoration: none;
+  color: whitesmoke;
+}
+.payplatlogos{
+  height: 30px; 
+  margin-left:10px; 
+  border-radius: 20px;
+}

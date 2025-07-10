@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings | DeenWise</title>
+    <link rel="shortcut icon" th:href="@{/assets/origlogo.png}" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#00A5CF',
+                            DEFAULT: '#008793',
+                            dark: '#004d7a',
+                        },
+                        secondary: {
+                            light: '#FFE1A8',
+                            DEFAULT: '#FFC172',
+                            dark: '#E09F3E',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .pricing-card {
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(0, 77, 122, 0.25);
+        }
+        
+        .bg-gradient {
+            background: linear-gradient(120deg, #004d7a, #008793, #00A5CF);
+            background-size: 200% 200%;
+            animation: gradientBG 10s ease infinite;
+        }
+        
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%
+            }
+            50% {
+                background-position: 100% 50%
+            }
+            100% {
+                background-position: 0% 50%
+            }
+        }
+        
+        .sidebar-link {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .sidebar-link:hover {
+            border-left: 4px solid #FFC172;
+            /* secondary.DEFAULT */
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans flex flex-col min-h-screen overflow-x-hidden">
+    <!-- Animated Top Bar -->
+    <div class="w-full bg-gradient-to-r from-primary-dark to-primary py-2 text-sm border-b relative overflow-hidden">
+        <div class="absolute inset-0 bg-white opacity-10">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23ffffff\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E');">
+            </div>
+        </div>
+        <div class="container mx-auto flex justify-center items-center gap-6 text-white relative z-10">
+            <div class="flex items-center transition-all hover:text-secondary-light">
+                <i class="fa-brands fa-whatsapp text-lg mr-2"></i>
+                <a href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...." class="hover:underline">Connect with Us</a>
+            </div>
+            <div class="h-4 w-px bg-white/30"></div>
+            <div class="flex items-center transition-all hover:text-secondary-light">
+                <i class="fa-solid fa-envelope text-lg mr-2"></i>
+                <a href="mailto:sadiqadetola08@gmail.com" class="hover:underline">Email Support</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-gradient py-4 text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <!-- Hamburger Icon for Sidebar Toggle -->
+                <button id="sidebarToggle" class="text-white p-2 hover:bg-white/10 rounded-lg transition-all">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <div class="flex items-center gap-2">
+                    <img th:src="@{/assets/nobgoriglogo.png}" alt="DeenWise Logo" class="w-10 h-10 animate-float" />
+
+                    <a th:href="@{/home}" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-secondary-light">DeenWise</a>
+
+                </div>
+            </div>
+
+            <!-- Navigation Links - Hidden on Mobile -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a th:href="@{/student/dashboard}" class="text-white/80 hover:text-white transition-all">Dashboard</a>
+
+                <a th:href="@{/student/lessons}" class="text-white/80 hover:text-white transition-all">Lessons</a>
+
+                <a th:href="@{/student/quran}" class="text-white/80 hover:text-white transition-all">Qur'an</a>
+
+            </div>
+
+            <!-- Profile Dropdown -->
+            <div class="relative group">
+                <button class="flex items-center gap-2 bg-white/10 hover:bg-white/20 rounded-full px-4 py-2 transition-all">
+                    <span class="hidden md:inline text-sm">My Account</span>
+                    <i class="fas fa-user-circle text-lg"></i>
+                </button>
+                <div class="absolute right-0 hidden group-hover:block bg-white text-gray-800 shadow-xl mt-2 rounded-lg overflow-hidden z-50 w-48 border-t-4 border-secondary">
+                    <div class="p-3 bg-gray-100 border-b">
+                        <p class="font-medium text-primary-dark">User Account</p>
+                    </div>
+                    <ul class="py-2">
+                        <li>
+                            <a th:href="@{/student/profile}" class="flex items-center px-4 py-2 hover:bg-gray-100">
+
+                                <i class="fas fa-user-circle mr-3 text-primary"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/student/settings}" class="flex items-center px-4 py-2 hover:bg-gray-100 bg-gray-200 text-primary-dark">
+
+                                <i class="fas fa-cog mr-3 text-primary"></i>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                        <li class="border-t">
+                            <a th:href="@{/logout}" class="flex items-center px-4 py-2 hover:bg-gray-100 text-red-500" onclick="logout()">
+
+                                <i class="fas fa-sign-out-alt mr-3"></i>
+                                <span>Log Out</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar & Main -->
+    <div class="flex flex-grow">
+        <!-- Sidebar -->
+        <div id="sidebar" class="w-72 bg-gradient text-white fixed h-full z-40 transition-all duration-300 transform -translate-x-full overflow-y-auto scrollbar-hide shadow-2xl" style="padding-top: 1.5rem;">
+            <div class="p-6 space-y-8">
+                <!-- User Profile Preview -->
+                <div class="flex flex-col items-center text-center p-4 bg-white/10 rounded-xl">
+                    <div class="w-20 h-20 rounded-full bg-secondary flex items-center justify-center text-white text-xl font-bold mb-3">
+                        <i class="fas fa-user text-3xl"></i>
+                    </div>
+                    <h3 class="font-semibold">DeenWise User</h3>
+                    <!-- Placeholder name -->
+                    <p class="text-xs text-white/70">Student Account</p>
+                    <!-- Placeholder role -->
+                </div>
+
+                <!-- Navigation -->
+                <div class="space-y-1">
+                    <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Main Navigation
+                    </p>
+                    <a th:href="@{/student/dashboard}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i class="fas fa-home w-5 text-center"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a th:href="@{/student/lessons}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+
+                        <i class="fas fa-video w-5 text-center"></i>
+                        <span>Video Lessons</span>
+                    </a>
+                    <a th:href="@{/student/assignment}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+
+                        <i class="fas fa-pen w-5 text-center"></i>
+                        <span>Assignments</span>
+                    </a>
+                    <a th:href="@{/student/quran}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+
+                        <i class="fas fa-book w-5 text-center"></i>
+                        <span>Read Qur'an</span>
+                    </a>
+                    <a th:href="@{/student/chat}" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+
+                        <i class="fas fa-comment-alt w-5 text-center"></i>
+                        <span>Chat</span>
+                        <span class="ml-auto bg-secondary text-white text-xs px-2 py-1 rounded-full">3</span>
+                    </a>
+                </div>
+
+                <!-- Settings & Support -->
+                <div class="space-y-1">
+                    <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Support</p>
+                    <a th:href="@{/student/settings}" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i class="fas fa-cog w-5 text-center"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i class="fas fa-question-circle w-5 text-center"></i>
+                        <span>Help Center</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content with Overlay -->
+        <div class="fixed inset-0 bg-black/50 z-30 hidden" id="sidebarOverlay"></div>
+
+        <!-- Main Content -->
+        <main class="flex-grow bg-gray-50 transition-all duration-300 md:ml-0 pt-16 flex justify-center items-center p-4 md:p-6">
+            <div class="bg-white shadow-xl rounded-2xl p-6 md:p-8 w-full max-w-md text-center" th:object="${student}">
+
+                <!-- Avatar -->
+                <div class="flex justify-center mb-6">
+                    <img src="https://i.pravatar.cc/150?img=3" alt="User Avatar" class="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border-4 border-primary shadow-lg">
+                </div>
+
+                <!-- Name and Email -->
+                <h2 class="text-3xl font-semibold text-primary-dark mb-1" th:text="*{name}"></h2>
+                <p class="text-gray-600 text-sm mb-6" th:text="*{email}"></p>
+
+                <!-- Extra Info -->
+                <div class="text-left mb-6 space-y-3 text-gray-700 border-t border-b border-gray-200 py-4">
+                    <div class="flex items-center">
+                        <i class="fas fa-phone text-primary w-5 mr-3"></i>
+                        <p><span class="font-medium">Phone:</span><span th:text="*{number}"></span></p>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-calendar-alt text-primary w-5 mr-3"></i>
+                        <p><span class="font-medium">Joined:</span><span th:text="*{joined}"></span></p>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-user-tag text-primary w-5 mr-3"></i>
+                        <p><span class="font-medium">Status:</span>
+                            <span class="bg-green-100 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-full ml-2">Tutor</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center text-center">
+                    <button onclick="goToProfilePage()" class="w-full sm:w-auto bg-primary hover:bg-primary-dark text-white font-medium py-2.5 px-6 rounded-lg transition-all duration-300 ease-in-out flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform hover:scale-105">
+                        <i data-lucide="user-cog" class="w-5 h-5"></i>
+                        Edit Profile
+                    </button>
+                    <button class="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-medium py-2.5 px-6 rounded-lg transition-all duration-300 ease-in-out flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform hover:scale-105" onclick="logout()">
+                        <i data-lucide="log-out" class="w-5 h-5"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient text-white py-6 relative z-30 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <!-- Company Info -->
+                <div class="text-center md:text-left">
+                    <a th:href="@{/home}" class="font-bold text-xl hover:text-secondary-light transition duration-300">DeenWise</a>
+
+                    <p class="text-sm mt-2 opacity-80">© 2025 All rights reserved</p>
+                </div>
+
+                <!-- Payment Methods -->
+                <div class="flex justify-center items-center">
+                    <span class="mr-3 text-sm font-medium">Payment Options:</span>
+                    <div class="flex space-x-3 items-center">
+                        <div class="bg-white rounded-md p-1 flex items-center">
+                            <img th:src="@{/assets/visa.png}" alt="Visa" class="h-6" />
+
+                        </div>
+                        <div class="bg-white rounded-md p-1 flex items-center">
+                            <img th:src="@{/assets/verve3.jpeg}" alt="Verve" class="h-6" />
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Powered By -->
+                <div class="text-center md:text-right">
+                    <p class="text-sm">
+                        Powered By
+                        <a href="https://wa.me/+2347063569494" class="font-semibold hover:text-secondary-light transition duration-300">ACE TECH WORLD &
+                            HENRY TECH</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Sidebar toggle functionality
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const mainContent = document.querySelector('main');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebarOverlay.classList.toggle('hidden');
+
+            if (window.innerWidth >= 768) { // md breakpoint
+                if (sidebar.classList.contains('-translate-x-full')) {
+                    mainContent.classList.remove('md:ml-72');
+                } else {
+                    mainContent.classList.add('md:ml-72');
+                }
+            }
+        }
+
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', toggleSidebar);
+        }
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', toggleSidebar);
+        }
+
+        // Initialize Lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        // Handle resize to adjust main content margin
+        function handleResize() {
+            if (window.innerWidth >= 768) {
+                if (!sidebar.classList.contains('-translate-x-full')) {
+                    mainContent.classList.add('md:ml-72');
+                } else {
+                    mainContent.classList.remove('md:ml-72');
+                }
+            } else {
+                mainContent.classList.remove('md:ml-72'); // No margin on small screens
+            }
+        }
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Initial call
+
+    });
+
+    function logout() {
+        // Perform logout action here
+        alert("Logged out successfully!");
+        // Redirect to home page (assuming index.html is in the root)
+        window.location.href = "./index.html";
+    }
+
+    function goToProfilePage() {
+        // Redirect to profile page (assuming profile.html is in the root)
+        window.location.href = "./profile.html";
+    }
+</script>
+
+</html>
