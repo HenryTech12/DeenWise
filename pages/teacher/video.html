@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Video Lessons | DeenWise</title>
+    <link rel="shortcut icon" href="/pages/assets/origlogo.png" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#00A5CF',
+                            DEFAULT: '#008793',
+                            dark: '#004d7a',
+                        },
+                        secondary: {
+                            light: '#FFE1A8',
+                            DEFAULT: '#FFC172',
+                            dark: '#E09F3E',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        .sidebar-link {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            border-left: 4px solid #FFC172;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .bg-gradient {
+            background: linear-gradient(120deg, #004d7a, #008793, #00A5CF);
+            background-size: 200% 200%;
+            animation: gradientBG 10s ease infinite;
+        }
+        
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%
+            }
+            50% {
+                background-position: 100% 50%
+            }
+            100% {
+                background-position: 0% 50%
+            }
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .mobile-menu-active {
+            overflow: hidden;
+        }
+        
+        #sidebar.sidebar-active-mobile {
+            transform: translateX(0) !important;
+        }
+        
+        #sidebarOverlay.active {
+            display: block;
+        }
+        
+        input,
+        select,
+        textarea {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        /* Custom file input styling */
+        
+        input[type="file"]::file-selector-button {
+            margin-right: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            /* rounded-full */
+            border-width: 0px;
+            font-size: 0.875rem;
+            /* text-sm */
+            font-weight: 600;
+            /* font-semibold */
+            background-color: var(--color-primary-light, #00A5CF);
+            /* Using Tailwind custom color variable */
+            color: var(--color-primary-dark, #004d7a);
+        }
+        
+        input[type="file"]::file-selector-button:hover {
+            background-color: rgba(0, 165, 207, 0.8);
+            /* primary-light with opacity */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans flex flex-col min-h-screen">
+    <!-- Animated Top Bar -->
+    <div class="w-full bg-gradient-to-r from-primary-dark to-primary py-2 text-sm border-b relative overflow-hidden">
+        <div class="absolute inset-0 bg-white opacity-10">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23ffffff\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E');"></div>
+        </div>
+        <div class="container mx-auto flex justify-center items-center gap-6 text-white relative z-10 px-2">
+            <div class="flex items-center transition-all hover:text-secondary-light"><i class="fa-brands fa-whatsapp text-lg mr-2"></i><a href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...." class="hover:underline">Connect</a></div>
+            <div class="h-4 w-px bg-white/30"></div>
+            <div class="flex items-center transition-all hover:text-secondary-light"><i class="fa-solid fa-envelope text-lg mr-2"></i><a href="mailto:sadiqadetola08@gmail.com" class="hover:underline">Email</a></div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-gradient py-3 md:py-4 text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-2 md:px-4 flex items-center justify-between">
+            <div class="flex items-center gap-1 md:gap-3">
+                <button id="sidebarToggle" class="text-white p-2 hover:bg-white/10 rounded-lg transition-all"><i class="fas fa-bars text-xl"></i></button>
+                <div class="flex items-center gap-1 md:gap-2">
+                    <img src="/pages/assets/nobgoriglogo.png" alt="DeenWise Logo" class="w-8 h-8 md:w-10 md:h-10 animate-float" />
+                    <a href="/pages/index.html" class="text-lg md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-secondary-light">DeenWise</a>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center space-x-4 lg:space-x-6">
+                <a href="/pages/dashboards/teacher.html" class="text-white/80 hover:text-white transition-all">Dashboard</a>
+                <a href="/pages/teacher/video.html" class="text-secondary-light font-semibold transition-all">Video Lessons</a>
+                <!-- Active -->
+                <a href="/pages/teacher/quran.html" class="text-white/80 hover:text-white transition-all">Qur'an</a>
+            </div>
+            <div class="relative group">
+                <button class="flex items-center gap-2 bg-white/10 hover:bg-white/20 rounded-full px-3 py-1.5 md:px-4 md:py-2 transition-all">
+                    <span class="hidden sm:inline text-xs md:text-sm" id="navUserName">My Account</span>
+                    <i class="fas fa-user-circle text-base md:text-lg"></i>
+                </button>
+                <div class="absolute right-0 hidden group-hover:block bg-white text-gray-800 shadow-xl mt-2 rounded-lg overflow-hidden z-50 w-48 border-t-4 border-secondary">
+                    <div class="p-3 bg-gray-100 border-b">
+                        <p class="font-medium text-primary-dark text-sm" id="dropdownUserName">User Account</p>
+                    </div>
+                    <ul class="py-1">
+                        <li><a href="/pages/profile.html" class="flex items-center px-4 py-2 text-sm hover:bg-gray-100"><i class="fas fa-user-circle mr-3 text-primary"></i>My Profile</a></li>
+                        <li><a href="/pages/settings.html" class="flex items-center px-4 py-2 text-sm hover:bg-gray-100"><i class="fas fa-cog mr-3 text-primary"></i>Settings</a></li>
+                        <li class="border-t mt-1 pt-1"><a href="/logout" class="flex items-center px-4 py-2 text-sm hover:bg-gray-100 text-red-500"><i class="fas fa-sign-out-alt mr-3"></i>Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar & Main -->
+    <div class="flex flex-grow relative">
+        <!-- Sidebar (Teacher's Sidebar) -->
+        <div id="sidebar" class="w-72 bg-gradient text-white fixed md:relative h-full z-40 transition-transform duration-300 transform -translate-x-full overflow-y-auto scrollbar-hide shadow-2xl" style="padding-top: 1rem;">
+            <div class="p-4 md:p-6 space-y-6 md:space-y-8">
+                <div class="flex flex-col items-center text-center p-3 md:p-4 bg-white/10 rounded-xl">
+                    <button id="closeSidebarButton" class="md:hidden self-end text-white/70 hover:text-white mb-2 -mr-2"><i data-lucide="x" class="w-5 h-5"></i></button>
+                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-secondary flex items-center justify-center text-white text-2xl md:text-3xl font-bold mb-2 md:mb-3"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3 class="font-semibold text-sm md:text-base" id="sidebarUserName">DeenWise Tutor</h3>
+                    <p class="text-xs text-white/70">Teacher Account</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Main Navigation</p>
+                    <a href="/pages/dashboards/teacher.html" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="layout-dashboard" class="w-4 h-4 md:w-5 md:h-5"></i><span>Dashboard</span></a>
+                    <a href="/pages/teacher/video.html" class="sidebar-link active flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="video" class="w-4 h-4 md:w-5 md:h-5"></i><span>Video Lessons</span></a>
+                    <!-- Active -->
+                    <a href="/pages/teacher/assessment.html" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="file-pen-line" class="w-4 h-4 md:w-5 md:h-5"></i><span>Assignments</span></a>
+                    <a href="/pages/teacher/quran.html" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="book-open-check" class="w-4 h-4 md:w-5 md:h-5"></i><span>Read Qur'an</span></a>
+                    <a href="/pages/teacher/tchat.html" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="message-circle-more" class="w-4 h-4 md:w-5 md:h-5"></i><span>Chat</span></a>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Account</p>
+                    <a href="/pages/settings.html" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="settings-2" class="w-4 h-4 md:w-5 md:h-5"></i><span>Settings</span></a>
+                    <a href="/pages/profile.html" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="user-circle-2" class="w-4 h-4 md:w-5 md:h-5"></i><span>My Profile</span></a>
+                    <a href="#" class="sidebar-link flex items-center gap-2 md:gap-3 px-3 py-2.5 md:px-4 md:py-3 rounded-lg text-sm text-white/90 hover:text-white block"><i data-lucide="help-circle" class="w-4 h-4 md:w-5 md:h-5"></i><span>Help Center</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-30 hidden md:hidden"></div>
+
+        <!-- Main Content Area -->
+        <main id="mainContent" class="flex-grow bg-gray-50 transition-all duration-300 md:ml-72 pt-6 md:pt-8 pb-12 px-4 md:px-8">
+            <header class="mb-6 md:mb-8">
+                <h1 class="text-2xl md:text-3xl font-bold text-primary-dark">Upload & Manage Video Lessons</h1>
+                <p class="text-sm md:text-base text-gray-600 mt-1">Add new video lessons for your courses and manage existing ones.</p>
+            </header>
+
+            <!-- Upload New Lesson Form -->
+            <div class="bg-white shadow-xl p-4 md:p-6 rounded-xl mb-8">
+                <h2 class="text-lg md:text-xl font-semibold text-primary-dark mb-4 border-b pb-3 flex items-center gap-2">
+                    <i data-lucide="upload-cloud" class="w-6 h-6"></i> Upload New Lesson
+                </h2>
+                <form id="uploadLessonForm" method="post" class="space-y-4" enctype="multipart/form-data" >
+                    <div>
+                        <label for="lessonTitle" class="block text-sm font-medium text-gray-700 mb-1">Lesson Title</label>
+                        <input type="text" id="lessonTitle" name="lessonTitle" class="w-full p-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm" placeholder="e.g., Chapter 1: The Importance of Niyyah"
+                            required />
+                    </div>
+                    <div>
+                        <label for="lessonDescription" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                        <textarea id="lessonDescription" name="lessonDescription" class="w-full p-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm" rows="3" placeholder="Brief overview of the lesson content..."></textarea>
+                    </div>
+                    <div>
+                        <label for="courseSelect" class="block text-sm font-medium text-gray-700 mb-1">Assign to Course</label>
+                        <select id="courseSelect" name="courseSelect" class="w-full p-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm bg-white" required>
+                            <option value="" disabled selected>Select a course...</option>
+                            <option value="tajweed101">Tajweed 101: Mastering Pronunciation</option>
+                            <option value="prophetstories">Stories of the Prophets</option>
+                            <option value="arabicbasics">Basic Arabic for Qur'an Understanding</option>
+                            {/* Options to be populated dynamically */}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="videoFile" class="block text-sm font-medium text-gray-700 mb-1">Video File <span class="text-xs text-gray-500">(MP4, MOV, AVI - Max 100MB)</span></label>
+                        <input type="file" id="videoFile" name="videoFile" accept="video/*" class="w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-light file:text-primary-dark hover:file:bg-primary-light/80 cursor-pointer"
+                            required />
+                        <p id="fileUploadProgress" class="text-xs text-gray-500 mt-1"></p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:gap-4">
+                        <label for="lessonOrder" class="block text-sm font-medium text-gray-700 mb-1 sm:mb-0">Lesson Order (Optional)</label>
+                        <input type="number" id="lessonOrder" name="lessonOrder" min="1" class="sm:w-24 p-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm" placeholder="e.g., 1" />
+                    </div>
+
+                    <button type="submit" class="w-full sm:w-auto bg-primary text-white px-6 py-2.5 rounded-lg hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light font-medium text-sm transition-colors flex items-center justify-center gap-2">
+                        <i data-lucide="upload" class="w-4 h-4"></i>
+                        Upload Lesson
+                    </button>
+                </form>
+            </div>
+
+            <!-- Manage Existing Lessons Table -->
+            <div class="bg-white shadow-xl p-4 md:p-6 rounded-xl">
+                <h2 class="text-lg md:text-xl font-semibold text-primary-dark mb-4 border-b pb-3 flex items-center gap-2">
+                    <i data-lucide="list-video" class="w-6 h-6"></i> Manage Existing Lessons
+                </h2>
+                <div class="mb-4">
+                    <label for="filterCourse" class="block text-sm font-medium text-gray-700 mb-1">Filter by Course:</label>
+                    <select id="filterCourse" name="filterCourse" class="w-full md:w-auto max-w-xs p-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-sm bg-white">
+                        <option value="all">All Courses</option>
+                        <option value="tajweed101">Tajweed 101</option>
+                        <option value="prophetstories">Stories of the Prophets</option>
+                         <option value="arabicbasics">Basic Arabic</option>
+                        {/* Options to be populated dynamically */}
+                    </select>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 border">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lesson Title</th>
+                                <th scope="col" class="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Course</th>
+                                <th scope="col" class="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">Date Uploaded</th>
+                                <th scope="col" class="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200" th:each="lecture : ${lectures}">
+                            <!-- Sample Row 1 -->
+                            <tr>
+                                <td class="px-3 md:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" th:text="${lecture.title}"></td>
+                                <td class="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell" th:text="${lecture.courseName}"></td>
+                                <td class="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden sm:table-cell" th:text="${lecture.uploadedDate}"></td>
+                                <td class="px-3 md:px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <div class="flex items-center space-x-2">
+                                        <button class="text-primary hover:text-primary-dark" title="Edit Lesson"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                                        <button class="text-secondary-dark hover:text-secondary" title="Preview Video"><i data-lucide="play-circle" class="w-4 h-4"></i></button>
+                                        <button class="text-red-600 hover:text-red-800" title="Delete Lesson"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Sample Row 2 -->
+                           <!-- <tr>
+                                <td class="px-3 md:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Prophet Adam (A.S)</td>
+                                <td class="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">Stories of the Prophets</td>
+                                <td class="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden sm:table-cell">2024-05-08</td>
+                                <td class="px-3 md:px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <div class="flex items-center space-x-2">
+                                        <button class="text-primary hover:text-primary-dark" title="Edit Lesson"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                                        <button class="text-secondary-dark hover:text-secondary" title="Preview Video"><i data-lucide="play-circle" class="w-4 h-4"></i></button>
+                                        <button class="text-red-600 hover:text-red-800" title="Delete Lesson"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                                    </div>
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- UPLOAD VIDEO LESSONS CONTENT END -->
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient text-white py-6 relative z-30 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <div class="text-center md:text-left"><a href="/pages/index.html" class="font-bold text-xl hover:text-secondary-light transition duration-300">DeenWise</a>
+                    <p class="text-sm mt-2 opacity-80">© 2025 All rights reserved</p>
+                </div>
+                <div class="flex justify-center items-center"><span class="mr-3 text-sm font-medium">Payment Options:</span>
+                    <div class="flex space-x-3 items-center">
+                        <div class="bg-white rounded-md p-1 flex items-center"><img src="/pages/assets/visa.png" alt="Visa" class="h-6" /></div>
+                        <div class="bg-white rounded-md p-1 flex items-center"><img src="/pages/assets/verve3.jpeg" alt="Verve" class="h-6" /></div>
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-sm">Powered By <a href="https://wa.me/+2347063569494" class="font-semibold hover:text-secondary-light transition duration-300">ACE TECH WORLD & HENRY TECH</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+<script>
+    function getUserName() {
+        return localStorage.getItem('deenWiseUserName') || 'User';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const userName = getUserName();
+        const userNameElements = ['navUserName', 'dropdownUserName', 'sidebarUserName'];
+        userNameElements.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                if (id === 'navUserName' && userName.length > 10) {
+                    el.textContent = "My Account";
+                } else if (id === 'dropdownUserName' || id === 'sidebarUserName') {
+                    el.textContent = userName;
+                }
+            }
+        });
+
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const closeSidebarButton = document.getElementById('closeSidebarButton');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        // Fixed: Initialize sidebar properly for desktop view
+        if (window.innerWidth >= 768) {
+            sidebar.classList.remove('-translate-x-full');
+            mainContent.classList.add('md:ml-72');
+        }
+
+        function openMobileSidebar() {
+            sidebar.classList.remove('-translate-x-full');
+            sidebar.classList.add('sidebar-active-mobile');
+            sidebarOverlay.classList.add('active');
+            document.body.classList.add('mobile-menu-active');
+        }
+
+        function closeMobileSidebar() {
+            sidebar.classList.add('-translate-x-full');
+            sidebar.classList.remove('sidebar-active-mobile');
+            sidebarOverlay.classList.remove('active');
+            document.body.classList.remove('mobile-menu-active');
+        }
+
+        function toggleDesktopSidebar() {
+            // Fixed: Toggle correctly for desktop view
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                mainContent.classList.add('md:ml-72');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                mainContent.classList.remove('md:ml-72');
+            }
+        }
+
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', function() {
+                if (window.innerWidth < 768) {
+                    if (sidebar.classList.contains('-translate-x-full') || !sidebar.classList.contains('sidebar-active-mobile')) {
+                        openMobileSidebar();
+                    } else {
+                        closeMobileSidebar();
+                    }
+                } else {
+                    toggleDesktopSidebar();
+                }
+            });
+        }
+        if (closeSidebarButton) {
+            closeSidebarButton.addEventListener('click', closeMobileSidebar);
+        }
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', closeMobileSidebar);
+        }
+
+        function handleResize() {
+            if (window.innerWidth >= 768) {
+                sidebar.classList.remove('sidebar-active-mobile');
+                sidebarOverlay.classList.remove('active');
+                document.body.classList.remove('mobile-menu-active');
+
+                // Fixed: Don't reset sidebar position on resize
+                // Only adjust the main content positioning based on sidebar state
+                if (!sidebar.classList.contains('-translate-x-full')) {
+                    mainContent.classList.add('md:ml-72');
+                } else {
+                    mainContent.classList.remove('md:ml-72');
+                }
+            } else {
+                if (!sidebar.classList.contains('sidebar-active-mobile')) {
+                    sidebar.classList.add('-translate-x-full');
+                }
+                mainContent.classList.remove('md:ml-72');
+            }
+        }
+        window.addEventListener('resize', handleResize);
+
+        // Fixed: Initialize properly on load
+        handleResize();
+
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+
+        // Form submission placeholder
+        const uploadLessonForm = document.getElementById('uploadLessonForm');
+        if (uploadLessonForm) {
+            uploadLessonForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const fileInput = document.getElementById('videoFile');
+                const progressP = document.getElementById('fileUploadProgress');
+                if (fileInput.files.length > 0) {
+                    progressP.textContent = `Uploading ${fileInput.files[0].name}... (Simulated)`;
+                    // Simulate upload
+                    setTimeout(() => {
+                        progressP.textContent = `${fileInput.files[0].name} uploaded successfully! (Simulated)`;
+                        progressP.classList.add('text-green-600');
+                        uploadLessonForm.reset();
+                        setTimeout(() => {
+                            progressP.textContent = '';
+                            progressP.classList.remove('text-green-600');
+                        }, 3000);
+                    }, 2000);
+                } else {
+                    progressP.textContent = 'Please select a video file.';
+                    progressP.classList.add('text-red-600');
+                    setTimeout(() => {
+                        progressP.textContent = '';
+                        progressP.classList.remove('text-red-600');
+                    }, 3000);
+                }
+                uploadLessonForm.submit();
+            });
+        }
+        // Placeholder for table actions
+        document.querySelectorAll('#mainContent table button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                alert(`${e.currentTarget.title} clicked! (Implement actual logic)`);
+            });
+        });
+    });
+</script>
+
+</html>

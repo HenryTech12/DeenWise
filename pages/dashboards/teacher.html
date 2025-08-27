@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teacher Dashboard | DeenWise</title>
+    <link rel="shortcut icon" href="/pages/assets/origlogo.png" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#00A5CF',
+                            DEFAULT: '#008793',
+                            dark: '#004d7a',
+                        },
+                        secondary: {
+                            light: '#FFE1A8',
+                            DEFAULT: '#FFC172',
+                            dark: '#E09F3E',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .sidebar-link {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            border-left: 4px solid #FFC172;
+            /* secondary.DEFAULT */
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .bg-gradient {
+            background: linear-gradient(120deg, #004d7a, #008793, #00A5CF);
+            background-size: 200% 200%;
+            animation: gradientBG 10s ease infinite;
+        }
+        
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%
+            }
+            50% {
+                background-position: 100% 50%
+            }
+            100% {
+                background-position: 0% 50%
+            }
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .dashboard-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans flex flex-col min-h-screen overflow-x-hidden">
+    <!-- Animated Top Bar -->
+    <div class="w-full bg-gradient-to-r from-primary-dark to-primary py-2 text-sm border-b relative overflow-hidden">
+        <div class="absolute inset-0 bg-white opacity-10">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23ffffff\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E');"></div>
+        </div>
+        <div class="container mx-auto flex justify-center items-center gap-6 text-white relative z-10">
+            <div class="flex items-center transition-all hover:text-secondary-light">
+                <i class="fa-brands fa-whatsapp text-lg mr-2"></i>
+                <a href="https://wa.me/+2347063569494?text=Hi%20DeenWise.%20My%20Name%20is%20...." class="hover:underline">Connect with Us</a>
+            </div>
+            <div class="h-4 w-px bg-white/30"></div>
+            <div class="flex items-center transition-all hover:text-secondary-light">
+                <i class="fa-solid fa-envelope text-lg mr-2"></i>
+                <a href="mailto:sadiqadetola08@gmail.com" class="hover:underline">Email Support</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-gradient py-4 text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <button id="sidebarToggle" class="text-white p-2 hover:bg-white/10 rounded-lg transition-all">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <div class="flex items-center gap-2">
+                    <img src="/pages/assets/nobgoriglogo.png" alt="DeenWise Logo" class="w-10 h-10 animate-float" />
+                    <a href="/pages/index.html" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-secondary-light">DeenWise</a>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="/pages/dashboards/teacher.html" class="text-secondary-light font-semibold transition-all">Dashboard</a>
+                <!-- Active for this page -->
+                <a href="/pages/teacher/video.html" class="text-white/80 hover:text-white transition-all">Video Lessons</a>
+                <a href="/pages/teacher/quran.html" class="text-white/80 hover:text-white transition-all">Qur'an</a>
+            </div>
+
+            <div class="relative group">
+                <button class="flex items-center gap-2 bg-white/10 hover:bg-white/20 rounded-full px-4 py-2 transition-all">
+                    <span class="hidden md:inline text-sm" id="navUserName">My Account</span>
+                    <i class="fas fa-user-circle text-lg"></i>
+                </button>
+                <div class="absolute right-0 hidden group-hover:block bg-white text-gray-800 shadow-xl mt-2 rounded-lg overflow-hidden z-50 w-48 border-t-4 border-secondary">
+                    <div class="p-3 bg-gray-100 border-b">
+                        <p class="font-medium text-primary-dark" id="dropdownUserName">User Account</p>
+                    </div>
+                    <ul class="py-2">
+                        <li>
+                            <a href="/pages/profile.html" class="flex items-center px-4 py-2 hover:bg-gray-100">
+                                <i class="fas fa-user-circle mr-3 text-primary"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/pages/settings.html" class="flex items-center px-4 py-2 hover:bg-gray-100">
+                                <i class="fas fa-cog mr-3 text-primary"></i>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                        <li class="border-t">
+                            <a href="/logout" class="flex items-center px-4 py-2 hover:bg-gray-100 text-red-500">
+                                <i class="fas fa-sign-out-alt mr-3"></i>
+                                <span>Log Out</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar & Main -->
+    <div class="flex flex-grow">
+        <!-- Sidebar -->
+        <div id="sidebar" class="w-72 bg-gradient text-white fixed h-full z-40 transition-all duration-300 transform -translate-x-full overflow-y-auto scrollbar-hide shadow-2xl" style="padding-top: 1.5rem;">
+            <div class="p-6 space-y-8">
+                <div class="flex flex-col items-center text-center p-4 bg-white/10 rounded-xl">
+                    <div class="w-20 h-20 rounded-full bg-secondary flex items-center justify-center text-white text-xl font-bold mb-3">
+                        <i class="fas fa-chalkboard-teacher text-3xl"></i>
+                        <!-- Teacher Icon -->
+                    </div>
+                    <h3 class="font-semibold" id="sidebarUserName">Tutor</h3>
+                    <p class="text-xs text-white/70">Teacher Account</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Main Navigation</p>
+                    <a href="/pages/dashboards/teacher.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="layout-dashboard" class="w-5 h-5"></i><span>Dashboard</span>
+                    </a>
+                    <a href="/pages/teacher/video.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="video" class="w-5 h-5"></i><span>Video Lessons</span>
+                    </a>
+                    <a href="/pages/teacher/assessment.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="file-pen-line" class="w-5 h-5"></i><span>Assignments</span>
+                    </a>
+                    <a href="/pages/teacher/quran.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="book-open-check" class="w-5 h-5"></i><span>Read Qur'an</span>
+                    </a>
+                    <a href="/pages/teacher/tchat.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="message-circle-more" class="w-5 h-5"></i><span>Chat</span>
+                    </a>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-xs uppercase tracking-wider text-white/50 font-semibold pl-3 mb-2">Account</p>
+                    <a href="/pages/settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="settings-2" class="w-5 h-5"></i><span>Settings</span>
+                    </a>
+                    <a href="/pages/profile.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="user-circle-2" class="w-5 h-5"></i><span>My Profile</span>
+                    </a>
+                    <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/90 hover:text-white block">
+                        <i data-lucide="help-circle" class="w-5 h-5"></i><span>Help Center</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="fixed inset-0 bg-black/50 z-30 hidden" id="sidebarOverlay"></div>
+
+        <!-- Main Content -->
+        <main class="flex-grow bg-gray-50 transition-all duration-300 md:ml-0 pt-16 pb-12 px-4 md:px-8">
+            <!-- TEACHER DASHBOARD CONTENT START -->
+            <header class="mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold text-primary-dark">
+                    Welcome, Tutor <span id="mainUserName" class="text-secondary-dark"></span>!
+                </h1>
+                <p class="text-gray-600 mt-1">Manage your courses, students, and teaching resources.</p>
+            </header>
+
+            <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Card 1: Your Courses/Video Lessons -->
+                <div class="dashboard-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="p-3 bg-primary-light rounded-full mb-4">
+                        <i data-lucide="video" class="w-8 h-8 text-primary-dark"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Video Lessons</h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">
+                        Manage and upload your course videos and materials.
+                    </p>
+                    <a href="/pages/teacher/video.html" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
+                        <span>Go to Lessons</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+
+                <!-- Card 2: Manage Assessments -->
+                <div class="dashboard-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="p-3 bg-secondary-light rounded-full mb-4">
+                        <i data-lucide="clipboard-edit" class="w-8 h-8 text-secondary-dark"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Manage Assessments</h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">
+                        Set, view, and grade assignments for your students.
+                    </p>
+                    <a href="/pages/teacher/assessment.html" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
+                        <!-- Corrected link based on sidebar -->
+                        <span>View Assessments</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+
+                <!-- Card 3: Read Qur'an -->
+                <div class="dashboard-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="p-3 bg-green-100 rounded-full mb-4">
+                        <i data-lucide="book-text" class="w-8 h-8 text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Read Qur'an</h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">
+                        Access the digital Mushaf for reference and teaching.
+                    </p>
+                    <a href="/pages/teacher/quran.html" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
+                        <span>Start Reading</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+
+                <!-- Card 4: Chat -->
+                <div class="dashboard-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
+                    <div class="p-3 bg-blue-100 rounded-full mb-4">
+                        <i data-lucide="messages-square" class="w-8 h-8 text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Chat</h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">
+                        Connect with students and other tutors.
+                    </p>
+                    <a href="/pages/teacher/tchat.html" class="mt-auto inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium group">
+                        <span>Join Chat</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+            </section>
+            <!-- TEACHER DASHBOARD CONTENT END -->
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient text-white py-6 relative z-30 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                <div class="text-center md:text-left">
+                    <a href="/pages/index.html" class="font-bold text-xl hover:text-secondary-light transition duration-300">DeenWise</a>
+                    <p class="text-sm mt-2 opacity-80">© 2025 All rights reserved</p>
+                </div>
+                <div class="flex justify-center items-center">
+                    <span class="mr-3 text-sm font-medium">Payment Options:</span>
+                    <div class="flex space-x-3 items-center">
+                        <div class="bg-white rounded-md p-1 flex items-center"><img src="/pages/assets/visa2.png" alt="Visa" class="h-6" /></div>
+                        <div class="bg-white rounded-md p-1 flex items-center"><img src="/pages/assets/verve3.jpeg" alt="Verve" class="h-6" /></div>
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-sm">Powered By <a href="https://wa.me/+2347063569494" class="font-semibold hover:text-secondary-light transition duration-300">ACE TECH WORLD & HENRY TECH</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+<script>
+    // Function to get user name from localStorage (or your auth system)
+     function getUserName() {
+        const fetchUsername = fetch('http://localhost:8080/user/name', {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        }).then(response => response.json())
+        .then(data => data.name)
+        return fetchUsername;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const userName = getUserName();
+        const userNameElements = ['navUserName', 'dropdownUserName', 'sidebarUserName', 'mainUserName'];
+        userNameElements.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                if (id === 'navUserName' && userName.length > 10) {
+                    el.textContent = "My Account";
+                } else if (id === 'mainUserName' || id === 'dropdownUserName' || id === 'sidebarUserName') {
+                    el.textContent = userName;
+                }
+            }
+        });
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const mainContent = document.querySelector('main');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebarOverlay.classList.toggle('hidden');
+            if (window.innerWidth >= 768) {
+                mainContent.classList.toggle('md:ml-72', !sidebar.classList.contains('-translate-x-full'));
+            }
+        }
+
+        if (sidebarToggle) sidebarToggle.addEventListener('click', toggleSidebar);
+        if (sidebarOverlay) sidebarOverlay.addEventListener('click', toggleSidebar);
+
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+
+        function handleResize() {
+            if (window.innerWidth >= 768) {
+                if (!sidebar.classList.contains('-translate-x-full')) {
+                    mainContent.classList.add('md:ml-72');
+                } else {
+                    mainContent.classList.remove('md:ml-72');
+                }
+            } else {
+                mainContent.classList.remove('md:ml-72');
+            }
+        }
+        window.addEventListener('resize', handleResize);
+        handleResize();
+    });
+</script>
+
+</html>
