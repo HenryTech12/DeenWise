@@ -28,7 +28,11 @@ import io.swagger.v3.oas.annotations.servers.Server;
                @Server(
                        description = "Local Development",
                        url = "http://localhost:8080/"
-               )
+               ),
+                @Server(
+                        description = "Production Development",
+                        url = "https://deenwise-1.onrender.com"
+                )
         },
         security = {
                @SecurityRequirement(name = "JWT Token")
